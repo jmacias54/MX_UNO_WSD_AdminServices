@@ -13,6 +13,10 @@
      <mvc:annotation-driven/>
      
      <context:component-scan base-package="mx.com.amx.unotv.adminservice"/>
+        
+     <bean id="seccionBO" class="mx.com.amx.unotv.adminservice.bo.SeccionBO"></bean>
+     <bean id="categoriaBO" class="mx.com.amx.unotv.adminservice.bo.CategoriaBO"></bean>
+     <bean id="usuarioBO" class="mx.com.amx.unotv.adminservice.bo.UsuarioBO"></bean>
      
    
        
