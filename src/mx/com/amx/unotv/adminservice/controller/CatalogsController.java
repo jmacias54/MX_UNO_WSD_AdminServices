@@ -14,6 +14,7 @@ import mx.com.amx.unotv.adminservice.bo.CategoriaBO;
 import mx.com.amx.unotv.adminservice.bo.SeccionBO;
 import mx.com.amx.unotv.adminservice.bo.TagBO;
 import mx.com.amx.unotv.adminservice.bo.UsuarioBO;
+import mx.com.amx.unotv.adminservice.model.Categoria;
 import mx.com.amx.unotv.adminservice.model.response.CatalogResponse;
 import mx.com.amx.unotv.adminservice.model.response.UserResponse;
 
@@ -34,11 +35,20 @@ public class CatalogsController {
 
 	@RequestMapping(value = "/get_categories/{idSeccion}", method = RequestMethod.GET, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
-	public List<CatalogResponse> getAllCategories(@PathVariable String idSeccion) {
+	public List<CatalogResponse> categoriesFindAllByIdSeccion(@PathVariable String idSeccion) {
 		logger.info("--- ItemsController-----");
-		logger.info("--- get_categories -----");
+		logger.info("--- categoriesFindAllByIdSeccion -----");
 
 		return categoriaBO.findAllByIdSeccion(idSeccion);
+	}
+	
+	@RequestMapping(value = "/get_categories", method = RequestMethod.GET, headers = "Accept=application/json; charset=utf-8")
+	@ResponseBody
+	public List<Categoria> categoriesFindAll() {
+		logger.info("--- ItemsController-----");
+		logger.info("--- categoriesFindAll -----");
+
+		return categoriaBO.findAll();
 	}
 
 	@RequestMapping(value = "/get_users", method = RequestMethod.GET, headers = "Accept=application/json; charset=utf-8")

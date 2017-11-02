@@ -1,7 +1,6 @@
 package mx.com.amx.unotv.adminservice.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.sql.Timestamp;
 
 
@@ -9,106 +8,67 @@ import java.sql.Timestamp;
  * The persistent class for the uno_v_nota database table.
  * 
  */
-@Entity
-@Table(name="uno_v_nota")
-@NamedQuery(name="VNota.findAll", query="SELECT v FROM VNota v")
+
 public class VNota implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@Column(name="FC_ID_CONTENIDO" , insertable = true, updatable = false)
+	
 	private String fcIdContenido;
 
-	@Lob
-	@Column(name="CL_GALERIA")
+
 	private String clGaleria;
 
-	@Lob
-	@Column(name="CL_RTF_CONTENIDO")
 	private String clRtfContenido;
 
-	@Column(name="FC_ALTERNATIVE_TEXT_OOYALA")
 	private String fcAlternativeTextOoyala;
 
-	@Column(name="FC_CONTENT_ID_OOYALA")
 	private String fcContentIdOoyala;
 
-	@Column(name="FC_DESCRIPCION")
 	private String fcDescripcion;
 
-	@Column(name="FC_DURATION_OOYALA")
 	private String fcDurationOoyala;
 
-	@Column(name="FC_ESCRIBIO")
 	private String fcEscribio;
 
-	@Column(name="FC_FILE_SIZE_OOYALA")
 	private String fcFileSizeOoyala;
 
-	@Column(name="FC_FRIENDLY_URL")
 	private String fcFriendlyUrl;
 
-	@Column(name="FC_FUENTE")
 	private String fcFuente;
 
-	@Column(name="FC_IMAGEN")
 	private String fcImagen;
 
-	@Column(name="FC_KEYWORDS")
 	private String fcKeywords;
 
-	@Column(name="FC_LUGAR")
 	private String fcLugar;
 
-	@Column(name="FC_PCODE_OOYALA")
 	private String fcPcodeOoyala;
 
-	@Column(name="FC_PLAYER_ID_OOYALA")
 	private String fcPlayerIdOoyala;
 
-	@Column(name="FC_SOURCE_OOYALA")
 	private String fcSourceOoyala;
 
-	@Column(name="FC_TITULO")
 	private String fcTitulo;
 
-	@Column(name="FC_VIDEO_YOUTUBE")
 	private String fcVideoYoutube;
 
-	@Column(name="FD_FECHA_MODIFICACION")
 	private Timestamp fdFechaModificacion;
 
-	@Column(name="FD_FECHA_PUBLICACION")
 	private Timestamp fdFechaPublicacion;
 
-	@Column(name="FI_BAN_INFINITO_HOME")
 	private int fiBanInfinitoHome;
 
-	@Column(name="FI_BAN_MSN")
 	private int fiBanMsn;
 
-	@Column(name="FI_BAN_OTROS")
 	private int fiBanOtros;
 
-	//bi-directional many-to-one association to Categoria
-	@ManyToOne
-	@JoinColumn(name="FC_ID_CATEGORIA")
-	private Categoria unoCCategoria;
+	private String fcIdCategoria;
 
-	//bi-directional many-to-one association to EstatusNota
-	@ManyToOne
-	@JoinColumn(name="FC_ID_ESTATUS")
-	private EstatusNota unoCEstatusNota;
+	private String fcIdEstatus;
 
-	//bi-directional many-to-one association to TipoNota
-	@ManyToOne
-	@JoinColumn(name="FC_ID_TIPO_NOTA")
-	private TipoNota unoCTipoNota;
+	private String fcIdTipoNota;
 
-	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="FC_ID_USUARIO")
-	private Usuario unoCUsuario;
+	private String fcIdUsuario;
 
 	public VNota() {
 	}
@@ -305,36 +265,37 @@ public class VNota implements Serializable {
 		this.fiBanOtros = fiBanOtros;
 	}
 
-	public Categoria getUnoCCategoria() {
-		return this.unoCCategoria;
+	public String getFcIdCategoria() {
+		return fcIdCategoria;
 	}
 
-	public void setUnoCCategoria(Categoria unoCCategoria) {
-		this.unoCCategoria = unoCCategoria;
+	public void setFcIdCategoria(String fcIdCategoria) {
+		this.fcIdCategoria = fcIdCategoria;
 	}
 
-	public EstatusNota getUnoCEstatusNota() {
-		return this.unoCEstatusNota;
+	public String getFcIdEstatus() {
+		return fcIdEstatus;
 	}
 
-	public void setUnoCEstatusNota(EstatusNota unoCEstatusNota) {
-		this.unoCEstatusNota = unoCEstatusNota;
+	public void setFcIdEstatus(String fcIdEstatus) {
+		this.fcIdEstatus = fcIdEstatus;
 	}
 
-	public TipoNota getUnoCTipoNota() {
-		return this.unoCTipoNota;
+	public String getFcIdTipoNota() {
+		return fcIdTipoNota;
 	}
 
-	public void setUnoCTipoNota(TipoNota unoCTipoNota) {
-		this.unoCTipoNota = unoCTipoNota;
+	public void setFcIdTipoNota(String fcIdTipoNota) {
+		this.fcIdTipoNota = fcIdTipoNota;
 	}
 
-	public Usuario getUnoCUsuario() {
-		return this.unoCUsuario;
+	public String getFcIdUsuario() {
+		return fcIdUsuario;
 	}
 
-	public void setUnoCUsuario(Usuario unoCUsuario) {
-		this.unoCUsuario = unoCUsuario;
+	public void setFcIdUsuario(String fcIdUsuario) {
+		this.fcIdUsuario = fcIdUsuario;
 	}
 
+	
 }

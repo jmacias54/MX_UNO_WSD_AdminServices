@@ -6,9 +6,10 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import mx.com.amx.unotv.adminservice.dao.SeccionDAO;
 import mx.com.amx.unotv.adminservice.model.Seccion;
 import mx.com.amx.unotv.adminservice.model.response.CatalogResponse;
-import mx.com.amx.unotv.adminservice.repository.SeccionRepository;
+
 
 
 public class SeccionBO {
@@ -18,13 +19,13 @@ public class SeccionBO {
 	
 	
 	@Autowired
-	private SeccionRepository seccionRepository;
+	private SeccionDAO seccionDAO;
 
 	
 	public List<CatalogResponse> getAll() {
 		List<CatalogResponse> response = new LinkedList<CatalogResponse>();
 		
-		Iterable<Seccion> iterable = seccionRepository.findAll();
+		Iterable<Seccion> iterable = seccionDAO.findAll();
 		
 		for(Seccion seccion : iterable) {
 			CatalogResponse cr = new CatalogResponse();

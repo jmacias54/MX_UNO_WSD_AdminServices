@@ -5,20 +5,21 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import mx.com.amx.unotv.adminservice.dao.UsuarioDAO;
 import mx.com.amx.unotv.adminservice.model.Usuario;
 import mx.com.amx.unotv.adminservice.model.response.UserResponse;
-import mx.com.amx.unotv.adminservice.repository.UsuarioRepository;
+
 
 public class UsuarioBO {
 
 	@Autowired
-	private UsuarioRepository usuarioRepository;
+	private UsuarioDAO usuarioDAO;
 
 	public List<UserResponse> getAll() {
 
 		List<UserResponse> response = new LinkedList<UserResponse>();
 
-		Iterable<Usuario> iterable = usuarioRepository.findAll();
+		Iterable<Usuario> iterable = usuarioDAO.findAll();
 
 		for (Usuario usuario : iterable) {
 			UserResponse user = new UserResponse();

@@ -5,36 +5,40 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import mx.com.amx.unotv.adminservice.dao.CategoriaDAO;
 import mx.com.amx.unotv.adminservice.model.Categoria;
 import mx.com.amx.unotv.adminservice.model.response.CatalogResponse;
-import mx.com.amx.unotv.adminservice.repository.CategoriaRepository;
 
 public class CategoriaBO {
-	
+
 	@Autowired
-	private CategoriaRepository categoriaRepository;
-	
-	
+	private CategoriaDAO categoriaDAO;
+
 	public List<CatalogResponse> findAllByIdSeccion(String idSeccion) {
-		
-		
-	List<CatalogResponse> response = new LinkedList<CatalogResponse>();
-		
-	   List<Categoria> iterable = categoriaRepository.findByIdCategoria(idSeccion);
-		
-		for(Categoria categoria : iterable) {
+
+		List<CatalogResponse> response = new LinkedList<CatalogResponse>();
+
+		List<Categoria> lista = categoriaDAO.findAllByIdSeccion(idSeccion);
+
+		for (Categoria categoria : lista) {
 			CatalogResponse cr = new CatalogResponse();
-			
-			
+
 			cr.setDescription(categoria.getFcDescripcion());
 			cr.setId(categoria.getFcIdCategoria());
-			
+
 			response.add(cr);
 		}
-		
+
 		return response;
-		
+
 	}
-	
+
+	public List<Categoria> findAll() {
+
+		List<Categoria> lista = categoriaDAO.findAll();
+
+		return lista;
+
+	}
 
 }

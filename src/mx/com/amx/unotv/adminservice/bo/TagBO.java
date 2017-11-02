@@ -5,23 +5,23 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-
+import mx.com.amx.unotv.adminservice.dao.TagDAO;
 import mx.com.amx.unotv.adminservice.model.Tag;
 import mx.com.amx.unotv.adminservice.model.response.CatalogResponse;
-import mx.com.amx.unotv.adminservice.repository.TagRepository;
+
 
 public class TagBO {
 	
 	
 	
 	@Autowired
-	private TagRepository tagRepository;
+	private TagDAO tagDAO;
 
 	
 	public List<CatalogResponse> getAll() {
 		List<CatalogResponse> response = new LinkedList<CatalogResponse>();
 		
-		Iterable<Tag> iterable = tagRepository.findAll();
+		List<Tag> iterable = tagDAO.findAll();
 		
 		for(Tag tag : iterable) {
 			CatalogResponse cr = new CatalogResponse();

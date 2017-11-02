@@ -24,36 +24,18 @@
 	<jee:jndi-lookup id="dsAmx" jndi-name="${database.jndi}"
 		cache="true" expected-type="javax.sql.DataSource" />
 
-<!-- Paquete donde se encuentran los Repositorios -->
-	<jpa:repositories base-package="mx.com.amx.unotv.adminservice.repository" />
 
-	<bean id="jpaVendorAdapter"
-		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-		<property name="showSql" value="true" />
-		<property name="generateDdl" value="true" />
-		<property name="database" value="MYSQL" />
-	</bean>
-
-	<bean id="entityManagerFactory"
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-		<property name="dataSource" ref="dsAmx" />
-		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
-		<!-- Paquete donde se encuentran las entidades -->
-		<property name="packagesToScan" value="mx.com.amx.unotv.adminservice.model" />
-	</bean>
-
-	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-		<property name="dataSource" ref="dsAmx" />
-	</bean>
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="dsAmx" />
 	</bean>
-	
-	
-	<context:annotation-config />
-	<context:component-scan base-package="mx.com.amx.unotv.adminservice" />
-	<tx:annotation-driven proxy-target-class="true"
-		transaction-manager="transactionManager" />
+
+	<bean id="categoriaDAO" class="mx.com.amx.unotv.adminservice.dao.CategoriaDAO"></bean>
+	<bean id="seccionDAO" class="mx.com.amx.unotv.adminservice.dao.SeccionDAO"></bean>
+	<bean id="tagDAO" class="mx.com.amx.unotv.adminservice.dao.TagDAO"></bean>
+	<bean id="usuarioDAO" class="mx.com.amx.unotv.adminservice.dao.UsuarioDAO"></bean>
+
+
+
 
 
 
