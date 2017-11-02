@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import mx.com.amx.unotv.adminservice.model.Usuario;
 
-public class UsuarioDAO extends GenericDao<Usuario, String> {
+public class UsuarioDAO {
 	
 	
 	@Autowired
@@ -17,31 +17,31 @@ public class UsuarioDAO extends GenericDao<Usuario, String> {
 	@Value("${${ambiente}.database.db}")
 	private String instDB;
 
-	@Override
+	
 	public int create(Usuario t) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
+	
 	public Usuario findById(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+	
 	public int update(Usuario t) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
+	
 	public void delete(String id) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+	
 	public List<Usuario> findAll() {
 		// TODO Auto-generated method stub
 		return null;

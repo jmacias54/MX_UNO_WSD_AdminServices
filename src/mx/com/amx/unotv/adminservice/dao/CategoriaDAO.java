@@ -10,7 +10,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import mx.com.amx.unotv.adminservice.model.Categoria;
 
-public class CategoriaDAO extends GenericDao<Categoria, String>{
+public class CategoriaDAO extends GenericDaoUtil<Categoria> {
+
+	CategoriaDAO() {
+
+		super(Categoria.class);
+		// TODO Auto-generated constructor stub
+	}
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;

@@ -34,6 +34,9 @@
 	<bean id="tagDAO" class="mx.com.amx.unotv.adminservice.dao.TagDAO"></bean>
 	<bean id="usuarioDAO" class="mx.com.amx.unotv.adminservice.dao.UsuarioDAO"></bean>
 
+	
+	
+
 
 
 
