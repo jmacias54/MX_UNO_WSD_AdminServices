@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import mx.com.amx.unotv.adminservice.dao.exception.CategoriaDAOException;
 import mx.com.amx.unotv.adminservice.model.Categoria;
 
 public class CategoriaDAO  {
@@ -18,7 +19,7 @@ public class CategoriaDAO  {
 	private JdbcTemplate jdbcTemplate;
 
 
-	public List<Categoria> findAllByIdSeccion(String idSeccion) {
+	public List<Categoria> findAllByIdSeccion(String idSeccion)throws CategoriaDAOException {
 		List<Categoria> lista = null;
 		StringBuilder query = new StringBuilder();
 		query.append(" SELECT  FC_ID_CATEGORIA , ");
@@ -36,14 +37,14 @@ public class CategoriaDAO  {
 			// TODO: handle exception
 			return Collections.emptyList();
 		} catch (Exception e) {
-			new Throwable();
+			new CategoriaDAOException(e.getMessage());
 		}
 		return lista;
 
 	}
 	
 	
-	public List<Categoria> findAll() {
+	public List<Categoria> findAll() throws CategoriaDAOException {
 		List<Categoria> listaCategioria = null;
 		StringBuilder query = new StringBuilder();
 		query.append(" SELECT  FC_ID_CATEGORIA , ");
@@ -63,7 +64,7 @@ public class CategoriaDAO  {
 			// TODO: handle exception
 			return Collections.emptyList();
 		} catch (Exception e) {
-			new Throwable();
+			new CategoriaDAOException(e.getMessage());
 		}
 
 		return listaCategioria;

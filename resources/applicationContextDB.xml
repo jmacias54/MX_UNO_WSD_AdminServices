@@ -33,6 +33,9 @@
 	<bean id="seccionDAO" class="mx.com.amx.unotv.adminservice.dao.SeccionDAO"></bean>
 	<bean id="tagDAO" class="mx.com.amx.unotv.adminservice.dao.TagDAO"></bean>
 	<bean id="usuarioDAO" class="mx.com.amx.unotv.adminservice.dao.UsuarioDAO"></bean>
+	<bean id="nNotaDAO" class="mx.com.amx.unotv.adminservice.dao.NNotaDAO"></bean>
+	<bean id="hNotaDAO" class="mx.com.amx.unotv.adminservice.dao.HNotaDAO"></bean>
+	
 
 	
 	

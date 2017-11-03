@@ -14,6 +14,7 @@ import mx.com.amx.unotv.adminservice.bo.CategoriaBO;
 import mx.com.amx.unotv.adminservice.bo.SeccionBO;
 import mx.com.amx.unotv.adminservice.bo.TagBO;
 import mx.com.amx.unotv.adminservice.bo.UsuarioBO;
+import mx.com.amx.unotv.adminservice.controller.exception.ControllerException;
 import mx.com.amx.unotv.adminservice.model.Categoria;
 import mx.com.amx.unotv.adminservice.model.response.CatalogResponse;
 import mx.com.amx.unotv.adminservice.model.response.CategoriaSeccionResponse;
@@ -22,7 +23,7 @@ import mx.com.amx.unotv.adminservice.model.response.UserResponse;
 @Controller
 @RequestMapping("catalogs")
 public class CatalogsController {
-	
+
 	private static Logger logger = Logger.getLogger(CatalogsController.class);
 
 	@Autowired
@@ -36,47 +37,90 @@ public class CatalogsController {
 
 	@RequestMapping(value = "/get_categories/{idSeccion}", method = RequestMethod.GET, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
-	public List<CategoriaSeccionResponse> categoriesFindAllByIdSeccion(@PathVariable String idSeccion) {
+	public List<CategoriaSeccionResponse> categoriesFindAllByIdSeccion(@PathVariable String idSeccion)
+			throws ControllerException {
 		logger.info("--- ItemsController-----");
 		logger.info("--- categoriesFindAllByIdSeccion -----");
 
-		return categoriaBO.findAllByIdSeccion(idSeccion);
+		List<CategoriaSeccionResponse> lista = null;
+
+		try {
+			lista = categoriaBO.findAllByIdSeccion(idSeccion);
+		} catch (Exception e) {
+			logger.error(" -- Error  categoriesFindAllByIdSeccion [CatalogsController]:", e);
+			throw new ControllerException(e.getMessage());
+		}
+		return lista;
 	}
-	
+
 	@RequestMapping(value = "/get_categories", method = RequestMethod.GET, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
-	public List<Categoria> categoriesFindAll() {
+	public List<Categoria> categoriesFindAll() throws ControllerException {
 		logger.info("--- ItemsController-----");
 		logger.info("--- categoriesFindAll -----");
 
-		return categoriaBO.findAll();
+		List<Categoria> lista = null;
+		try {
+			lista = categoriaBO.findAll();
+
+		} catch (Exception e) {
+			logger.error(" -- Error  get_categories [CatalogsController]:", e);
+			throw new ControllerException(e.getMessage());
+		}
+
+		return lista;
 	}
 
 	@RequestMapping(value = "/get_users", method = RequestMethod.GET, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
-	public List<UserResponse> get_users() {
+	public List<UserResponse> get_users() throws ControllerException {
 		logger.info("--- ItemsController-----");
 		logger.info("--- get_users -----");
 
-		return usuarioBO.getAll();
+		List<UserResponse> lista = null;
+		try {
+
+			lista = usuarioBO.getAll();
+		} catch (Exception e) {
+			logger.error(" -- Error  get_users [CatalogsController]:", e);
+			throw new ControllerException(e.getMessage());
+		}
+		return lista;
 	}
 
 	@RequestMapping(value = "/get_section", method = RequestMethod.GET, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
-	public List<CategoriaSeccionResponse> get_section() {
+	public List<CategoriaSeccionResponse> get_section() throws ControllerException {
 		logger.info("--- ItemsController-----");
 		logger.info("--- get_section -----");
+		List<CategoriaSeccionResponse> lista = null;
 
-		return seccionBO.getAll();
+		try {
+			lista = seccionBO.getAll();
+		} catch (Exception e) {
+			logger.error(" -- Error  get_section [CatalogsController]:", e);
+			throw new ControllerException(e.getMessage());
+		}
+
+		return lista;
 	}
-	
+
 	@RequestMapping(value = "/get_tags", method = RequestMethod.GET, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
-	public List<CatalogResponse> get_tags() {
+	public List<CatalogResponse> get_tags() throws ControllerException {
 		logger.info("--- ItemsController-----");
 		logger.info("--- get_tags -----");
 
-		return tagBO.getAll();
+		List<CatalogResponse> lista = null;
+
+		try {
+			lista = tagBO.getAll();
+		} catch (Exception e) {
+			logger.error(" -- Error  get_tags [CatalogsController]:", e);
+			throw new ControllerException(e.getMessage());
+		}
+
+		return lista;
 	}
 
 }

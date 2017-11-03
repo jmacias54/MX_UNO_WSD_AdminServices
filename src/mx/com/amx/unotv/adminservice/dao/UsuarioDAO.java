@@ -1,11 +1,13 @@
 package mx.com.amx.unotv.adminservice.dao;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import mx.com.amx.unotv.adminservice.dao.exception.UsuarioDAOException;
 import mx.com.amx.unotv.adminservice.model.Usuario;
 
 public class UsuarioDAO {
@@ -15,34 +17,29 @@ public class UsuarioDAO {
 	private JdbcTemplate jdbcTemplate;
 
 
-	
-	public int create(Usuario t) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	
-	public Usuario findById(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public List<Usuario> findAll() throws UsuarioDAOException{
+		List<Usuario> lista = null;
+		StringBuilder query = new StringBuilder();
+		query.append(" SELECT  FC_ID_USUARIO , ");
+		query.append("   FC_NOMBRE , ");
+		query.append("   FD_FECHA_REGISTRO , ");
+		query.append("   FI_ESTATUS  ");
+		query.append(" FROM UNO_C_USUARIOS ");
 
-	
-	public int update(Usuario t) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+		try {
+			lista = jdbcTemplate.query(query.toString(),
+					new BeanPropertyRowMapper<Usuario>(Usuario.class));
 
-	
-	public void delete(String id) {
-		// TODO Auto-generated method stub
-		
-	}
+		} catch (NullPointerException npe) {
+			// TODO: handle exception
+			return Collections.emptyList();
+		} catch (Exception e) {
+			new UsuarioDAOException(e.getMessage());
+		}
 
-	
-	public List<Usuario> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return lista;
 	}
 
 }

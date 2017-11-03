@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import mx.com.amx.unotv.adminservice.bo.exception.CategoriaBOException;
 import mx.com.amx.unotv.adminservice.dao.CategoriaDAO;
 import mx.com.amx.unotv.adminservice.model.Categoria;
 import mx.com.amx.unotv.adminservice.model.response.CategoriaSeccionResponse;
@@ -14,11 +15,18 @@ public class CategoriaBO {
 	@Autowired
 	private CategoriaDAO categoriaDAO;
 
-	public List<CategoriaSeccionResponse> findAllByIdSeccion(String idSeccion) {
+	public List<CategoriaSeccionResponse> findAllByIdSeccion(String idSeccion) throws CategoriaBOException {
 
 		List<CategoriaSeccionResponse> response = new LinkedList<CategoriaSeccionResponse>();
+		List<Categoria> lista = null;
 
-		List<Categoria> lista = categoriaDAO.findAllByIdSeccion(idSeccion);
+		try {
+			lista = categoriaDAO.findAllByIdSeccion(idSeccion);
+		} catch (Exception e) {
+
+			throw new CategoriaBOException(e.getMessage());
+
+		}
 
 		for (Categoria categoria : lista) {
 			CategoriaSeccionResponse cr = new CategoriaSeccionResponse();
@@ -34,9 +42,16 @@ public class CategoriaBO {
 
 	}
 
-	public List<Categoria> findAll() {
+	public List<Categoria> findAll() throws CategoriaBOException {
 
-		List<Categoria> lista = categoriaDAO.findAll();
+		List<Categoria> lista = null;
+		try {
+			lista = categoriaDAO.findAll();
+		} catch (Exception e) {
+
+			throw new CategoriaBOException(e.getMessage());
+
+		}
 
 		return lista;
 

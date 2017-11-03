@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import mx.com.amx.unotv.adminservice.dao.exception.SeccionDAOException;
 import mx.com.amx.unotv.adminservice.model.Seccion;
 
 public class SeccionDAO  {
@@ -18,7 +19,7 @@ public class SeccionDAO  {
 	
 	
 	
-	public List<Seccion> findAll() {
+	public List<Seccion> findAll()  throws SeccionDAOException {
 		List<Seccion> lista = null;
 		StringBuilder query = new StringBuilder();
 		query.append(" SELECT FC_ID_SECCION , ");
@@ -35,7 +36,7 @@ public class SeccionDAO  {
 			// TODO: handle exception
 			return Collections.emptyList();
 		} catch (Exception e) {
-			new Throwable();
+			new SeccionDAOException(e.getMessage());
 		}
 
 		return lista;

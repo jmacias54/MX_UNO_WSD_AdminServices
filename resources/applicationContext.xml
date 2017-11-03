@@ -18,6 +18,7 @@
      <bean id="categoriaBO" class="mx.com.amx.unotv.adminservice.bo.CategoriaBO"></bean>
      <bean id="usuarioBO" class="mx.com.amx.unotv.adminservice.bo.UsuarioBO"></bean>
       <bean id="tagBO" class="mx.com.amx.unotv.adminservice.bo.TagBO"></bean>
+            <bean id="notaBO" class="mx.com.amx.unotv.adminservice.bo.NotaBO"></bean>
      
    
        

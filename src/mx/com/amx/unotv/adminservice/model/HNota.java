@@ -10,7 +10,6 @@ import java.sql.Timestamp;
  * The persistent class for the uno_h_nota database table.
  * 
  */
-
 public class HNota implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -20,7 +19,7 @@ public class HNota implements Serializable {
 	
 	private String clGaleria;
 
-
+	
 	private String clRtfContenido;
 
 	
@@ -32,71 +31,47 @@ public class HNota implements Serializable {
 	
 	private String fcDescripcion;
 
-	
 	private String fcDurationOoyala;
-
-
+	
 	private String fcEscribio;
 
-	
 	private String fcFileSizeOoyala;
 
-	
 	private String fcFriendlyUrl;
 
-	
 	private String fcFuente;
 
-	
-	private String fcImagen;
+	private String fcIdCategoria;
 
+	private String fcIdEstatus;
+
+	private String fcIdPcode;
+
+	private String fcIdTipoNota;
+
+	private String fcImagen;
 
 	private String fcKeywords;
 
-	
 	private String fcLugar;
-
-	
-	private String fcPcodeOoyala;
-
 
 	private String fcPlayerIdOoyala;
 
-	
 	private String fcSourceOoyala;
 
-	
 	private String fcTitulo;
 
-	
 	private String fcVideoYoutube;
-
 
 	private Timestamp fdFechaModificacion;
 
-	
 	private Timestamp fdFechaPublicacion;
 
-	
 	private int fiBanInfinitoHome;
 
-	
 	private int fiBanMsn;
 
-	
 	private int fiBanOtros;
-
-	
-	private String fcIdCategoria;
-
-	
-	private String fcIdEstatus;
-
-	
-	private String fcIdTipoNota;
-
-
-	private String fcIdUsuario;
 
 	public HNota() {
 	}
@@ -189,6 +164,38 @@ public class HNota implements Serializable {
 		this.fcFuente = fcFuente;
 	}
 
+	public String getFcIdCategoria() {
+		return this.fcIdCategoria;
+	}
+
+	public void setFcIdCategoria(String fcIdCategoria) {
+		this.fcIdCategoria = fcIdCategoria;
+	}
+
+	public String getFcIdEstatus() {
+		return this.fcIdEstatus;
+	}
+
+	public void setFcIdEstatus(String fcIdEstatus) {
+		this.fcIdEstatus = fcIdEstatus;
+	}
+
+	public String getFcIdPcode() {
+		return this.fcIdPcode;
+	}
+
+	public void setFcIdPcode(String fcIdPcode) {
+		this.fcIdPcode = fcIdPcode;
+	}
+
+	public String getFcIdTipoNota() {
+		return this.fcIdTipoNota;
+	}
+
+	public void setFcIdTipoNota(String fcIdTipoNota) {
+		this.fcIdTipoNota = fcIdTipoNota;
+	}
+
 	public String getFcImagen() {
 		return this.fcImagen;
 	}
@@ -211,14 +218,6 @@ public class HNota implements Serializable {
 
 	public void setFcLugar(String fcLugar) {
 		this.fcLugar = fcLugar;
-	}
-
-	public String getFcPcodeOoyala() {
-		return this.fcPcodeOoyala;
-	}
-
-	public void setFcPcodeOoyala(String fcPcodeOoyala) {
-		this.fcPcodeOoyala = fcPcodeOoyala;
 	}
 
 	public String getFcPlayerIdOoyala() {
@@ -292,40 +291,5 @@ public class HNota implements Serializable {
 	public void setFiBanOtros(int fiBanOtros) {
 		this.fiBanOtros = fiBanOtros;
 	}
-
-	public String getFcIdCategoria() {
-		return fcIdCategoria;
-	}
-
-	public void setFcIdCategoria(String fcIdCategoria) {
-		this.fcIdCategoria = fcIdCategoria;
-	}
-
-	public String getFcIdEstatus() {
-		return fcIdEstatus;
-	}
-
-	public void setFcIdEstatus(String fcIdEstatus) {
-		this.fcIdEstatus = fcIdEstatus;
-	}
-
-	public String getFcIdTipoNota() {
-		return fcIdTipoNota;
-	}
-
-	public void setFcIdTipoNota(String fcIdTipoNota) {
-		this.fcIdTipoNota = fcIdTipoNota;
-	}
-
-	public String getFcIdUsuario() {
-		return fcIdUsuario;
-	}
-
-	public void setFcIdUsuario(String fcIdUsuario) {
-		this.fcIdUsuario = fcIdUsuario;
-	}
-	
-	
-	
 
 }
