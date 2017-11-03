@@ -1,8 +1,9 @@
 package mx.com.amx.unotv.adminservice.model;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-import java.sql.Timestamp;
 
 
 /**
@@ -12,6 +13,8 @@ import java.sql.Timestamp;
 
 public class NNota implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
 	
 	private String fcIdContenido;
@@ -60,9 +63,9 @@ public class NNota implements Serializable {
 
 	private String fcVideoYoutube;
 
-	private Timestamp fdFechaModificacion;
+	private String fdFechaModificacion = dateFormat.format(new Date());
 
-	private Timestamp fdFechaPublicacion;
+	private String fdFechaPublicacion = dateFormat.format(new Date());
 
 	private int fiBanInfinitoHome;
 
@@ -257,19 +260,22 @@ public class NNota implements Serializable {
 		this.fcVideoYoutube = fcVideoYoutube;
 	}
 
-	public Timestamp getFdFechaModificacion() {
-		return this.fdFechaModificacion;
+
+	
+	
+	public String getFdFechaModificacion() {
+		return fdFechaModificacion;
 	}
 
-	public void setFdFechaModificacion(Timestamp fdFechaModificacion) {
+	public void setFdFechaModificacion(String fdFechaModificacion) {
 		this.fdFechaModificacion = fdFechaModificacion;
 	}
 
-	public Timestamp getFdFechaPublicacion() {
-		return this.fdFechaPublicacion;
+	public String getFdFechaPublicacion() {
+		return fdFechaPublicacion;
 	}
 
-	public void setFdFechaPublicacion(Timestamp fdFechaPublicacion) {
+	public void setFdFechaPublicacion(String fdFechaPublicacion) {
 		this.fdFechaPublicacion = fdFechaPublicacion;
 	}
 

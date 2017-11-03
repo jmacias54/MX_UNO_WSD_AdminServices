@@ -1,11 +1,15 @@
 package mx.com.amx.unotv.adminservice.dao;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import mx.com.amx.unotv.adminservice.dao.exception.NNotaDAOException;
 import mx.com.amx.unotv.adminservice.model.NNota;
+
 
 
 public class NNotaDAO {
@@ -22,8 +26,13 @@ public class NNotaDAO {
 		
 		logger.info("--- insert  [NNotaDAO] ---- ");
 		int rows = 0;
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		
 		try {
+			
+			
+			
 		rows = jdbcTemplate.update( " INSERT INTO UNO_N_NOTA " +
 				 " (FC_ID_CONTENIDO, " +
 				 " FC_ID_CATEGORIA, " +
@@ -54,10 +63,10 @@ public class NNotaDAO {
 				 " FC_ID_USUARIO, " +
 				 " FC_ID_ESTATUS) " +
 				 " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) " ,
-				nota.getFcContentIdOoyala(), nota.getFcIdCategoria(), nota.getFcFriendlyUrl(), nota.getFcTitulo(), nota.getFcEscribio(),
+				nota.getFcIdContenido(), nota.getFcIdCategoria(), nota.getFcFriendlyUrl(), nota.getFcTitulo(), nota.getFcDescripcion(), nota.getFcEscribio(),
 				nota.getFcLugar(),nota.getFcFuente(),nota.getFcIdTipoNota(),nota.getFcImagen(),nota.getFcVideoYoutube(),nota.getFcContentIdOoyala(),
 				nota.getFcPlayerIdOoyala(),nota.getFcIdPcode(),nota.getFcSourceOoyala(),nota.getFcAlternativeTextOoyala(),nota.getFcDurationOoyala(),
-				nota.getFcFileSizeOoyala(),nota.getClGaleria(),nota.getClRtfContenido(),nota.getFdFechaPublicacion(),nota.getFdFechaModificacion(),
+				nota.getFcFileSizeOoyala(),nota.getClGaleria(),nota.getClRtfContenido(), dateFormat.format(new Date()), dateFormat.format(new Date()),
 				nota.getFcKeywords(),nota.getFiBanInfinitoHome(),nota.getFiBanMsn(),nota.getFiBanOtros(),nota.getFcIdUsuario(),nota.getFcIdEstatus());
 
 		} catch (Exception e) {

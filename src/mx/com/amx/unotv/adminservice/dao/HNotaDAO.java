@@ -1,11 +1,17 @@
 package mx.com.amx.unotv.adminservice.dao;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import mx.com.amx.unotv.adminservice.dao.exception.HNotaDAOException;
-
+import mx.com.amx.unotv.adminservice.model.Categoria;
+import mx.com.amx.unotv.adminservice.model.HNota;
 import mx.com.amx.unotv.adminservice.model.NNota;
 
 public class HNotaDAO {
@@ -18,10 +24,38 @@ private Logger logger = Logger.getLogger(HNotaDAO.class);
 	private JdbcTemplate jdbcTemplate;
 	
 	
+	public HNota findById(String id) throws HNotaDAOException {
+		logger.info("--- findById  [HNotaDAO] ---- ");
+		
+		List<HNota> lista = null;
+		
+		StringBuilder query = new StringBuilder();
+		query.append(" SELECT * FROM UNO_H_NOTA WHERE FC_ID_CONTENIDO ='"+id+"'");
+		
+
+		
+		try {
+			
+			lista = jdbcTemplate.query(query.toString(), new BeanPropertyRowMapper<HNota>(HNota.class));
+			
+			
+			} catch (Exception e) {
+
+				logger.error(" Error findById HNota [DAO] ", e);
+
+				throw new HNotaDAOException(e.getMessage());
+
+			}
+		return lista.get(0) ;
+		
+	}
 	
-public int insert(NNota nota) throws HNotaDAOException {
+	
+
+	public int insert(NNota nota) throws HNotaDAOException {
 		
 		logger.info("--- insert  [HNotaDAO] ---- ");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		int rows = 0;
 		
 		try {
@@ -53,11 +87,11 @@ public int insert(NNota nota) throws HNotaDAOException {
 				 " FI_BAN_MSN, " +
 				 " FI_BAN_OTROS, " +
 				 " FC_ID_ESTATUS) " +
-				 " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,) " ,
-				nota.getFcContentIdOoyala(), nota.getFcIdCategoria(), nota.getFcFriendlyUrl(), nota.getFcTitulo(), nota.getFcEscribio(),
+				 " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) " ,
+				nota.getFcIdContenido(), nota.getFcIdCategoria(), nota.getFcFriendlyUrl(), nota.getFcTitulo(), nota.getFcDescripcion(),nota.getFcEscribio(),
 				nota.getFcLugar(),nota.getFcFuente(),nota.getFcIdTipoNota(),nota.getFcImagen(),nota.getFcVideoYoutube(),nota.getFcContentIdOoyala(),
 				nota.getFcPlayerIdOoyala(),nota.getFcIdPcode(),nota.getFcSourceOoyala(),nota.getFcAlternativeTextOoyala(),nota.getFcDurationOoyala(),
-				nota.getFcFileSizeOoyala(),nota.getClGaleria(),nota.getClRtfContenido(),nota.getFdFechaPublicacion(),nota.getFdFechaModificacion(),
+				nota.getFcFileSizeOoyala(),nota.getClGaleria(),nota.getClRtfContenido(), dateFormat.format(new Date()), dateFormat.format(new Date()),
 				nota.getFcKeywords(),nota.getFiBanInfinitoHome(),nota.getFiBanMsn(),nota.getFiBanOtros(),nota.getFcIdEstatus());
 
 		} catch (Exception e) {

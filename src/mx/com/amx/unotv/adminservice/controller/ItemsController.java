@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import mx.com.amx.unotv.adminservice.bo.NotaBO;
 import mx.com.amx.unotv.adminservice.controller.exception.ControllerException;
+import mx.com.amx.unotv.adminservice.model.HNota;
 import mx.com.amx.unotv.adminservice.model.NNota;
 
 
@@ -42,6 +43,37 @@ public class ItemsController {
 		}
 
 		return res;
+	}
+	
+	
+	@RequestMapping(value = "/get_item/{idContenido}", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
+	@ResponseBody
+	public HNota getItem(@PathVariable String idContenido) throws ControllerException {
+		logger.info("--- ItemsController-----");
+		logger.info("--- save_item -----");
+
+		HNota nota = null;;
+		try {
+			
+			nota = notaBO.findById(idContenido);
+			
+		} catch (Exception e) {
+			logger.error(" -- Error  getItem by IdContenido [ItemsController]:", e);
+			throw new ControllerException(e.getMessage());
+		}
+
+		return nota;
+	}
+	
+	@RequestMapping(value = "/get_item", method = RequestMethod.GET, headers = "Accept=application/json; charset=utf-8")
+	@ResponseBody
+	public NNota getItem() throws ControllerException {
+		logger.info("--- ItemsController-----");
+		logger.info("--- getItem -----");
+
+		
+
+		return new NNota();
 	}
 
 }

@@ -1,8 +1,10 @@
 package mx.com.amx.unotv.adminservice.model;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-import java.sql.Timestamp;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 
@@ -12,6 +14,9 @@ import java.sql.Timestamp;
  */
 public class HNota implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
 	
 	private String fcIdContenido;
@@ -63,9 +68,9 @@ public class HNota implements Serializable {
 
 	private String fcVideoYoutube;
 
-	private Timestamp fdFechaModificacion;
+	private String fdFechaModificacion = dateFormat.format(new Date());
 
-	private Timestamp fdFechaPublicacion;
+	private String fdFechaPublicacion = dateFormat.format(new Date());
 
 	private int fiBanInfinitoHome;
 
@@ -252,19 +257,19 @@ public class HNota implements Serializable {
 		this.fcVideoYoutube = fcVideoYoutube;
 	}
 
-	public Timestamp getFdFechaModificacion() {
+	public String getFdFechaModificacion() {
 		return this.fdFechaModificacion;
 	}
 
-	public void setFdFechaModificacion(Timestamp fdFechaModificacion) {
+	public void setFdFechaModificacion(String fdFechaModificacion) {
 		this.fdFechaModificacion = fdFechaModificacion;
 	}
 
-	public Timestamp getFdFechaPublicacion() {
+	public String getFdFechaPublicacion() {
 		return this.fdFechaPublicacion;
 	}
 
-	public void setFdFechaPublicacion(Timestamp fdFechaPublicacion) {
+	public void setFdFechaPublicacion(String fdFechaPublicacion) {
 		this.fdFechaPublicacion = fdFechaPublicacion;
 	}
 
