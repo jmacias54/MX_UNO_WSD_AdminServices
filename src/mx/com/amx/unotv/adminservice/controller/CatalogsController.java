@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import mx.com.amx.unotv.adminservice.bo.CategoriaBO;
+import mx.com.amx.unotv.adminservice.bo.PcodeBO;
 import mx.com.amx.unotv.adminservice.bo.SeccionBO;
 import mx.com.amx.unotv.adminservice.bo.TagBO;
 import mx.com.amx.unotv.adminservice.bo.UsuarioBO;
 import mx.com.amx.unotv.adminservice.controller.exception.ControllerException;
 import mx.com.amx.unotv.adminservice.model.Categoria;
+import mx.com.amx.unotv.adminservice.model.Pcode;
 import mx.com.amx.unotv.adminservice.model.response.CatalogResponse;
 import mx.com.amx.unotv.adminservice.model.response.CategoriaSeccionResponse;
 import mx.com.amx.unotv.adminservice.model.response.UserResponse;
@@ -34,6 +36,27 @@ public class CatalogsController {
 	private UsuarioBO usuarioBO;
 	@Autowired
 	private TagBO tagBO;
+	@Autowired
+	private PcodeBO pcodeBO;
+	
+	
+	@RequestMapping(value = "/get_video_pcode", method = RequestMethod.GET, headers = "Accept=application/json; charset=utf-8")
+	@ResponseBody
+	public List<Pcode> pcodeFindAll() throws ControllerException {
+		logger.info("--- ItemsController-----");
+		logger.info("--- get_video_pcode -----");
+
+		List<Pcode> lista = null;
+		try {
+			lista = pcodeBO.findAll();
+
+		} catch (Exception e) {
+			logger.error(" -- Error  get_video_pcode [CatalogsController]:", e);
+			throw new ControllerException(e.getMessage());
+		}
+
+		return lista;
+	}
 
 	@RequestMapping(value = "/get_categories/{idSeccion}", method = RequestMethod.GET, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
