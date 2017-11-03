@@ -1,8 +1,9 @@
 package mx.com.amx.unotv.adminservice.bo;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 
 import mx.com.amx.unotv.adminservice.bo.exception.NotaBOException;
 import mx.com.amx.unotv.adminservice.dao.HNotaDAO;
@@ -20,7 +21,24 @@ public class NotaBO {
 	@Autowired
 	HNotaDAO hNotaDAO;
 
-	@Transactional
+	public List<HNota> findAll() throws NotaBOException {
+		List<HNota> lista = null;
+		
+		try {
+			lista = hNotaDAO.findAll();
+
+		} catch (Exception e) {
+
+			logger.error(" Error FindAll H-NOTA [NotaBO] ", e);
+			throw new NotaBOException(e.getMessage());
+
+		}
+
+
+		return lista;
+
+	}
+
 	public int insert(NNota nota) throws NotaBOException {
 		logger.info("--- insert  [NotaBO] ---- ");
 		int rows = 0;

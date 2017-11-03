@@ -10,7 +10,6 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import mx.com.amx.unotv.adminservice.dao.exception.HNotaDAOException;
-import mx.com.amx.unotv.adminservice.model.Categoria;
 import mx.com.amx.unotv.adminservice.model.HNota;
 import mx.com.amx.unotv.adminservice.model.NNota;
 
@@ -24,6 +23,51 @@ private Logger logger = Logger.getLogger(HNotaDAO.class);
 	private JdbcTemplate jdbcTemplate;
 	
 	
+	public List<HNota> findAll() throws HNotaDAOException {
+		List<HNota> lista = null;
+		
+		StringBuilder query = new StringBuilder();
+		query.append(" SELECT * FROM UNO_H_NOTA");
+		
+
+		
+		try {
+			
+			lista = jdbcTemplate.query(query.toString(), new BeanPropertyRowMapper<HNota>(HNota.class));
+			
+			
+			} catch (Exception e) {
+
+				logger.error(" Error findById HNota [DAO] ", e);
+
+				throw new HNotaDAOException(e.getMessage());
+
+			}
+		
+		
+		return lista ;
+	}
+	
+	
+	public void delete(String id) throws HNotaDAOException {
+
+		logger.info("--- Delete  [HNotaDAO] ---- ");
+
+		StringBuilder query = new StringBuilder();
+		query.append(" DELETE FROM UNO_H_NOTA WHERE FC_ID_CONTENIDO ='" + id + "'");
+		try {
+
+			jdbcTemplate.query(query.toString(), new BeanPropertyRowMapper<HNota>(HNota.class));
+
+		} catch (Exception e) {
+
+			logger.error(" Error Delete HNota [DAO] ", e);
+
+			throw new HNotaDAOException(e.getMessage());
+
+		}
+	}
+
 	public HNota findById(String id) throws HNotaDAOException {
 		logger.info("--- findById  [HNotaDAO] ---- ");
 		
