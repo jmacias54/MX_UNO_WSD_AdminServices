@@ -16,6 +16,7 @@ import mx.com.amx.unotv.adminservice.bo.TagBO;
 import mx.com.amx.unotv.adminservice.bo.UsuarioBO;
 import mx.com.amx.unotv.adminservice.model.Categoria;
 import mx.com.amx.unotv.adminservice.model.response.CatalogResponse;
+import mx.com.amx.unotv.adminservice.model.response.CategoriaSeccionResponse;
 import mx.com.amx.unotv.adminservice.model.response.UserResponse;
 
 @Controller
@@ -35,7 +36,7 @@ public class CatalogsController {
 
 	@RequestMapping(value = "/get_categories/{idSeccion}", method = RequestMethod.GET, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
-	public List<CatalogResponse> categoriesFindAllByIdSeccion(@PathVariable String idSeccion) {
+	public List<CategoriaSeccionResponse> categoriesFindAllByIdSeccion(@PathVariable String idSeccion) {
 		logger.info("--- ItemsController-----");
 		logger.info("--- categoriesFindAllByIdSeccion -----");
 
@@ -62,7 +63,7 @@ public class CatalogsController {
 
 	@RequestMapping(value = "/get_section", method = RequestMethod.GET, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
-	public List<CatalogResponse> get_section() {
+	public List<CategoriaSeccionResponse> get_section() {
 		logger.info("--- ItemsController-----");
 		logger.info("--- get_section -----");
 

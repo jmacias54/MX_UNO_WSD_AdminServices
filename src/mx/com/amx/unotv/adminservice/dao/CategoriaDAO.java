@@ -4,25 +4,19 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import mx.com.amx.unotv.adminservice.model.Categoria;
 
-public class CategoriaDAO extends GenericDaoUtil<Categoria> {
+public class CategoriaDAO  {
 
-	CategoriaDAO() {
 
-		super(Categoria.class);
-		// TODO Auto-generated constructor stub
-	}
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	@Value("${${ambiente}.database.db}")
-	private String instDB;
 
 	public List<Categoria> findAllByIdSeccion(String idSeccion) {
 		List<Categoria> lista = null;
@@ -46,6 +40,33 @@ public class CategoriaDAO extends GenericDaoUtil<Categoria> {
 		}
 		return lista;
 
+	}
+	
+	
+	public List<Categoria> findAll() {
+		List<Categoria> listaCategioria = null;
+		StringBuilder query = new StringBuilder();
+		query.append(" SELECT  FC_ID_CATEGORIA , ");
+		query.append("   FC_ID_SECCION , ");
+		query.append("   FC_DESCRIPCION , ");
+		query.append("   FC_FRIENDLY_URL , ");
+		query.append("   FI_ESTATUS , ");
+		query.append("   FI_REGISTRIS , ");
+		query.append("   FC_RUTA_DFP  ");
+		query.append(" FROM uno_c_categoria ");
+
+		try {
+			listaCategioria = jdbcTemplate.query(query.toString(),
+					new BeanPropertyRowMapper<Categoria>(Categoria.class));
+
+		} catch (NullPointerException npe) {
+			// TODO: handle exception
+			return Collections.emptyList();
+		} catch (Exception e) {
+			new Throwable();
+		}
+
+		return listaCategioria;
 	}
 
 }
