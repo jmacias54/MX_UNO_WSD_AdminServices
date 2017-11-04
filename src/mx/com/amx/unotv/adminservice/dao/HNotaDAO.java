@@ -12,6 +12,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import mx.com.amx.unotv.adminservice.dao.exception.HNotaDAOException;
 import mx.com.amx.unotv.adminservice.model.HNota;
 import mx.com.amx.unotv.adminservice.model.NNota;
+import mx.com.amx.unotv.adminservice.model.response.ItemsResponse;
+import mx.com.amx.unotv.adminservice.model.resquest.ItemsRequest;
 
 public class HNotaDAO {
 	
@@ -21,6 +23,43 @@ private Logger logger = Logger.getLogger(HNotaDAO.class);
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
+	
+	public List<ItemsResponse> getListItems(ItemsRequest req) throws HNotaDAOException {
+		List<ItemsResponse> lista = null;
+		StringBuilder query = new StringBuilder();
+		
+		int to = req.getLimit() * req.getPage();
+		int from = (to - req.getPage()) + 1;
+		
+		query.append(" SELECT * FROM (SELECT @rownum:=@rownum+1 rank, n.*     ");
+		query.append(" FROM  UNO_N_NOTA N , (SELECT @rownum:=0) r  ");
+		query.append(" ORDER BY FD_FECHA_PUBLICACION DESC ) AS r ");
+		query.append(" WHERE r.rank between ("+from+") AND ("+to+") ");
+		
+		if(!req.getId().equals("") || req.getId() != null)
+		query.append(" AND r.FC_ID_CATEGORIA = '"+req.getId()+"' ");
+		if(!req.getType().equals("") || req.getType() != null)
+		query.append(" AND r.FC_ID_TIPO_NOTA = '"+req.getType()+"' ");
+		
+		query.append(" AND r.FC_ID_ESTATUS = "+req.getStatus()+" ");
+		
+		
+		try {
+
+			lista = jdbcTemplate.query(query.toString(), new BeanPropertyRowMapper<ItemsResponse>(ItemsResponse.class));
+
+		} catch (Exception e) {
+
+			logger.error(" Error findById HNota [DAO] ", e);
+
+			throw new HNotaDAOException(e.getMessage());
+
+		}
+		
+		return lista ;
+		
+	}
 	
 	
 	public List<HNota> findAll() throws HNotaDAOException {
