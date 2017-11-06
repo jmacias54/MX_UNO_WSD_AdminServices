@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import mx.com.amx.unotv.adminservice.bo.NotaBO;
 import mx.com.amx.unotv.adminservice.controller.exception.ControllerException;
 import mx.com.amx.unotv.adminservice.model.response.ItemsResponse;
+import mx.com.amx.unotv.adminservice.model.resquest.ItemsFilterRequest;
 import mx.com.amx.unotv.adminservice.model.resquest.ItemsRequest;
 import mx.com.amx.unotv.adminservice.model.resquest.ItemsRequestByTitle;
 
@@ -24,6 +25,26 @@ public class ItemsController {
 	NotaBO notaBO;
 
 	private static Logger logger = Logger.getLogger(ItemsController.class);
+	
+	
+	
+	
+
+	@RequestMapping(value = "/get_list_items_filter", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
+	@ResponseBody
+	public List<ItemsResponse> getListItemsByFilter(@RequestBody ItemsFilterRequest req) throws ControllerException {
+		logger.info("---getListItemsByFilter [ItemsController] ----");
+		List<ItemsResponse> lista = null;
+
+		try {
+			lista = notaBO.getListItemsByFilter(req);
+		} catch (Exception e) {
+			new ControllerException(e.getMessage());
+		}
+
+		return lista;
+	}
+	
 
 	@RequestMapping(value = "/get_list_items", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
@@ -57,10 +78,10 @@ public class ItemsController {
 
 	@RequestMapping(value = "/get_item", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
-	public ItemsRequestByTitle get_item() throws ControllerException {
+	public ItemsFilterRequest get_item() throws ControllerException {
 		logger.info("---get_item [ItemsController] ----");
 
-		return new ItemsRequestByTitle();
+		return new ItemsFilterRequest();
 	}
 
 }

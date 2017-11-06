@@ -8,11 +8,18 @@ public class ItemsFilterRequest {
 	 private String status; 
 	 private String dateFrom;
 	 private String dateTo;
+	 private String author;
 	 private int limit; 
 	 private int page;
 	 
 	 
 	 
+	public String getAuthor() {
+		return author;
+	}
+	public void setAuthor(String author) {
+		this.author = author;
+	}
 	public String getType() {
 		return type;
 	}

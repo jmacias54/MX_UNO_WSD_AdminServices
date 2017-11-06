@@ -14,6 +14,7 @@ import mx.com.amx.unotv.adminservice.dao.exception.HNotaDAOException;
 import mx.com.amx.unotv.adminservice.model.HNota;
 import mx.com.amx.unotv.adminservice.model.NNota;
 import mx.com.amx.unotv.adminservice.model.response.ItemsResponse;
+import mx.com.amx.unotv.adminservice.model.resquest.ItemsFilterRequest;
 import mx.com.amx.unotv.adminservice.model.resquest.ItemsRequest;
 import mx.com.amx.unotv.adminservice.model.resquest.ItemsRequestByTitle;
 
@@ -25,6 +26,83 @@ private Logger logger = Logger.getLogger(HNotaDAO.class);
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
+	
+	public List<ItemsResponse> getListItemsByFilter(ItemsFilterRequest req)throws HNotaDAOException {
+		List<ItemsResponse> lista = null;
+		StringBuilder query = new StringBuilder();
+		
+		
+		int limit = req.getLimit();
+		int page =  req.getPage();
+		
+		
+		if( limit == 0 || page == 0 ) {
+			return null;
+		}
+		
+		int to = limit * page;
+		int from = (to - limit) + 1;
+		
+		
+		query.append("  SELECT r.rank, ");
+		query.append(" 		r.FC_ID_CONTENIDO as id ");
+		query.append(" 		,r.FC_TITULO AS title ");
+		query.append("      ,r.FC_DESCRIPCION as description ");
+		query.append("      ,r.FD_FECHA_PUBLICACION as date ");
+		query.append("      ,r.FC_ID_TIPO_NOTA as typeItem ");
+		query.append("      ,seccion.FC_ID_SECCION as idSection ");
+		query.append("      ,categoria.FC_ID_CATEGORIA as idCategories ");
+		query.append("      ,seccion.FC_DESCRIPCION as descSection ");
+		query.append("      ,categoria.FC_DESCRIPCION as descCategories ");
+		query.append("     ,r.FC_IMAGEN as image  ");
+		query.append("     , r.FC_FRIENDLY_URL AS url_item ");
+		query.append("     , r.FC_ID_ESTATUS AS status ");
+		query.append("  FROM (SELECT @rownum:=@rownum+1 rank, n.*       ");
+		query.append(" 		   FROM  UNO_H_NOTA N , (SELECT @rownum:=0) r    ");
+		query.append(" 		   WHERE  1=1   ");
+		if( req.getId() != null && !req.getId().equals("") )
+			query.append("    AND N.FC_ID_CATEGORIA = '"+req.getId()+"' ");
+		if(  req.getType() != null && !req.getType().equals("") )
+			query.append(" AND N.FC_ID_TIPO_NOTA = '"+req.getType()+"' ");
+		
+		if(  req.getDateFrom() != null && !req.getDateFrom().equals("") )
+			query.append(" AND N.FD_FECHA_PUBLICACION >= '"+req.getDateFrom()+"' ");
+		
+		if(  req.getDateTo() != null && !req.getDateTo().equals("") )
+			query.append(" AND N.FD_FECHA_PUBLICACION <= '"+req.getDateTo()+"' ");
+		
+		if(req.getStatus() != null && !req.getStatus().equals("")  )
+		query.append(" AND N.FC_ID_ESTATUS = '"+req.getStatus()+"' ");
+		
+		
+		query.append("         ORDER BY FD_FECHA_PUBLICACION DESC ) AS r  ");
+		query.append(" INNER JOIN uno_c_categoria categoria on r.FC_ID_CATEGORIA = categoria.FC_ID_CATEGORIA ");
+		query.append(" INNER JOIN uno_c_seccion seccion ON categoria.FC_ID_SECCION = seccion.FC_ID_SECCION ");
+		query.append(" INNER JOIN uno_i_h_nota_usuario nota_usuario ON r.FC_ID_CONTENIDO = nota_usuario.FC_ID_CONTENIDO ");
+		query.append(" INNER JOIN uno_c_usuarios usuario ON nota_usuario.FC_ID_USUARIO = usuario.FC_ID_USUARIO ");
+		query.append(" WHERE r.rank >= "+from+" AND r.rank <= "+to+" ");
+		
+		if(  req.getAuthor() != null && !req.getAuthor().equals("") )
+			query.append(" AND usuario.FC_NOMBRE = '"+req.getAuthor()+"' ");
+		
+		
+		try {
+
+			lista = jdbcTemplate.query(query.toString(), new BeanPropertyRowMapper<ItemsResponse>(ItemsResponse.class));
+
+		} catch (Exception e) {
+
+			logger.error(" Error findById HNota [DAO] ", e);
+
+			throw new HNotaDAOException(e.getMessage());
+
+		}
+		
+		return lista ;
+
+	}
+	
 	
 	
 	public List<ItemsResponse> getListItemsByTitle (ItemsRequestByTitle req) throws HNotaDAOException {
@@ -62,12 +140,12 @@ private Logger logger = Logger.getLogger(HNotaDAO.class);
 		query.append("  FROM (SELECT @rownum:=@rownum+1 rank, n.*       ");
 		query.append(" 		   FROM  UNO_H_NOTA N , (SELECT @rownum:=0) r    ");
 		query.append(" 		   WHERE  1=1   ");
-		if(!req.getId().equals("") && req.getId() != null)
+		if( req.getId() != null && !req.getId().equals("") )
 			query.append("    AND N.FC_ID_CATEGORIA = '"+req.getId()+"' ");
-		if(!req.getType().equals("") && req.getType() != null)
+		if(  req.getType() != null && !req.getType().equals("") )
 			query.append(" AND N.FC_ID_TIPO_NOTA = '"+req.getType()+"' ");
 		
-		if(!req.getTitle().equals("") && req.getTitle() != null)
+		if(req.getTitle() != null  && !req.getTitle().equals("") )
 			query.append(" AND N.FC_TITULO = '"+req.getTitle()+"' ");
 			
 		
@@ -92,7 +170,7 @@ private Logger logger = Logger.getLogger(HNotaDAO.class);
 
 		} catch (Exception e) {
 
-			logger.error(" Error findById HNota [DAO] ", e);
+			logger.error(" Error getListItemsByTitle HNota [DAO] ", e);
 
 			throw new HNotaDAOException(e.getMessage());
 
@@ -138,9 +216,9 @@ private Logger logger = Logger.getLogger(HNotaDAO.class);
 		query.append("  FROM (SELECT @rownum:=@rownum+1 rank, n.*       ");
 		query.append(" 		   FROM  UNO_H_NOTA N , (SELECT @rownum:=0) r    ");
 		query.append(" 		   WHERE  1=1   ");
-		if(!req.getId().equals("") && req.getId() != null)
+		if( req.getId() != null && !req.getId().equals("") )
 			query.append("    AND N.FC_ID_CATEGORIA = '"+req.getId()+"' ");
-		if(!req.getType().equals("") && req.getType() != null)
+		if(  req.getType() != null && !req.getType().equals("") )
 			query.append(" AND N.FC_ID_TIPO_NOTA = '"+req.getType()+"' ");
 		
 		if(req.getStatus() != null && !req.getStatus().equals("")  )
@@ -164,7 +242,7 @@ private Logger logger = Logger.getLogger(HNotaDAO.class);
 
 		} catch (Exception e) {
 
-			logger.error(" Error findById HNota [DAO] ", e);
+			logger.error(" Error getListItems HNota [DAO] ", e);
 
 			throw new HNotaDAOException(e.getMessage());
 
@@ -190,7 +268,7 @@ private Logger logger = Logger.getLogger(HNotaDAO.class);
 			
 			} catch (Exception e) {
 
-				logger.error(" Error findById HNota [DAO] ", e);
+				logger.error(" Error findAll HNota [DAO] ", e);
 
 				throw new HNotaDAOException(e.getMessage());
 
