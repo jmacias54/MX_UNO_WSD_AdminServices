@@ -14,6 +14,7 @@ import mx.com.amx.unotv.adminservice.bo.NotaBO;
 import mx.com.amx.unotv.adminservice.controller.exception.ControllerException;
 import mx.com.amx.unotv.adminservice.model.response.ItemsResponse;
 import mx.com.amx.unotv.adminservice.model.resquest.ItemsRequest;
+import mx.com.amx.unotv.adminservice.model.resquest.ItemsRequestByTitle;
 
 @Controller
 @RequestMapping("items")
@@ -38,13 +39,28 @@ public class ItemsController {
 
 		return lista;
 	}
+	
+	@RequestMapping(value = "/get_list_items_search", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
+	@ResponseBody
+	public List<ItemsResponse> getListItemsByTitle(@RequestBody ItemsRequestByTitle req) throws ControllerException {
+		logger.info("---get_list_items [ItemsController] ----");
+		List<ItemsResponse> lista = null;
+
+		try {
+			lista = notaBO.getListItemsByTitle(req);
+		} catch (Exception e) {
+			new ControllerException(e.getMessage());
+		}
+
+		return lista;
+	}
 
 	@RequestMapping(value = "/get_item", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
-	public ItemsRequest get_item() throws ControllerException {
+	public ItemsRequestByTitle get_item() throws ControllerException {
 		logger.info("---get_item [ItemsController] ----");
 
-		return new ItemsRequest();
+		return new ItemsRequestByTitle();
 	}
 
 }
