@@ -9,14 +9,27 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import mx.com.amx.unotv.adminservice.dao.exception.TagDAOException;
 import mx.com.amx.unotv.adminservice.model.Tag;
+// TODO: Auto-generated Javadoc
 
+/**
+ * The Class TagDAO.
+ *
+ * @author Jesus A. Macias Benitez
+ */
 public class TagDAO {
 	
+	/** The jdbc template. */
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
 
 	
+	/**
+	 * Find all.
+	 *
+	 * @return the list
+	 * @throws TagDAOException the tag DAO exception
+	 */
 	public List<Tag> findAll()  throws TagDAOException {
 		List<Tag> lista = null;
 		StringBuilder query = new StringBuilder();

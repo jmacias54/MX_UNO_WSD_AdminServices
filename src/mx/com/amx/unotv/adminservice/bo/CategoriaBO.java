@@ -1,6 +1,11 @@
+/*
+ * 
+ */
 package mx.com.amx.unotv.adminservice.bo;
 
 import java.util.LinkedList;
+
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +15,28 @@ import mx.com.amx.unotv.adminservice.dao.CategoriaDAO;
 import mx.com.amx.unotv.adminservice.model.Categoria;
 import mx.com.amx.unotv.adminservice.model.response.CategoriaSeccionResponse;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CategoriaBO.
+ */
+
+/**
+ * @author Jesus A. Macias Benitez
+ *
+ */
 public class CategoriaBO {
 
+	/** The categoria DAO. */
 	@Autowired
 	private CategoriaDAO categoriaDAO;
 
+	/**
+	 * Find all by id seccion.
+	 *
+	 * @param  String idSeccion 
+	 * @return List<CategoriaSeccionResponse>  
+	 * @throws CategoriaBOException the categoria BO exception
+	 */
 	public List<CategoriaSeccionResponse> findAllByIdSeccion(String idSeccion) throws CategoriaBOException {
 
 		List<CategoriaSeccionResponse> response = new LinkedList<CategoriaSeccionResponse>();
@@ -42,6 +64,12 @@ public class CategoriaBO {
 
 	}
 
+	/**
+	 * Find all Categoria.
+	 *
+	 * @return List<Categoria> 
+	 * @throws CategoriaBOException 
+	 */
 	public List<Categoria> findAll() throws CategoriaBOException {
 
 		List<Categoria> lista = null;

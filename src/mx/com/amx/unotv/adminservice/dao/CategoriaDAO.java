@@ -8,17 +8,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import mx.com.amx.unotv.adminservice.bo.exception.CategoriaBOException;
 import mx.com.amx.unotv.adminservice.dao.exception.CategoriaDAOException;
 import mx.com.amx.unotv.adminservice.model.Categoria;
+// TODO: Auto-generated Javadoc
 
+/**
+ * The Class CategoriaDAO.
+ *
+ * @author Jesus A. Macias Benitez
+ */
 public class CategoriaDAO  {
 
 
 
+	/** The jdbc template. */
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-
+	/**
+	 * Find all by id seccion.
+	 *
+	 * @param  String idSeccion 
+	 * @return List<CategoriaSeccionResponse>  
+	 * @throws CategoriaDAOException
+	 */
 	public List<Categoria> findAllByIdSeccion(String idSeccion)throws CategoriaDAOException {
 		List<Categoria> lista = null;
 		StringBuilder query = new StringBuilder();
@@ -44,6 +58,12 @@ public class CategoriaDAO  {
 	}
 	
 	
+	/**
+	 * Find all Categoria.
+	 *
+	 * @return List<Categoria> 
+	 * @throws CategoriaDAOException
+	 */
 	public List<Categoria> findAll() throws CategoriaDAOException {
 		List<Categoria> listaCategioria = null;
 		StringBuilder query = new StringBuilder();

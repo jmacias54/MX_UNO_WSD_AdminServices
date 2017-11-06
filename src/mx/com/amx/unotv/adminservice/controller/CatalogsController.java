@@ -22,24 +22,48 @@ import mx.com.amx.unotv.adminservice.model.response.CatalogResponse;
 import mx.com.amx.unotv.adminservice.model.response.CategoriaSeccionResponse;
 import mx.com.amx.unotv.adminservice.model.response.UserResponse;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CatalogsController.
+ */
+/**
+ * @author Jesus A. Macias Benitez
+ *
+ */
 @Controller
 @RequestMapping("catalogs")
 public class CatalogsController {
 
+	/** The logger. */
 	private static Logger logger = Logger.getLogger(CatalogsController.class);
 
+	/** The categoria BO. */
 	@Autowired
 	private CategoriaBO categoriaBO;
+	
+	/** The seccion BO. */
 	@Autowired
 	private SeccionBO seccionBO;
+	
+	/** The usuario BO. */
 	@Autowired
 	private UsuarioBO usuarioBO;
+	
+	/** The tag BO. */
 	@Autowired
 	private TagBO tagBO;
+	
+	/** The pcode BO. */
 	@Autowired
 	private PcodeBO pcodeBO;
 	
 	
+	/**
+	 * Pcode find all Pcode
+	 *
+	 * @return List<Pcode>
+	 * @throws ControllerException
+	 */
 	@RequestMapping(value = "/get_video_pcode", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
 	public List<Pcode> pcodeFindAll() throws ControllerException {
@@ -58,6 +82,13 @@ public class CatalogsController {
 		return lista;
 	}
 
+	/**
+	 * Find all by id seccion.
+	 *
+	 * @param  String idSeccion 
+	 * @return List<CategoriaSeccionResponse>  
+	 * @throws ControllerException
+	 */
 	@RequestMapping(value = "/get_categories/{idSeccion}", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
 	public List<CategoriaSeccionResponse> categoriesFindAllByIdSeccion(@PathVariable String idSeccion)
@@ -76,6 +107,12 @@ public class CatalogsController {
 		return lista;
 	}
 
+	/**
+	 * Find all Categoria.
+	 *
+	 * @return List<Categoria> 
+	 * @throws ControllerException
+	 */
 	@RequestMapping(value = "/get_categories", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
 	public List<Categoria> categoriesFindAll() throws ControllerException {
@@ -94,6 +131,12 @@ public class CatalogsController {
 		return lista;
 	}
 
+	/**
+	 * Gets the users.
+	 *
+	 * @return List<UserResponse>
+	 * @throws ControllerException 
+	 */
 	@RequestMapping(value = "/get_users", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
 	public List<UserResponse> get_users() throws ControllerException {
@@ -111,6 +154,12 @@ public class CatalogsController {
 		return lista;
 	}
 
+	/**
+	 * Gets the section.
+	 *
+	 * @return List<CategoriaSeccionResponse>
+	 * @throws ControllerException
+	 */
 	@RequestMapping(value = "/get_section", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
 	public List<CategoriaSeccionResponse> get_section() throws ControllerException {
@@ -128,6 +177,12 @@ public class CatalogsController {
 		return lista;
 	}
 
+	/**
+	 * Gets the tags.
+	 *
+	 * @return List<CatalogResponse> 
+	 * @throws ControllerException
+	 */
 	@RequestMapping(value = "/get_tags", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
 	public List<CatalogResponse> get_tags() throws ControllerException {

@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package mx.com.amx.unotv.adminservice.controller.exception;
 
 /**
@@ -11,9 +14,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ControllerAdviceException.
+ */
 @ControllerAdvice
 public class ControllerAdviceException {
 	
+	/**
+	 * Exception handler.
+	 *
+	 * @param ex the ex
+	 * @return the response entity
+	 */
 	@ExceptionHandler(ControllerException.class)
 	public ResponseEntity<ErrorResponse> exceptionHandler(Exception ex) {
 		ErrorResponse error = new ErrorResponse();

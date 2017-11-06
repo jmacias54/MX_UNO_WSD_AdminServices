@@ -16,15 +16,32 @@ import mx.com.amx.unotv.adminservice.controller.exception.ControllerException;
 import mx.com.amx.unotv.adminservice.model.HNota;
 import mx.com.amx.unotv.adminservice.model.NNota;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DetailController.
+ */
+/**
+ * @author Jesus A. Macias Benitez
+ *
+ */
 @Controller
 @RequestMapping("detail")
 public class DetailController {
 
+	/** The logger. */
 	private static Logger logger = Logger.getLogger(DetailController.class);
 
+	/** The nota BO. */
 	@Autowired
 	NotaBO notaBO;
 
+	/**
+	 * Inserta la nota en las tablas NNota y HNota
+	 *
+	 * @param NNota
+	 * @return int
+	 * @throws ControllerException 
+	 */
 	@RequestMapping(value = "/save_item", method = RequestMethod.PUT, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
 	public int saveItem(@RequestBody NNota nota) throws ControllerException {
@@ -44,6 +61,13 @@ public class DetailController {
 		return res;
 	}
 
+	/**
+	 * obtiene informacion de la tabla HNota.
+	 *
+	 * @param String idContenido 
+	 * @return HNota
+	 * @throws ControllerException 
+	 */
 	@RequestMapping(value = "/get_item/{idContenido}", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
 	public HNota getItem(@PathVariable String idContenido) throws ControllerException {
@@ -64,6 +88,12 @@ public class DetailController {
 		return nota;
 	}
 
+	/**
+	 * obtiene la lista de las nota en la tabla HNota.
+	 *
+	 * @return List<HNota>
+	 * @throws ControllerException 
+	 */
 	@RequestMapping(value = "/get_item", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
 	public List<HNota> getItem() throws ControllerException {
@@ -77,7 +107,7 @@ public class DetailController {
 			lista = notaBO.findAll();
 
 		} catch (Exception e) {
-			logger.error(" -- Error  getAll [ItemsController]:", e);
+			logger.error(" -- Error  getItem [ItemsController]:", e);
 			throw new ControllerException(e.getMessage());
 		}
 

@@ -11,14 +11,28 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import mx.com.amx.unotv.adminservice.dao.exception.PcodeDAOException;
 
 import mx.com.amx.unotv.adminservice.model.Pcode;
+// TODO: Auto-generated Javadoc
 
+/**
+ * The Class PcodeDAO.
+ *
+ * @author Jesus A. Macias Benitez
+ */
 public class PcodeDAO {
 
+	/** The logger. */
 	private Logger logger = Logger.getLogger(PcodeDAO.class);
 
+	/** The jdbc template. */
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
+	/**
+	 * Find all Pcode
+	 *
+	 * @return List<Pcode>
+	 * @throws PcodeDAOException
+	 */
 	public List<Pcode> findAll() throws PcodeDAOException {
 		List<Pcode> lista = null;
 

@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package mx.com.amx.unotv.adminservice.bo;
 
 import java.util.LinkedList;
@@ -11,11 +14,26 @@ import mx.com.amx.unotv.adminservice.model.Seccion;
 
 import mx.com.amx.unotv.adminservice.model.response.CategoriaSeccionResponse;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SeccionBO.
+ */
+/**
+ * @author Jesus A. Macias Benitez
+ *
+ */
 public class SeccionBO {
 
+	/** The seccion DAO. */
 	@Autowired
 	private SeccionDAO seccionDAO;
 
+	/**
+	 * Gets the all Seccion
+	 *
+	 * @return List<CategoriaSeccionResponse>
+	 * @throws SeccionBOException 
+	 */
 	public List<CategoriaSeccionResponse> getAll() throws SeccionBOException{
 		List<CategoriaSeccionResponse> response = new LinkedList<CategoriaSeccionResponse>();
 

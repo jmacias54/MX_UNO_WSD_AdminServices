@@ -17,19 +17,36 @@ import mx.com.amx.unotv.adminservice.model.request.ItemsRequest;
 import mx.com.amx.unotv.adminservice.model.request.ItemsRequestByTitle;
 import mx.com.amx.unotv.adminservice.model.response.ItemsResponse;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ItemsController.
+ */
+/**
+ * @author Jesus A. Macias Benitez
+ *
+ */
 @Controller
 @RequestMapping("items")
 public class ItemsController {
 
+	/** The nota BO. */
 	@Autowired
 	NotaBO notaBO;
 
+	/** The logger. */
 	private static Logger logger = Logger.getLogger(ItemsController.class);
 	
 	
 	
 	
 
+	/**
+	 * Gets the list items by filter.
+	 *
+	 * @param req the req
+	 * @return the list items by filter
+	 * @throws ControllerException the controller exception
+	 */
 	@RequestMapping(value = "/get_list_items_filter", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
 	public List<ItemsResponse> getListItemsByFilter(@RequestBody ItemsFilterRequest req) throws ControllerException {
@@ -46,6 +63,13 @@ public class ItemsController {
 	}
 	
 
+	/**
+	 * Gets the list items.
+	 *
+	 * @param req the req
+	 * @return the list items
+	 * @throws ControllerException the controller exception
+	 */
 	@RequestMapping(value = "/get_list_items", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
 	public List<ItemsResponse> getListItems(@RequestBody ItemsRequest req) throws ControllerException {
@@ -61,6 +85,13 @@ public class ItemsController {
 		return lista;
 	}
 	
+	/**
+	 * Gets the list items by title.
+	 *
+	 * @param req the req
+	 * @return the list items by title
+	 * @throws ControllerException the controller exception
+	 */
 	@RequestMapping(value = "/get_list_items_search", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
 	public List<ItemsResponse> getListItemsByTitle(@RequestBody ItemsRequestByTitle req) throws ControllerException {
@@ -76,6 +107,12 @@ public class ItemsController {
 		return lista;
 	}
 
+	/**
+	 * Gets the item.
+	 *
+	 * @return the item
+	 * @throws ControllerException the controller exception
+	 */
 	@RequestMapping(value = "/get_item", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
 	public ItemsFilterRequest get_item() throws ControllerException {

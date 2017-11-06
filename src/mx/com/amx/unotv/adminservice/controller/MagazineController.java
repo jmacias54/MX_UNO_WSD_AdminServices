@@ -17,16 +17,33 @@ import mx.com.amx.unotv.adminservice.model.Magazine;
 import mx.com.amx.unotv.adminservice.model.request.MagazineRequest;
 import mx.com.amx.unotv.adminservice.model.response.ItemsResponse;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MagazineController.
+ */
+/**
+ * @author Jesus A. Macias Benitez
+ *
+ */
 @Controller
 @RequestMapping("magazine")
 public class MagazineController {
 
+	/** The nota BO. */
 	@Autowired
 	NotaBO notaBO;
 
+	/** The magazine BO. */
 	@Autowired
 	MagazineBO magazineBO;
 
+	/**
+	 * Gets the list items by magazine.
+	 *
+	 * @param idMagazine the id magazine
+	 * @return the list items by magazine
+	 * @throws ControllerException the controller exception
+	 */
 	@RequestMapping(value = "/get_magazine/{idMagazine}", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
 	public List<ItemsResponse> getListItemsByMagazine(@PathVariable String idMagazine) throws ControllerException {
@@ -41,6 +58,12 @@ public class MagazineController {
 		return lista;
 	}
 
+	/**
+	 * Gets the list magazine.
+	 *
+	 * @return the list magazine
+	 * @throws ControllerException the controller exception
+	 */
 	@RequestMapping(value = "/get_list_magazine", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
 	public List<Magazine> getListMagazine() throws ControllerException {
@@ -56,6 +79,12 @@ public class MagazineController {
 	}
 	
 	
+	/**
+	 * Save magazine.
+	 *
+	 * @param req the req
+	 * @throws ControllerException the controller exception
+	 */
 	@RequestMapping(value = "/save_magazine", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
 	public void saveMagazine(@RequestBody MagazineRequest req) throws ControllerException {

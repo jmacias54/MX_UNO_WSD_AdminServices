@@ -10,15 +10,28 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import mx.com.amx.unotv.adminservice.dao.exception.SeccionDAOException;
 import mx.com.amx.unotv.adminservice.model.Seccion;
+// TODO: Auto-generated Javadoc
 
+/**
+ * The Class SeccionDAO.
+ *
+ * @author Jesus A. Macias Benitez
+ */
 public class SeccionDAO  {
 	
+	/** The jdbc template. */
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
 	
 	
 	
+	/**
+	 * Find all Seccion
+	 *
+	 * @return List<Seccion>
+	 * @throws SeccionDAOException
+	 */
 	public List<Seccion> findAll()  throws SeccionDAOException {
 		List<Seccion> lista = null;
 		StringBuilder query = new StringBuilder();

@@ -15,17 +15,31 @@ import mx.com.amx.unotv.adminservice.model.response.ItemsResponse;
 
 
 
-
+// TODO: Auto-generated Javadoc
+/**
+ * The Class NNotaDAO.
+ *
+ * @author Jesus A. Macias Benitez
+ */
 public class NNotaDAO {
 	
+	/** The logger. */
 	private Logger logger = Logger.getLogger(NNotaDAO.class);
 	
 	
+	/** The jdbc template. */
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
 	
 	
+	/**
+	 * Gets the list items by magazine.
+	 *
+	 * @param String idMagazine
+	 * @return List<ItemsResponse>
+	 * @throws NNotaDAOException 
+	 */
 	public List<ItemsResponse> getListItemsByMagazine(String idMagazine) throws NNotaDAOException {
 		List<ItemsResponse> lista = null;
 		StringBuilder query = new StringBuilder();
@@ -79,6 +93,13 @@ public class NNotaDAO {
 	
 	
 	
+	/**
+	 * Insert.
+	 *
+	 * @param NNota
+	 * @return the int
+	 * @throws NNotaDAOException 
+	 */
 	public int insert(NNota nota) throws NNotaDAOException {
 		
 		logger.info("--- insert  [NNotaDAO] ---- ");

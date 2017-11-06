@@ -1,13 +1,24 @@
+/*
+ * 
+ */
 package mx.com.amx.unotv.adminservice.controller.exception;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Jesus A. Macias Benitez
+ * The Class ControllerException.
  *
+ * @author Jesus A. Macias Benitez
  */
 public class ControllerException extends Exception {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Instantiates a new controller exception.
+	 *
+	 * @param message the message
+	 */
 	public ControllerException(String message){
 		super(message);
 	}

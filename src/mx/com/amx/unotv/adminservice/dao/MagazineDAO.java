@@ -11,13 +11,25 @@ import mx.com.amx.unotv.adminservice.dao.exception.MagazineDAOException;
 
 import mx.com.amx.unotv.adminservice.model.Magazine;
 
-
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MagazineDAO.
+ *
+ * @author Jesus A. Macias Benitez
+ */
 public class MagazineDAO {
 	
+	/** The jdbc template. */
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
 	
+	/**
+	 * Gets the list magazine.
+	 *
+	 * @return the list magazine
+	 * @throws MagazineDAOException the magazine DAO exception
+	 */
 	public List<Magazine> getListMagazine() throws MagazineDAOException{
 		List<Magazine> lista = null ;
 		

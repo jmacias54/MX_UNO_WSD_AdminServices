@@ -7,18 +7,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import mx.com.amx.unotv.adminservice.bo.exception.UsuarioBOException;
 import mx.com.amx.unotv.adminservice.dao.exception.UsuarioDAOException;
 import mx.com.amx.unotv.adminservice.model.Usuario;
+// TODO: Auto-generated Javadoc
 
+/**
+ * The Class UsuarioDAO.
+ *
+ * @author Jesus A. Macias Benitez
+ */
 public class UsuarioDAO {
 	
 	
+	/** The jdbc template. */
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
 
 
-	
+	/**
+	 * Gets the all  Usuario
+	 *
+	 * @return List<Usuario>
+	 * @throws UsuarioBOException 
+	 */
 	public List<Usuario> findAll() throws UsuarioDAOException{
 		List<Usuario> lista = null;
 		StringBuilder query = new StringBuilder();

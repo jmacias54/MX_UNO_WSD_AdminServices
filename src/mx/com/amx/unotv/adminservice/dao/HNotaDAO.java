@@ -17,13 +17,21 @@ import mx.com.amx.unotv.adminservice.model.request.ItemsFilterRequest;
 import mx.com.amx.unotv.adminservice.model.request.ItemsRequest;
 import mx.com.amx.unotv.adminservice.model.request.ItemsRequestByTitle;
 import mx.com.amx.unotv.adminservice.model.response.ItemsResponse;
+// TODO: Auto-generated Javadoc
 
+/**
+ * The Class HNotaDAO.
+ *
+ * @author Jesus A. Macias Benitez
+ */
 public class HNotaDAO {
 	
 	
+/** The logger. */
 private Logger logger = Logger.getLogger(HNotaDAO.class);
 	
 	
+	/** The jdbc template. */
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
@@ -31,6 +39,13 @@ private Logger logger = Logger.getLogger(HNotaDAO.class);
 
 	
 	
+	/**
+	 * Gets the list items by filter.
+	 *
+	 * @param ItemsFilterRequest
+	 * @return List<ItemsResponse>
+	 * @throws HNotaDAOException 
+	 */
 	public List<ItemsResponse> getListItemsByFilter(ItemsFilterRequest req)throws HNotaDAOException {
 		List<ItemsResponse> lista = null;
 		StringBuilder query = new StringBuilder();
@@ -108,6 +123,13 @@ private Logger logger = Logger.getLogger(HNotaDAO.class);
 	
 	
 	
+	/**
+	 * Gets the list items by title.
+	 *
+	 * @param ItemsRequestByTitle
+	 * @return List<ItemsResponse>
+	 * @throws HNotaDAOException 
+	 */
 	public List<ItemsResponse> getListItemsByTitle (ItemsRequestByTitle req) throws HNotaDAOException {
 		List<ItemsResponse> lista = null;
 		StringBuilder query = new StringBuilder();
@@ -184,6 +206,13 @@ private Logger logger = Logger.getLogger(HNotaDAO.class);
 	}
 	
 	
+	/**
+	 * Gets the list items.
+	 *
+	 * @param ItemsRequest
+	 * @return List<ItemsResponse>
+	 * @throws HNotaDAOException 
+	 */
 	public List<ItemsResponse> getListItems(ItemsRequest req) throws HNotaDAOException {
 		List<ItemsResponse> lista = null;
 		StringBuilder query = new StringBuilder();
@@ -256,6 +285,12 @@ private Logger logger = Logger.getLogger(HNotaDAO.class);
 	}
 	
 	
+	/**
+	 * Find all HNota
+	 *
+	 * @return List<HNota>
+	 * @throws HNotaDAOException 
+	 */
 	public List<HNota> findAll() throws HNotaDAOException {
 		List<HNota> lista = null;
 		
@@ -282,6 +317,12 @@ private Logger logger = Logger.getLogger(HNotaDAO.class);
 	}
 	
 	
+	/**
+	 * Delete.
+	 *
+	 * @param String id FC_ID_CONTENIDO
+	 * @throws HNotaDAOException 
+	 */
 	public void delete(String id) throws HNotaDAOException {
 
 		logger.info("--- Delete  [HNotaDAO] ---- ");
@@ -301,6 +342,13 @@ private Logger logger = Logger.getLogger(HNotaDAO.class);
 		}
 	}
 
+	/**
+	 * Find by id.
+	 *
+	 * @param String FC_ID_CONTENIDO
+	 * @return HNota
+	 * @throws HNotaDAOException the h nota DAO exception
+	 */
 	public HNota findById(String id) throws HNotaDAOException {
 		logger.info("--- findById  [HNotaDAO] ---- ");
 		
@@ -329,6 +377,13 @@ private Logger logger = Logger.getLogger(HNotaDAO.class);
 	
 	
 
+	/**
+	 * Insert.
+	 *
+	 * @param NNota
+	 * @return int
+	 * @throws HNotaDAOException 
+	 */
 	public int insert(NNota nota) throws HNotaDAOException {
 		
 		logger.info("--- insert  [HNotaDAO] ---- ");

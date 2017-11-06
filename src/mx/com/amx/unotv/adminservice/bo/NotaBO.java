@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package mx.com.amx.unotv.adminservice.bo;
 
 import java.util.List;
@@ -16,17 +19,35 @@ import mx.com.amx.unotv.adminservice.model.request.ItemsRequest;
 import mx.com.amx.unotv.adminservice.model.request.ItemsRequestByTitle;
 import mx.com.amx.unotv.adminservice.model.response.ItemsResponse;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class NotaBO.
+ */
+/**
+ * @author Jesus A. Macias Benitez
+ *
+ */
 public class NotaBO {
 
+	/** The logger. */
 	private Logger logger = Logger.getLogger(NotaBO.class);
 
+	/** The n nota DAO. */
 	@Autowired
 	NNotaDAO nNotaDAO;
 
+	/** The h nota DAO. */
 	@Autowired
 	HNotaDAO hNotaDAO;
 	
 	
+	/**
+	 * Gets the list items by magazine.
+	 *
+	 * @param String idMagazine 
+	 * @return List<ItemsResponse> 
+	 * @throws NotaBOException 
+	 */
 	public List<ItemsResponse> getListItemsByMagazine(String idMagazine)throws NotaBOException{
 		List<ItemsResponse> lista = null;
 		
@@ -46,6 +67,13 @@ public class NotaBO {
 
 	
 	
+	/**
+	 * Gets the list items by filter.
+	 *
+	 * @param ItemsFilterRequest
+	 * @return List<ItemsResponse> 
+	 * @throws NotaBOException 
+	 */
 	public List<ItemsResponse> getListItemsByFilter(ItemsFilterRequest req)throws NotaBOException{
 	List<ItemsResponse> lista = null;
 		
@@ -62,6 +90,13 @@ public class NotaBO {
 		return lista;
 	}
 
+	/**
+	 * Gets the list items by title.
+	 *
+	 * @param ItemsRequestByTitle
+	 * @return List<ItemsResponse>
+	 * @throws NotaBOException 
+	 */
 	public  List<ItemsResponse> getListItemsByTitle(ItemsRequestByTitle req) throws NotaBOException {
 
 		List<ItemsResponse> lista = null;
@@ -80,6 +115,13 @@ public class NotaBO {
 
 	}
 
+	/**
+	 * Gets the list items.
+	 *
+	 * @param ItemsRequest
+	 * @return List<ItemsResponse>
+	 * @throws NotaBOException 
+	 */
 	public List<ItemsResponse> getListItems(ItemsRequest req) throws NotaBOException {
 		List<ItemsResponse> lista = null;
 		try {
@@ -95,6 +137,12 @@ public class NotaBO {
 		return lista;
 	}
 
+	/**
+	 * obtiene la lista de las nota en la tabla HNota.
+	 *
+	 * @return  List<HNota>
+	 * @throws NotaBOException 
+	 */
 	public List<HNota> findAll() throws NotaBOException {
 		List<HNota> lista = null;
 
@@ -112,6 +160,13 @@ public class NotaBO {
 
 	}
 
+	/**
+	 * Inserta la nota en las tablas NNota y HNota
+	 *
+	 * @param NNota
+	 * @return int
+	 * @throws NotaBOException the nota BO exception
+	 */
 	public int insert(NNota nota) throws NotaBOException {
 		logger.info("--- insert  [NotaBO] ---- ");
 		int rows = 0;
@@ -132,6 +187,13 @@ public class NotaBO {
 		return rows;
 	}
 
+	/**
+	 * obtiene informacion de la tabla HNota.
+	 *
+	 * @param String idContenido 
+	 * @return HNota
+	 * @throws NotaBOException the nota BO exception
+	 */
 	public HNota findById(String id) throws NotaBOException {
 		HNota nota = null;
 		try {
