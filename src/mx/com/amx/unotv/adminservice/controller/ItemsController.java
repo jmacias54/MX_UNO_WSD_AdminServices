@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import mx.com.amx.unotv.adminservice.bo.NotaBO;
 import mx.com.amx.unotv.adminservice.controller.exception.ControllerException;
+import mx.com.amx.unotv.adminservice.model.request.ItemsFilterRequest;
+import mx.com.amx.unotv.adminservice.model.request.ItemsRequest;
+import mx.com.amx.unotv.adminservice.model.request.ItemsRequestByTitle;
 import mx.com.amx.unotv.adminservice.model.response.ItemsResponse;
-import mx.com.amx.unotv.adminservice.model.resquest.ItemsFilterRequest;
-import mx.com.amx.unotv.adminservice.model.resquest.ItemsRequest;
-import mx.com.amx.unotv.adminservice.model.resquest.ItemsRequestByTitle;
 
 @Controller
 @RequestMapping("items")

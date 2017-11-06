@@ -1,15 +1,13 @@
-package mx.com.amx.unotv.adminservice.model.resquest;
+package mx.com.amx.unotv.adminservice.model.request;
 
-public class ItemsRequestByTitle {
+public class ItemsRequest {
 	
 	
 	 private String type; 
 	 private String id; 
 	 private String status; 
-	 private String title; 
 	 private int limit; 
 	 private int page;
-	 
 	 
 	 
 	public String getType() {
@@ -30,12 +28,6 @@ public class ItemsRequestByTitle {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
 	public int getLimit() {
 		return limit;
 	}
@@ -47,7 +39,7 @@ public class ItemsRequestByTitle {
 	}
 	public void setPage(int page) {
 		this.page = page;
-	}
+	} 
 	 
 	 
 	 

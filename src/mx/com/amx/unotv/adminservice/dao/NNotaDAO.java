@@ -2,13 +2,17 @@ package mx.com.amx.unotv.adminservice.dao;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import mx.com.amx.unotv.adminservice.dao.exception.NNotaDAOException;
 import mx.com.amx.unotv.adminservice.model.NNota;
+import mx.com.amx.unotv.adminservice.model.response.ItemsResponse;
+
 
 
 
@@ -19,6 +23,59 @@ public class NNotaDAO {
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
+	
+	
+	public List<ItemsResponse> getListItemsByMagazine(String idMagazine) throws NNotaDAOException {
+		List<ItemsResponse> lista = null;
+		StringBuilder query = new StringBuilder();
+		
+		query.append("  SELECT r.rank, ");
+		query.append(" 		r.FC_ID_CONTENIDO as id ");
+		query.append(" 		,r.FC_TITULO AS title ");
+		query.append("      ,r.FC_DESCRIPCION as description ");
+		query.append("      ,r.FD_FECHA_PUBLICACION as date ");
+		query.append("      ,r.FC_ID_TIPO_NOTA as typeItem ");
+		query.append("      ,seccion.FC_ID_SECCION as idSection ");
+		query.append("      ,categoria.FC_ID_CATEGORIA as idCategories ");
+		query.append("      ,seccion.FC_DESCRIPCION as descSection ");
+		query.append("      ,categoria.FC_DESCRIPCION as descCategories ");
+		query.append("     ,r.FC_IMAGEN as image  ");
+		query.append("     , r.FC_FRIENDLY_URL AS url_item ");
+		query.append("     , r.FC_ID_ESTATUS AS status ");
+		query.append("  FROM (SELECT @rownum:=@rownum+1 rank, n.*       ");
+		query.append(" 		   FROM  UNO_H_NOTA N , (SELECT @rownum:=0) r    ");
+		query.append(" 		   WHERE  1=1   ");
+		query.append("         ORDER BY FD_FECHA_PUBLICACION DESC ) AS r  ");
+		query.append(" INNER JOIN uno_c_categoria categoria on r.FC_ID_CATEGORIA = categoria.FC_ID_CATEGORIA ");
+		query.append(" INNER JOIN uno_c_seccion seccion ON categoria.FC_ID_SECCION = seccion.FC_ID_SECCION ");
+		query.append(" INNER JOIN uno_i_nota_magazine nota_magazine ON r.FC_ID_CONTENIDO = nota_magazine.FC_ID_CONTENIDO ");
+		query.append(" INNER JOIN uno_c_magazine magazine ON nota_magazine.FC_ID_MAGAZINE = magazine.FC_ID_MAGAZINE ");
+		query.append(" WHERE nota_magazine.FC_ID_CONTENIDO = '"+idMagazine+"' ");
+		
+		
+	
+		
+		
+		
+		
+		
+		try {
+
+			lista = jdbcTemplate.query(query.toString(), new BeanPropertyRowMapper<ItemsResponse>(ItemsResponse.class));
+
+		} catch (Exception e) {
+
+			logger.error(" Error getListItems HNota [DAO] ", e);
+
+			throw new NNotaDAOException(e.getMessage());
+
+		}
+		
+		return lista ;
+		
+	}
+	
 	
 	
 	

@@ -36,7 +36,7 @@
 	<bean id="nNotaDAO" class="mx.com.amx.unotv.adminservice.dao.NNotaDAO"></bean>
 	<bean id="hNotaDAO" class="mx.com.amx.unotv.adminservice.dao.HNotaDAO"></bean>
 	<bean id="pcodeDAO" class="mx.com.amx.unotv.adminservice.dao.PcodeDAO"></bean>
-	
+		<bean id="magazineDAO" class="mx.com.amx.unotv.adminservice.dao.MagazineDAO"></bean>
 	
 	
 

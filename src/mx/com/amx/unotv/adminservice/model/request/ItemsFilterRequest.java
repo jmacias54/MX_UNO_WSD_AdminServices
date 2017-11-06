@@ -1,4 +1,4 @@
-package mx.com.amx.unotv.adminservice.model.resquest;
+package mx.com.amx.unotv.adminservice.model.request;
 
 public class ItemsFilterRequest {
 	

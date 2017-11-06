@@ -11,10 +11,10 @@ import mx.com.amx.unotv.adminservice.dao.HNotaDAO;
 import mx.com.amx.unotv.adminservice.dao.NNotaDAO;
 import mx.com.amx.unotv.adminservice.model.HNota;
 import mx.com.amx.unotv.adminservice.model.NNota;
+import mx.com.amx.unotv.adminservice.model.request.ItemsFilterRequest;
+import mx.com.amx.unotv.adminservice.model.request.ItemsRequest;
+import mx.com.amx.unotv.adminservice.model.request.ItemsRequestByTitle;
 import mx.com.amx.unotv.adminservice.model.response.ItemsResponse;
-import mx.com.amx.unotv.adminservice.model.resquest.ItemsFilterRequest;
-import mx.com.amx.unotv.adminservice.model.resquest.ItemsRequest;
-import mx.com.amx.unotv.adminservice.model.resquest.ItemsRequestByTitle;
 
 public class NotaBO {
 
@@ -25,6 +25,25 @@ public class NotaBO {
 
 	@Autowired
 	HNotaDAO hNotaDAO;
+	
+	
+	public List<ItemsResponse> getListItemsByMagazine(String idMagazine)throws NotaBOException{
+		List<ItemsResponse> lista = null;
+		
+		try {
+			lista = nNotaDAO.getListItemsByMagazine(idMagazine);
+
+		} catch (Exception e) {
+
+			logger.error(" Error getListItemsByTitle H-NOTA [NotaBO] ", e);
+			throw new NotaBOException(e.getMessage());
+
+		}
+
+		
+		return lista ;
+	}
+
 	
 	
 	public List<ItemsResponse> getListItemsByFilter(ItemsFilterRequest req)throws NotaBOException{

@@ -40,7 +40,7 @@ public class CatalogsController {
 	private PcodeBO pcodeBO;
 	
 	
-	@RequestMapping(value = "/get_video_pcode", method = RequestMethod.GET, headers = "Accept=application/json; charset=utf-8")
+	@RequestMapping(value = "/get_video_pcode", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
 	public List<Pcode> pcodeFindAll() throws ControllerException {
 		logger.info("--- ItemsController-----");
@@ -58,7 +58,7 @@ public class CatalogsController {
 		return lista;
 	}
 
-	@RequestMapping(value = "/get_categories/{idSeccion}", method = RequestMethod.GET, headers = "Accept=application/json; charset=utf-8")
+	@RequestMapping(value = "/get_categories/{idSeccion}", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
 	public List<CategoriaSeccionResponse> categoriesFindAllByIdSeccion(@PathVariable String idSeccion)
 			throws ControllerException {
@@ -76,7 +76,7 @@ public class CatalogsController {
 		return lista;
 	}
 
-	@RequestMapping(value = "/get_categories", method = RequestMethod.GET, headers = "Accept=application/json; charset=utf-8")
+	@RequestMapping(value = "/get_categories", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
 	public List<Categoria> categoriesFindAll() throws ControllerException {
 		logger.info("--- ItemsController-----");
@@ -94,7 +94,7 @@ public class CatalogsController {
 		return lista;
 	}
 
-	@RequestMapping(value = "/get_users", method = RequestMethod.GET, headers = "Accept=application/json; charset=utf-8")
+	@RequestMapping(value = "/get_users", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
 	public List<UserResponse> get_users() throws ControllerException {
 		logger.info("--- ItemsController-----");
@@ -111,7 +111,7 @@ public class CatalogsController {
 		return lista;
 	}
 
-	@RequestMapping(value = "/get_section", method = RequestMethod.GET, headers = "Accept=application/json; charset=utf-8")
+	@RequestMapping(value = "/get_section", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
 	public List<CategoriaSeccionResponse> get_section() throws ControllerException {
 		logger.info("--- ItemsController-----");
@@ -128,7 +128,7 @@ public class CatalogsController {
 		return lista;
 	}
 
-	@RequestMapping(value = "/get_tags", method = RequestMethod.GET, headers = "Accept=application/json; charset=utf-8")
+	@RequestMapping(value = "/get_tags", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
 	public List<CatalogResponse> get_tags() throws ControllerException {
 		logger.info("--- ItemsController-----");

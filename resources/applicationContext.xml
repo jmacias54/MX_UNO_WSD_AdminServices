@@ -19,6 +19,8 @@
 	<bean id="tagBO" class="mx.com.amx.unotv.adminservice.bo.TagBO"></bean>
 	<bean id="notaBO" class="mx.com.amx.unotv.adminservice.bo.NotaBO"></bean>
 	<bean id="pcodeBO" class="mx.com.amx.unotv.adminservice.bo.PcodeBO"></bean>
+	<bean id="magazineBO" class="mx.com.amx.unotv.adminservice.bo.MagazineBO"></bean>
+
 
 
 

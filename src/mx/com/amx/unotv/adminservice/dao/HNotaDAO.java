@@ -13,10 +13,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import mx.com.amx.unotv.adminservice.dao.exception.HNotaDAOException;
 import mx.com.amx.unotv.adminservice.model.HNota;
 import mx.com.amx.unotv.adminservice.model.NNota;
+import mx.com.amx.unotv.adminservice.model.request.ItemsFilterRequest;
+import mx.com.amx.unotv.adminservice.model.request.ItemsRequest;
+import mx.com.amx.unotv.adminservice.model.request.ItemsRequestByTitle;
 import mx.com.amx.unotv.adminservice.model.response.ItemsResponse;
-import mx.com.amx.unotv.adminservice.model.resquest.ItemsFilterRequest;
-import mx.com.amx.unotv.adminservice.model.resquest.ItemsRequest;
-import mx.com.amx.unotv.adminservice.model.resquest.ItemsRequestByTitle;
 
 public class HNotaDAO {
 	
@@ -26,6 +26,9 @@ private Logger logger = Logger.getLogger(HNotaDAO.class);
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
+	
+
 	
 	
 	public List<ItemsResponse> getListItemsByFilter(ItemsFilterRequest req)throws HNotaDAOException {
