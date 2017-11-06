@@ -5,7 +5,7 @@ public class ItemsRequest {
 	
 	 private String type; 
 	 private String id; 
-	 private int status; 
+	 private String status; 
 	 private int limit; 
 	 private int page;
 	 
@@ -22,10 +22,10 @@ public class ItemsRequest {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public int getStatus() {
+	public String getStatus() {
 		return status;
 	}
-	public void setStatus(int status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 	public int getLimit() {

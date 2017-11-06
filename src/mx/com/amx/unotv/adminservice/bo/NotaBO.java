@@ -10,6 +10,8 @@ import mx.com.amx.unotv.adminservice.dao.HNotaDAO;
 import mx.com.amx.unotv.adminservice.dao.NNotaDAO;
 import mx.com.amx.unotv.adminservice.model.HNota;
 import mx.com.amx.unotv.adminservice.model.NNota;
+import mx.com.amx.unotv.adminservice.model.response.ItemsResponse;
+import mx.com.amx.unotv.adminservice.model.resquest.ItemsRequest;
 
 public class NotaBO {
 
@@ -20,6 +22,22 @@ public class NotaBO {
 
 	@Autowired
 	HNotaDAO hNotaDAO;
+	
+	
+	public List<ItemsResponse> getListItems(ItemsRequest req) throws NotaBOException{
+		List<ItemsResponse> lista = null;
+		try {
+			lista = hNotaDAO.getListItems(req);
+
+		} catch (Exception e) {
+
+			logger.error(" Error getListItems H-NOTA [NotaBO] ", e);
+			throw new NotaBOException(e.getMessage());
+
+		}
+		
+		return lista ;
+	}
 
 	public List<HNota> findAll() throws NotaBOException {
 		List<HNota> lista = null;

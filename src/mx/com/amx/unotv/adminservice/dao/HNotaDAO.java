@@ -29,20 +29,55 @@ private Logger logger = Logger.getLogger(HNotaDAO.class);
 		List<ItemsResponse> lista = null;
 		StringBuilder query = new StringBuilder();
 		
-		int to = req.getLimit() * req.getPage();
-		int from = (to - req.getPage()) + 1;
 		
-		query.append(" SELECT * FROM (SELECT @rownum:=@rownum+1 rank, n.*     ");
-		query.append(" FROM  UNO_N_NOTA N , (SELECT @rownum:=0) r  ");
-		query.append(" ORDER BY FD_FECHA_PUBLICACION DESC ) AS r ");
-		query.append(" WHERE r.rank between ("+from+") AND ("+to+") ");
+		int limit = req.getLimit();
+		int page =  req.getPage();
 		
-		if(!req.getId().equals("") || req.getId() != null)
-		query.append(" AND r.FC_ID_CATEGORIA = '"+req.getId()+"' ");
-		if(!req.getType().equals("") || req.getType() != null)
-		query.append(" AND r.FC_ID_TIPO_NOTA = '"+req.getType()+"' ");
 		
-		query.append(" AND r.FC_ID_ESTATUS = "+req.getStatus()+" ");
+		if( limit == 0 || page == 0 ) {
+			return null;
+		}
+		
+		int to = limit * page;
+		int from = (to - limit) + 1;
+		
+		
+		
+
+		query.append("  SELECT r.rank, ");
+		query.append(" 		r.FC_ID_CONTENIDO as id ");
+		query.append(" 		,r.FC_TITULO AS title ");
+		query.append("      ,r.FC_DESCRIPCION as description ");
+		query.append("      ,r.FD_FECHA_PUBLICACION as date ");
+		query.append("      ,r.FC_ID_TIPO_NOTA as typeItem ");
+		query.append("      ,seccion.FC_ID_SECCION as idSection ");
+		query.append("      ,categoria.FC_ID_CATEGORIA as idCategories ");
+		query.append("      ,seccion.FC_DESCRIPCION as descSection ");
+		query.append("      ,categoria.FC_DESCRIPCION as descCategories ");
+		//query.append("     ,r.FC_IMAGEN as image  ");
+		//query.append("     , r.FC_FRIENDLY_URL AS url_item ");
+		//query.append("     , r.FC_ID_ESTATUS AS status ");
+		query.append("  FROM (SELECT @rownum:=@rownum+1 rank, n.*       ");
+		query.append(" 		   FROM  UNO_MX_N_NOTA N , (SELECT @rownum:=0) r    ");
+		query.append(" 		   WHERE  1=1   ");
+		if(!req.getId().equals("") && req.getId() != null)
+			query.append("    AND N.FC_ID_CATEGORIA = '"+req.getId()+"' ");
+		if(!req.getType().equals("") && req.getType() != null)
+			query.append(" AND N.FC_ID_TIPO_NOTA = '"+req.getType()+"' ");
+		/*
+		if(!req.getStatus().equals("") || req.getStatus() != null)
+		query.append(" AND N.FC_ID_ESTATUS = '"+req.getStatus()+"' ");
+		*/
+		
+		query.append("         ORDER BY FD_FECHA_PUBLICACION DESC ) AS r  ");
+		query.append(" INNER JOIN uno_mx_c_categoria categoria on r.FC_ID_CATEGORIA = categoria.FC_ID_CATEGORIA ");
+		query.append(" INNER JOIN uno_mx_c_seccion seccion ON categoria.FC_ID_SECCION = seccion.FC_ID_SECCION ");
+		query.append(" WHERE r.rank >= "+from+" AND r.rank <= "+to+" ");
+		
+	
+		
+		
+		
 		
 		
 		try {
