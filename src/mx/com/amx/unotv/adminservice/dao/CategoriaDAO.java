@@ -27,7 +27,7 @@ public class CategoriaDAO  {
 		query.append("   FC_DESCRIPCION , ");
 		query.append("   FC_FRIENDLY_URL , ");
 		query.append("   FI_ESTATUS , ");
-		query.append("   FI_REGISTRIS , ");
+		query.append("   FI_REGISTROS , ");
 		query.append("   FC_RUTA_DFP  ");
 		query.append(" FROM uno_c_categoria WHERE FC_ID_SECCION = '" + idSeccion + "' ");
 
@@ -52,7 +52,7 @@ public class CategoriaDAO  {
 		query.append("   FC_DESCRIPCION , ");
 		query.append("   FC_FRIENDLY_URL , ");
 		query.append("   FI_ESTATUS , ");
-		query.append("   FI_REGISTRIS , ");
+		query.append("   FI_REGISTROS , ");
 		query.append("   FC_RUTA_DFP  ");
 		query.append(" FROM uno_c_categoria ");
 

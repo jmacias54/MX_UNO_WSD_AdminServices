@@ -20,10 +20,10 @@ public class Categoria implements Serializable {
 	private String fcRutaDfp;
 
 	
-	private int fiEstatus;
+	private Integer fiEstatus;
 
 	
-	private int fiRegistris;
+	private String fiRegistros;
 
 	
 	private String fcIdSeccion;
@@ -65,7 +65,7 @@ public class Categoria implements Serializable {
 		this.fcRutaDfp = fcRutaDfp;
 	}
 
-	public int getFiEstatus() {
+	public Integer getFiEstatus() {
 		return this.fiEstatus;
 	}
 
@@ -73,12 +73,12 @@ public class Categoria implements Serializable {
 		this.fiEstatus = fiEstatus;
 	}
 
-	public int getFiRegistris() {
-		return this.fiRegistris;
+	public String getFiRegistros() {
+		return this.fiRegistros;
 	}
 
-	public void setFiRegistris(int fiRegistris) {
-		this.fiRegistris = fiRegistris;
+	public void setFiRegistros(String fiRegistros) {
+		this.fiRegistros = fiRegistros;
 	}
 
 	public String getFcIdSeccion() {
