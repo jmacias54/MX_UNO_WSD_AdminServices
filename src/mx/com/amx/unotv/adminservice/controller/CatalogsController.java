@@ -20,6 +20,8 @@ import mx.com.amx.unotv.adminservice.model.Categoria;
 import mx.com.amx.unotv.adminservice.model.Pcode;
 import mx.com.amx.unotv.adminservice.model.response.CatalogResponse;
 import mx.com.amx.unotv.adminservice.model.response.CategoriaSeccionResponse;
+import mx.com.amx.unotv.adminservice.model.response.CategoriaSeccionWSResponse;
+import mx.com.amx.unotv.adminservice.model.response.CategoriaWSResponse;
 import mx.com.amx.unotv.adminservice.model.response.PcodeListResponse;
 import mx.com.amx.unotv.adminservice.model.response.UserResponse;
 
@@ -62,7 +64,7 @@ public class CatalogsController {
 	/**
 	 * Pcode find all Pcode
 	 *
-	 * @return List<Pcode>
+	 * @return List<Pcode> - PcodeListResponse
 	 * @throws ControllerException
 	 */
 	@RequestMapping(value = "/get_video_pcode", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
@@ -89,25 +91,27 @@ public class CatalogsController {
 	 * Find all by id seccion.
 	 *
 	 * @param  String idSeccion 
-	 * @return List<CategoriaSeccionResponse>  
+	 * @return List<CategoriaSeccionResponse>  - CategoriaSeccionWSResponse
 	 * @throws ControllerException
 	 */
 	@RequestMapping(value = "/get_categories/{idSeccion}", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
-	public List<CategoriaSeccionResponse> categoriesFindAllByIdSeccion(@PathVariable String idSeccion)
+	public CategoriaSeccionWSResponse  categoriesFindAllByIdSeccion(@PathVariable String idSeccion)
 			throws ControllerException {
 		logger.info("--- ItemsController-----");
 		logger.info("--- categoriesFindAllByIdSeccion -----");
 
+		CategoriaSeccionWSResponse response = new CategoriaSeccionWSResponse();
 		List<CategoriaSeccionResponse> lista = null;
 
 		try {
 			lista = categoriaBO.findAllByIdSeccion(idSeccion);
+			response.setLista(lista);
 		} catch (Exception e) {
 			logger.error(" -- Error  categoriesFindAllByIdSeccion [CatalogsController]:", e);
 			throw new ControllerException(e.getMessage());
 		}
-		return lista;
+		return response;
 	}
 
 	/**
@@ -118,20 +122,21 @@ public class CatalogsController {
 	 */
 	@RequestMapping(value = "/get_categories", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
-	public List<Categoria> categoriesFindAll() throws ControllerException {
+	public CategoriaWSResponse categoriesFindAll() throws ControllerException {
 		logger.info("--- ItemsController-----");
 		logger.info("--- categoriesFindAll -----");
+		CategoriaWSResponse response = new CategoriaWSResponse();
 
 		List<Categoria> lista = null;
 		try {
 			lista = categoriaBO.findAll();
-
+			response.setLista(lista);
 		} catch (Exception e) {
 			logger.error(" -- Error  get_categories [CatalogsController]:", e);
 			throw new ControllerException(e.getMessage());
 		}
 
-		return lista;
+		return response;
 	}
 
 	/**
