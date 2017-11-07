@@ -19,11 +19,13 @@ import mx.com.amx.unotv.adminservice.controller.exception.ControllerException;
 import mx.com.amx.unotv.adminservice.model.Categoria;
 import mx.com.amx.unotv.adminservice.model.Pcode;
 import mx.com.amx.unotv.adminservice.model.response.CatalogResponse;
+import mx.com.amx.unotv.adminservice.model.response.CatalogWSResponse;
 import mx.com.amx.unotv.adminservice.model.response.CategoriaSeccionResponse;
 import mx.com.amx.unotv.adminservice.model.response.CategoriaSeccionWSResponse;
 import mx.com.amx.unotv.adminservice.model.response.CategoriaWSResponse;
 import mx.com.amx.unotv.adminservice.model.response.PcodeListResponse;
 import mx.com.amx.unotv.adminservice.model.response.UserResponse;
+import mx.com.amx.unotv.adminservice.model.response.UserWSResponse;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -117,7 +119,7 @@ public class CatalogsController {
 	/**
 	 * Find all Categoria.
 	 *
-	 * @return List<Categoria> 
+	 * @return List<Categoria> / CategoriaWSResponse
 	 * @throws ControllerException
 	 */
 	@RequestMapping(value = "/get_categories", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
@@ -142,71 +144,77 @@ public class CatalogsController {
 	/**
 	 * Gets the users.
 	 *
-	 * @return List<UserResponse>
+	 * @return List<UserResponse> / UserWSResponse
 	 * @throws ControllerException 
 	 */
 	@RequestMapping(value = "/get_users", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
-	public List<UserResponse> get_users() throws ControllerException {
+	public UserWSResponse get_users() throws ControllerException {
 		logger.info("--- ItemsController-----");
 		logger.info("--- get_users -----");
-
+		UserWSResponse response = new UserWSResponse();
 		List<UserResponse> lista = null;
 		try {
 
 			lista = usuarioBO.getAll();
+			response.setLista(lista);
 		} catch (Exception e) {
 			logger.error(" -- Error  get_users [CatalogsController]:", e);
 			throw new ControllerException(e.getMessage());
 		}
-		return lista;
+		return response;
 	}
 
 	/**
 	 * Gets the section.
 	 *
-	 * @return List<CategoriaSeccionResponse>
+	 * @return List<CategoriaSeccionResponse> / CategoriaSeccionWSResponse
 	 * @throws ControllerException
 	 */
 	@RequestMapping(value = "/get_section", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
-	public List<CategoriaSeccionResponse> get_section() throws ControllerException {
+	public CategoriaSeccionWSResponse get_section() throws ControllerException {
 		logger.info("--- ItemsController-----");
 		logger.info("--- get_section -----");
 		List<CategoriaSeccionResponse> lista = null;
+		
+		CategoriaSeccionWSResponse response = new CategoriaSeccionWSResponse();
 
 		try {
 			lista = seccionBO.getAll();
+			response.setLista(lista);
 		} catch (Exception e) {
 			logger.error(" -- Error  get_section [CatalogsController]:", e);
 			throw new ControllerException(e.getMessage());
 		}
 
-		return lista;
+		return response;
 	}
 
 	/**
 	 * Gets the tags.
 	 *
-	 * @return List<CatalogResponse> 
+	 * @return List<CatalogResponse> / CatalogWSResponse
 	 * @throws ControllerException
 	 */
 	@RequestMapping(value = "/get_tags", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
-	public List<CatalogResponse> get_tags() throws ControllerException {
+	public CatalogWSResponse get_tags() throws ControllerException {
 		logger.info("--- ItemsController-----");
 		logger.info("--- get_tags -----");
 
+		CatalogWSResponse response = new CatalogWSResponse();
 		List<CatalogResponse> lista = null;
 
 		try {
 			lista = tagBO.getAll();
+			response.setLista(lista);
 		} catch (Exception e) {
 			logger.error(" -- Error  get_tags [CatalogsController]:", e);
 			throw new ControllerException(e.getMessage());
 		}
 
-		return lista;
+		return response;
 	}
 
 }
