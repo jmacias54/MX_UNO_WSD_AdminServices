@@ -20,6 +20,7 @@ import mx.com.amx.unotv.adminservice.model.Categoria;
 import mx.com.amx.unotv.adminservice.model.Pcode;
 import mx.com.amx.unotv.adminservice.model.response.CatalogResponse;
 import mx.com.amx.unotv.adminservice.model.response.CategoriaSeccionResponse;
+import mx.com.amx.unotv.adminservice.model.response.PcodeListResponse;
 import mx.com.amx.unotv.adminservice.model.response.UserResponse;
 
 // TODO: Auto-generated Javadoc
@@ -66,20 +67,22 @@ public class CatalogsController {
 	 */
 	@RequestMapping(value = "/get_video_pcode", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
-	public List<Pcode> pcodeFindAll() throws ControllerException {
+	public PcodeListResponse pcodeFindAll() throws ControllerException {
 		logger.info("--- ItemsController-----");
 		logger.info("--- get_video_pcode -----");
-
+		PcodeListResponse obj= new PcodeListResponse();
 		List<Pcode> lista = null;
 		try {
+			
 			lista = pcodeBO.findAll();
+			obj.setLista(lista);
 
 		} catch (Exception e) {
 			logger.error(" -- Error  get_video_pcode [CatalogsController]:", e);
 			throw new ControllerException(e.getMessage());
 		}
 
-		return lista;
+		return obj;
 	}
 
 	/**
