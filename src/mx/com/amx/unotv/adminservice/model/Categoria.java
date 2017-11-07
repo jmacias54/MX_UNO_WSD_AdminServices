@@ -176,6 +176,13 @@ public class Categoria implements Serializable {
 		this.fcIdSeccion = fcIdSeccion;
 	}
 
+	@Override
+	public String toString() {
+		return "Categoria [fcIdCategoria=" + fcIdCategoria + ", fcDescripcion=" + fcDescripcion + ", fcFriendlyUrl="
+				+ fcFriendlyUrl + ", fcRutaDfp=" + fcRutaDfp + ", fiEstatus=" + fiEstatus + ", fiRegistros="
+				+ fiRegistros + ", fcIdSeccion=" + fcIdSeccion + "]";
+	}
+
 	
 	
 	

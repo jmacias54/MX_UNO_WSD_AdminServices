@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import mx.com.amx.unotv.adminservice.bo.exception.CategoriaBOException;
+
 import mx.com.amx.unotv.adminservice.dao.exception.CategoriaDAOException;
 import mx.com.amx.unotv.adminservice.model.Categoria;
 // TODO: Auto-generated Javadoc
