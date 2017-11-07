@@ -16,6 +16,7 @@ import mx.com.amx.unotv.adminservice.model.request.ItemsFilterRequest;
 import mx.com.amx.unotv.adminservice.model.request.ItemsRequest;
 import mx.com.amx.unotv.adminservice.model.request.ItemsRequestByTitle;
 import mx.com.amx.unotv.adminservice.model.response.ItemsResponse;
+import mx.com.amx.unotv.adminservice.model.response.ItemsWSResponse;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -43,82 +44,78 @@ public class ItemsController {
 	/**
 	 * Gets the list items by filter.
 	 *
-	 * @param req the req
-	 * @return the list items by filter
-	 * @throws ControllerException the controller exception
+	 * @param ItemsFilterRequest
+	 * @return List<ItemsResponse> / ItemsWSResponse
+	 * @throws ControllerException 
 	 */
 	@RequestMapping(value = "/get_list_items_filter", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
-	public List<ItemsResponse> getListItemsByFilter(@RequestBody ItemsFilterRequest req) throws ControllerException {
+	public ItemsWSResponse getListItemsByFilter(@RequestBody ItemsFilterRequest req) throws ControllerException {
 		logger.info("---getListItemsByFilter [ItemsController] ----");
 		List<ItemsResponse> lista = null;
+		ItemsWSResponse response = new ItemsWSResponse();
+
 
 		try {
 			lista = notaBO.getListItemsByFilter(req);
+			response.setLista(lista);
 		} catch (Exception e) {
 			new ControllerException(e.getMessage());
 		}
 
-		return lista;
+		return response;
 	}
 	
 
 	/**
 	 * Gets the list items.
 	 *
-	 * @param req the req
-	 * @return the list items
-	 * @throws ControllerException the controller exception
+	  * @param ItemsFilterRequest
+	 * @return List<ItemsResponse> / ItemsWSResponse
+	 * @throws ControllerException 
 	 */
 	@RequestMapping(value = "/get_list_items", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
-	public List<ItemsResponse> getListItems(@RequestBody ItemsRequest req) throws ControllerException {
+	public ItemsWSResponse getListItems(@RequestBody ItemsRequest req) throws ControllerException {
 		logger.info("---get_list_items [ItemsController] ----");
 		List<ItemsResponse> lista = null;
+		ItemsWSResponse response = new ItemsWSResponse();
 
 		try {
 			lista = notaBO.getListItems(req);
+			response.setLista(lista);
 		} catch (Exception e) {
 			new ControllerException(e.getMessage());
 		}
 
-		return lista;
+		return response;
 	}
 	
 	/**
 	 * Gets the list items by title.
 	 *
-	 * @param req the req
-	 * @return the list items by title
-	 * @throws ControllerException the controller exception
+	 * @param ItemsFilterRequest
+	 * @return List<ItemsResponse> / ItemsWSResponse
+	 * @throws ControllerException 
 	 */
 	@RequestMapping(value = "/get_list_items_search", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
-	public List<ItemsResponse> getListItemsByTitle(@RequestBody ItemsRequestByTitle req) throws ControllerException {
+	public ItemsWSResponse  getListItemsByTitle(@RequestBody ItemsRequestByTitle req) throws ControllerException {
 		logger.info("---get_list_items [ItemsController] ----");
+		
+		ItemsWSResponse response = new ItemsWSResponse();
 		List<ItemsResponse> lista = null;
 
 		try {
 			lista = notaBO.getListItemsByTitle(req);
+			response.setLista(lista);
 		} catch (Exception e) {
 			new ControllerException(e.getMessage());
 		}
 
-		return lista;
+		return response;
 	}
 
-	/**
-	 * Gets the item.
-	 *
-	 * @return the item
-	 * @throws ControllerException the controller exception
-	 */
-	@RequestMapping(value = "/get_item", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
-	@ResponseBody
-	public ItemsFilterRequest get_item() throws ControllerException {
-		logger.info("---get_item [ItemsController] ----");
-
-		return new ItemsFilterRequest();
-	}
+	
 
 }
