@@ -16,6 +16,8 @@ import mx.com.amx.unotv.adminservice.controller.exception.ControllerException;
 import mx.com.amx.unotv.adminservice.model.Magazine;
 import mx.com.amx.unotv.adminservice.model.request.MagazineRequest;
 import mx.com.amx.unotv.adminservice.model.response.ItemsResponse;
+import mx.com.amx.unotv.adminservice.model.response.ItemsWSResponse;
+import mx.com.amx.unotv.adminservice.model.response.ListMagazine;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -46,16 +48,18 @@ public class MagazineController {
 	 */
 	@RequestMapping(value = "/get_magazine/{idMagazine}", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
-	public List<ItemsResponse> getListItemsByMagazine(@PathVariable String idMagazine) throws ControllerException {
+	public ItemsWSResponse getListItemsByMagazine(@PathVariable String idMagazine) throws ControllerException {
 		List<ItemsResponse> lista = null;
+		ItemsWSResponse response = new ItemsWSResponse();
 
 		try {
 			lista = notaBO.getListItemsByMagazine(idMagazine);
+			response.setLista(lista);
 		} catch (Exception e) {
 			new ControllerException(e.getMessage());
 		}
 
-		return lista;
+		return response;
 	}
 
 	/**
@@ -66,16 +70,18 @@ public class MagazineController {
 	 */
 	@RequestMapping(value = "/get_list_magazine", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
-	public List<Magazine> getListMagazine() throws ControllerException {
+	public ListMagazine getListMagazine() throws ControllerException {
 		List<Magazine> lista = null;
+		ListMagazine response = new ListMagazine();
 
 		try {
 			lista = magazineBO.getListMagazine();
+			response.setLista(lista);
 		} catch (Exception e) {
 			new ControllerException(e.getMessage());
 		}
 
-		return lista;
+		return response;
 	}
 	
 	
