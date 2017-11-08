@@ -15,6 +15,7 @@ import mx.com.amx.unotv.adminservice.bo.NotaBO;
 import mx.com.amx.unotv.adminservice.controller.exception.ControllerException;
 import mx.com.amx.unotv.adminservice.model.HNota;
 import mx.com.amx.unotv.adminservice.model.NNota;
+import mx.com.amx.unotv.adminservice.model.response.HNotaWSResponse;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -45,7 +46,7 @@ public class DetailController {
 	@RequestMapping(value = "/save_item", method = RequestMethod.PUT, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
 	public int saveItem(@RequestBody NNota nota) throws ControllerException {
-		logger.info("--- ItemsController-----");
+		logger.info("--- DetailController-----");
 		logger.info("--- save_item -----");
 
 		int res = 0;
@@ -54,7 +55,7 @@ public class DetailController {
 			res = notaBO.insert(nota);
 
 		} catch (Exception e) {
-			logger.error(" -- Error  save_item [ItemsController]:", e);
+			logger.error(" -- Error  save_item [DetailController]:", e);
 			throw new ControllerException(e.getMessage());
 		}
 
@@ -71,8 +72,8 @@ public class DetailController {
 	@RequestMapping(value = "/get_item/{idContenido}", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
 	public HNota getItem(@PathVariable String idContenido) throws ControllerException {
-		logger.info("--- ItemsController-----");
-		logger.info("--- save_item -----");
+		logger.info("--- DetailController-----");
+		logger.info("--- getItem -----");
 
 		HNota nota = null;
 		;
@@ -81,7 +82,7 @@ public class DetailController {
 			nota = notaBO.findById(idContenido);
 
 		} catch (Exception e) {
-			logger.error(" -- Error  getItem by IdContenido [ItemsController]:", e);
+			logger.error(" -- Error  getItem by IdContenido [DetailController]:", e);
 			throw new ControllerException(e.getMessage());
 		}
 
@@ -96,22 +97,23 @@ public class DetailController {
 	 */
 	@RequestMapping(value = "/get_item", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
-	public List<HNota> getItem() throws ControllerException {
-		logger.info("--- ItemsController-----");
+	public HNotaWSResponse getItem() throws ControllerException {
+		logger.info("--- DetailController-----");
 		logger.info("--- getItem -----");
-
+		HNotaWSResponse response = new HNotaWSResponse();
 		List<HNota> lista = null;
 
 		try {
 
 			lista = notaBO.findAll();
 
+			response.setLista(lista);
 		} catch (Exception e) {
-			logger.error(" -- Error  getItem [ItemsController]:", e);
+			logger.error(" -- Error  getItem [DetailController]:", e);
 			throw new ControllerException(e.getMessage());
 		}
 
-		return lista;
+		return response;
 	}
 
 }
