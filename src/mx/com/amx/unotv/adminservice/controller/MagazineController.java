@@ -97,7 +97,7 @@ public class MagazineController {
 	
 
 		try {
-			  magazineBO.getListMagazine();
+			  magazineBO.saveMagazine(req);
 		} catch (Exception e) {
 			new ControllerException(e.getMessage());
 		}

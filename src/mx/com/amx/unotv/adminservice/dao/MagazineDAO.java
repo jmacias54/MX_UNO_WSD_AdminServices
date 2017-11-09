@@ -3,12 +3,15 @@ package mx.com.amx.unotv.adminservice.dao;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import mx.com.amx.unotv.adminservice.dao.exception.HNotaDAOException;
 import mx.com.amx.unotv.adminservice.dao.exception.MagazineDAOException;
-
+import mx.com.amx.unotv.adminservice.model.HNota;
+import mx.com.amx.unotv.adminservice.model.IMagazineNota;
 import mx.com.amx.unotv.adminservice.model.Magazine;
 
 // TODO: Auto-generated Javadoc
@@ -18,6 +21,8 @@ import mx.com.amx.unotv.adminservice.model.Magazine;
  * @author Jesus A. Macias Benitez
  */
 public class MagazineDAO {
+	
+	private Logger logger = Logger.getLogger(MagazineDAO.class);
 	
 	/** The jdbc template. */
 	@Autowired
@@ -49,6 +54,54 @@ public class MagazineDAO {
 		}
 
 		return lista ;
+	}
+	
+	public int deleteIMagazineNota(String IdMagazine) throws MagazineDAOException {
+		int rows = 0;
+		StringBuilder query = new StringBuilder();
+		
+		
+		query.append(" DELETE FROM uno_i_nota_magazine WHERE  FC_ID_MAGAZINE = '" + IdMagazine + "' ");
+		try {
+
+			rows = jdbcTemplate.update(query.toString());
+
+		} catch (Exception e) {
+
+			logger.error(" Error deleteIMagazineNota [ MagazineDAO ] ", e);
+
+			throw new MagazineDAOException(e.getMessage());
+
+		}
+
+		return rows;
+
+	}
+	
+	public int  insertIMagazineNota(IMagazineNota magazineNota) throws MagazineDAOException {
+		int rows = 0;
+		
+		try {
+			rows = jdbcTemplate.update( " INSERT INTO uno_i_nota_magazine "
+					                    + " (FC_ID_MAGAZINE, FC_ID_CONTENIDO, FC_URL_EXTERNA, FI_ORDEN ) "
+					                    + " VALUES (? , ?, ?, ?)" 
+					,magazineNota.getFcIdMagazine()
+					,magazineNota.getFcIdContenido()
+					,magazineNota.getFcUrlExterna()
+					,magazineNota.getFiOrden());
+
+			} catch (Exception e) {
+
+				logger.error(" Error al insertIMagazineNota [ MagazineDAO ] ", e);
+
+				throw new MagazineDAOException(e.getMessage());
+
+			}
+			
+		
+		
+		return rows ;
+		
 	}
 
 }
