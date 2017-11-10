@@ -30,12 +30,32 @@ public class MagazineBO {
 	@Autowired
 	MagazineDAO magazineDAO;
 
+	
+	public Magazine getMagazineByIdMagazine(String idMagazine) {
+		
+		Magazine magazine = null;
+
+		try {
+			magazine = magazineDAO.getMagazineByIdMagazine(idMagazine);
+
+		} catch (Exception e) {
+			logger.error(" Error geMagazineByIdMagazine [ MagazineBO ] ", e);
+			new MagazineBOException(e.getMessage());
+		}
+
+		return magazine;
+	}
+	
+	
+	
+	
 	/**
 	 * Gets the list magazine.
 	 *
 	 * @return the list magazine
 	 * @throws MagazineBOException
 	 *             the magazine BO exception
+	 *             
 	 */
 	public List<Magazine> getListMagazine() throws MagazineBOException {
 		List<Magazine> lista = null;

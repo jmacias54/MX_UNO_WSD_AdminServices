@@ -27,6 +27,9 @@ public class Tag implements Serializable {
 
 	/** The fi estatus. */
 	private int fiEstatus;
+	
+	
+	private String fcDfp ;
 
 	/**
 	 * Instantiates a new tag.
@@ -86,6 +89,14 @@ public class Tag implements Serializable {
 	 */
 	public void setFiEstatus(int fiEstatus) {
 		this.fiEstatus = fiEstatus;
+	}
+
+	public String getFcDfp() {
+		return fcDfp;
+	}
+
+	public void setFcDfp(String fcDfp) {
+		this.fcDfp = fcDfp;
 	}
 
 	

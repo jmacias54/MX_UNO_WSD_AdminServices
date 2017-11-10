@@ -35,7 +35,7 @@ public class TagDAO {
 		StringBuilder query = new StringBuilder();
 		query.append(" SELECT FC_ID_TAG , ");
 		query.append("   FC_DESCRIPCION , ");
-		query.append("   FI_ESTATUS  ");
+		query.append("   FI_ESTATUS , FC_DFP  ");
 		query.append(" FROM UNO_C_TAGS ");
 
 		try {

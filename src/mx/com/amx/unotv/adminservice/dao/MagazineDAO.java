@@ -56,6 +56,29 @@ public class MagazineDAO {
 		return lista ;
 	}
 	
+	
+	public Magazine getMagazineByIdMagazine(String idMagazine) throws MagazineDAOException{
+		List<Magazine> lista = null ;
+		
+		StringBuilder query = new StringBuilder();
+		query.append(" SELECT  * FROM uno_c_magazine WHERE FC_ID_MAGAZINE = '"+idMagazine+"' ");
+	
+
+		try {
+			lista = jdbcTemplate.query(query.toString(),
+					new BeanPropertyRowMapper<Magazine>(Magazine.class));
+
+		} catch (NullPointerException npe) {
+			// TODO: handle exception
+			return new Magazine();
+		} catch (Exception e) {
+			new MagazineDAOException(e.getMessage());
+		}
+
+		return lista.get(0) ;
+	}
+	
+	
 	public int deleteIMagazineNota(String IdMagazine) throws MagazineDAOException {
 		int rows = 0;
 		StringBuilder query = new StringBuilder();

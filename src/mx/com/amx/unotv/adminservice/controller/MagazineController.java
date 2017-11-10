@@ -15,8 +15,6 @@ import mx.com.amx.unotv.adminservice.bo.NotaBO;
 import mx.com.amx.unotv.adminservice.controller.exception.ControllerException;
 import mx.com.amx.unotv.adminservice.model.Magazine;
 import mx.com.amx.unotv.adminservice.model.request.MagazineRequest;
-import mx.com.amx.unotv.adminservice.model.response.ItemsResponse;
-import mx.com.amx.unotv.adminservice.model.response.ItemsWSResponse;
 import mx.com.amx.unotv.adminservice.model.response.ListMagazine;
 
 // TODO: Auto-generated Javadoc
@@ -48,13 +46,13 @@ public class MagazineController {
 	 */
 	@RequestMapping(value = "/get_magazine/{idMagazine}", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
-	public ItemsWSResponse getListItemsByMagazine(@PathVariable String idMagazine) throws ControllerException {
-		List<ItemsResponse> lista = null;
-		ItemsWSResponse response = new ItemsWSResponse();
+	public Magazine getListItemsByMagazine(@PathVariable String idMagazine) throws ControllerException {
+		
+		Magazine response = new Magazine();
 
 		try {
-			lista = notaBO.getListItemsByMagazine(idMagazine);
-			response.setLista(lista);
+			response = magazineBO.getMagazineByIdMagazine(idMagazine);
+			
 		} catch (Exception e) {
 			new ControllerException(e.getMessage());
 		}
