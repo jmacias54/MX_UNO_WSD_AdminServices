@@ -61,6 +61,27 @@ public class DetailController {
 
 		return res;
 	}
+	
+	@RequestMapping(value = "/update_item", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
+	@ResponseBody
+	public int updateItem(@RequestBody NNota nota) throws ControllerException {
+		logger.info("--- DetailController-----");
+		logger.info("--- updateItem -----");
+
+		int res = 0;
+		try {
+
+			res = notaBO.update(nota);
+
+		} catch (Exception e) {
+			logger.error(" -- Error  updateItem [DetailController]:", e);
+			throw new ControllerException(e.getMessage());
+		}
+
+		return res;
+	}
+	
+	
 
 	/**
 	 * obtiene informacion de la tabla HNota.

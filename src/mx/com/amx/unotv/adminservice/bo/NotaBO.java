@@ -186,6 +186,26 @@ public class NotaBO {
 
 		return rows;
 	}
+	
+	public int update(NNota nota) throws NotaBOException {
+		logger.info("--- update  [NotaBO] ---- ");
+		int rows = 0;
+
+		try {
+
+			rows = nNotaDAO.update(nota);
+			if (rows == 1)
+				rows = hNotaDAO.update(nota);
+
+		} catch (Exception e) {
+
+			logger.error(" Error al update N-NOTA [NotaBO] ", e);
+			throw new NotaBOException(e.getMessage());
+
+		}
+
+		return rows;
+	}
 
 	/**
 	 * obtiene informacion de la tabla HNota.

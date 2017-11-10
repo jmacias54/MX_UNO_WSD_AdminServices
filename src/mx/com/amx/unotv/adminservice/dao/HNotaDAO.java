@@ -371,6 +371,13 @@ private Logger logger = Logger.getLogger(HNotaDAO.class);
 				throw new HNotaDAOException(e.getMessage());
 
 			}
+		
+		
+		if(lista.isEmpty() || lista == null) {
+			return null;
+		}
+		
+		
 		return lista.get(0) ;
 		
 	}
@@ -437,5 +444,56 @@ private Logger logger = Logger.getLogger(HNotaDAO.class);
 		return rows;
 		
 	}
+	
+	
+	public int update(NNota nota) throws HNotaDAOException {
+		
+		logger.info("--- update  [HNotaDAO] ---- ");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		int rows = 0;
+		
+		try {
+		rows = jdbcTemplate.update( " UPDATE uno_h_nota " +
+				" SET  " +
+				" FC_ID_CATEGORIA  = '"+nota.getFcIdCategoria()+"' , "+
+				" FC_FRIENDLY_URL  = '"+nota.getFcIdCategoria()+"' , "+
+				" FC_TITULO  = '"+nota.getFcIdCategoria()+"' , "+
+				" FC_DESCRIPCION  = '"+nota.getFcIdCategoria()+"' , "+
+				" FC_ESCRIBIO  = '"+nota.getFcIdCategoria()+"' , "+
+				" FC_LUGAR  = '"+nota.getFcIdCategoria()+"' , "+
+				" FC_FUENTE  = '"+nota.getFcIdCategoria()+"' , "+
+				" FC_ID_TIPO_NOTA  = '"+nota.getFcIdCategoria()+"' , "+
+				" FC_IMAGEN  = '"+nota.getFcIdCategoria()+"' , "+
+				" FC_VIDEO_YOUTUBE  = '"+nota.getFcIdCategoria()+"' , "+
+				" FC_CONTENT_ID_OOYALA  = '"+nota.getFcIdCategoria()+"' , "+
+				" FC_PLAYER_ID_OOYALA  = '"+nota.getFcIdCategoria()+"' , "+
+				" FC_ID_PCODE  = '"+nota.getFcIdCategoria()+"' , "+
+				" FC_SOURCE_OOYALA  = '"+nota.getFcIdCategoria()+"' , "+
+				" FC_ALTERNATIVE_TEXT_OOYALA  = '"+nota.getFcIdCategoria()+"' , "+
+				" FC_DURATION_OOYALA  = '"+nota.getFcIdCategoria()+"' , "+
+				" FC_FILE_SIZE_OOYALA  = '"+nota.getFcIdCategoria()+"' , "+
+				" CL_GALERIA  = '"+nota.getFcIdCategoria()+"' , "+
+				" CL_RTF_CONTENIDO  = '"+nota.getFcIdCategoria()+"' , "+
+				// " FD_FECHA_PUBLICACION  = '"+nota.getFcIdCategoria()+"' , "+
+				" FD_FECHA_MODIFICACION  = '"+dateFormat.format(new Date())+"'  , "+
+				" FC_KEYWORDS  = '"+nota.getFcIdCategoria()+"' , "+
+				" FI_BAN_INFINITO_HOME  = '"+nota.getFcIdCategoria()+"' , "+
+				" FI_BAN_MSN  = '"+nota.getFcIdCategoria()+"' , "+
+				" FI_BAN_OTROS  = '"+nota.getFcIdCategoria()+"' , "+
+				" FC_ID_ESTATUS  = '"+nota.getFcIdCategoria()+"' , "+
+				" WHERE FC_ID_CONTENIDO = '"+nota.getFcIdCategoria()+"' ");
+
+		} catch (Exception e) {
+
+			logger.error(" Error update HNota [DAO] ", e);
+
+			throw new HNotaDAOException(e.getMessage());
+
+		}
+		
+		return rows;
+		
+	}
+
 
 }

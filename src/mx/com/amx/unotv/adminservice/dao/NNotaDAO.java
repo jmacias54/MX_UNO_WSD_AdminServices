@@ -158,6 +158,59 @@ public class NNotaDAO {
 		return rows;
 		
 	}
+	
+	
+	public int update(NNota nota) throws NNotaDAOException {
+		
+		logger.info("--- update  [NNotaDAO] ---- ");
+		int rows = 0;
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		
+		try {
+			
+			
+			rows = jdbcTemplate.update(  " UPDATE UNO_N_NOTA " +
+					 " SET "+
+					 " FC_ID_CATEGORIA = '"+nota.getFcIdCategoria()+"' , " +
+					 " FC_FRIENDLY_URL = '"+nota.getFcFriendlyUrl()+"' , " +
+					 " FC_TITULO = '"+nota.getFcTitulo()+"' , " +
+					 " FC_DESCRIPCION = '"+nota.getFcDescripcion()+"' , " +
+					 " FC_ESCRIBIO = '"+nota.getFcEscribio()+"' , " +
+					 " FC_LUGAR = '"+nota.getFcLugar()+"' , " +
+					 " FC_FUENTE = '"+nota.getFcFuente()+"' , " +
+					 " FC_ID_TIPO_NOTA = '"+nota.getFcIdTipoNota()+"' , " +
+					 " FC_IMAGEN = '"+nota.getFcImagen()+"' , " +
+					 " FC_VIDEO_YOUTUBE = '"+nota.getFcVideoYoutube()+"' , " +
+					 " FC_CONTENT_ID_OOYALA = '"+nota.getFcContentIdOoyala()+"' , " +
+					 " FC_PLAYER_ID_OOYALA = '"+nota.getFcPlayerIdOoyala()+"' , " +
+					 " FC_ID_PCODE = '"+nota.getFcIdPcode()+"' , " +
+					 " FC_SOURCE_OOYALA = '"+nota.getFcSourceOoyala()+"' , " +
+					 " FC_ALTERNATIVE_TEXT_OOYALA = '"+nota.getFcAlternativeTextOoyala()+"' , " +
+					 " FC_DURATION_OOYALA = '"+nota.getFcDurationOoyala()+"' , " +
+					 " FC_FILE_SIZE_OOYALA = '"+nota.getFcFileSizeOoyala()+"' , " +
+					 " CL_GALERIA = '"+nota.getClGaleria()+"' , " +
+					 " CL_RTF_CONTENIDO = '"+nota.getClRtfContenido()+"' , " +
+					 // " FD_FECHA_PUBLICACION = '"+nota.getFcIdContenido()+"' , " +
+					 " FD_FECHA_MODIFICACION = '"+dateFormat.format(new Date())+"' , " +
+					 " FC_KEYWORDS = '"+nota.getFcKeywords()+"' , " +
+					 " FI_BAN_INFINITO_HOME = '"+nota.getFiBanInfinitoHome()+"' , " +
+					 " FI_BAN_MSN    = '"+nota.getFiBanMsn()+"' , " +
+					 " FI_BAN_OTROS  = '"+nota.getFiBanOtros()+"' , " +
+					 " FC_ID_ESTATUS = '"+nota.getFcIdEstatus()+"' "+
+					 " WHERE FC_ID_CONTENIDO = '"+nota.getFcIdContenido()+"' " );
+
+		} catch (Exception e) {
+
+			logger.error(" Error al update  N-NOTA [DAO] ", e);
+
+			throw new NNotaDAOException(e.getMessage());
+
+		}
+		
+		return rows;
+		
+	}
 
 
 
