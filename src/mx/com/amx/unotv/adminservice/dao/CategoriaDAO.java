@@ -25,6 +25,40 @@ public class CategoriaDAO  {
 	/** The jdbc template. */
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
+	
+	
+	public Categoria getCategorieById(String idCategorie) {
+		
+		List<Categoria> lista = null;
+		
+		StringBuilder query = new StringBuilder();
+		query.append(" SELECT  FC_ID_CATEGORIA , ");
+		query.append("   FC_ID_SECCION , ");
+		query.append("   FC_DESCRIPCION , ");
+		query.append("   FC_FRIENDLY_URL , ");
+		query.append("   FI_ESTATUS , ");
+		query.append("   FI_REGISTROS , ");
+		query.append("   FC_RUTA_DFP  ");
+		query.append(" FROM uno_c_categoria WHERE FC_ID_CATEGORIA = '" + idCategorie + "' ");
+
+		try {
+			lista = jdbcTemplate.query(query.toString(), new BeanPropertyRowMapper<Categoria>(Categoria.class));
+		} catch (NullPointerException npe) {
+			// TODO: handle exception
+			return null;
+		} catch (Exception e) {
+			new CategoriaDAOException(e.getMessage());
+		}
+		
+		
+		if(lista.isEmpty() || lista == null) {
+			return null;
+		}
+		
+		
+		return lista.get(0);
+	}
 
 	/**
 	 * Find all by id seccion.

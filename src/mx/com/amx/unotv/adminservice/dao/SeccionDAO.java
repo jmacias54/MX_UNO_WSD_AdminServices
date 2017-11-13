@@ -22,9 +22,34 @@ public class SeccionDAO  {
 	/** The jdbc template. */
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
+	
+	public Seccion getSectionById(String idSeccion) {
 
-	
-	
+		List<Seccion> lista = null;
+		StringBuilder query = new StringBuilder();
+		query.append(" SELECT FC_ID_SECCION , ");
+		query.append("   FC_DESCRIPCION , ");
+		query.append("   FC_FRIENDLY_URL , ");
+		query.append("   FI_ESTATUS  ");
+		query.append(" FROM uno_c_seccion WHERE FC_ID_SECCION = '"+idSeccion+"' ");
+		
+		
+		try {
+			lista = jdbcTemplate.query(query.toString(), new BeanPropertyRowMapper<Seccion>(Seccion.class));
+
+		} catch (NullPointerException npe) {
+			// TODO: handle exception
+			return null ;
+		} catch (Exception e) {
+			new SeccionDAOException(e.getMessage());
+		}
+
+		if(lista.isEmpty() || lista == null) {
+			return null;
+		}
+		return lista.get(0);
+	}
 	
 	/**
 	 * Find all Seccion

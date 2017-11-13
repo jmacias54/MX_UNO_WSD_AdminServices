@@ -9,7 +9,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import mx.com.amx.unotv.adminservice.bo.exception.CategoriaBOException;
 import mx.com.amx.unotv.adminservice.dao.CategoriaDAO;
 import mx.com.amx.unotv.adminservice.model.Categoria;
@@ -29,6 +28,25 @@ public class CategoriaBO {
 	/** The categoria DAO. */
 	@Autowired
 	private CategoriaDAO categoriaDAO;
+	
+	
+	
+	
+	
+	public Categoria getCategorieById(String idCategorie) throws CategoriaBOException {
+
+		Categoria categoria = null;
+
+		try {
+			categoria = categoriaDAO.getCategorieById(idCategorie);
+		} catch (Exception e) {
+
+			throw new CategoriaBOException(e.getMessage());
+
+		}
+
+		return categoria;
+	}
 
 	/**
 	 * Find all by id seccion.

@@ -7,7 +7,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import mx.com.amx.unotv.adminservice.bo.exception.SeccionBOException;
 import mx.com.amx.unotv.adminservice.dao.SeccionDAO;
 import mx.com.amx.unotv.adminservice.model.Seccion;
@@ -27,6 +26,22 @@ public class SeccionBO {
 	/** The seccion DAO. */
 	@Autowired
 	private SeccionDAO seccionDAO;
+	
+	
+	public Seccion getSectionById(String idSeccion) {
+	
+		
+		Seccion seccion = null;
+
+		try {
+			seccion = seccionDAO.getSectionById(idSeccion);
+
+		} catch (Exception e) {
+			new SeccionBOException(e.getMessage());
+		}
+
+		return seccion;
+	}
 
 	/**
 	 * Gets the all Seccion

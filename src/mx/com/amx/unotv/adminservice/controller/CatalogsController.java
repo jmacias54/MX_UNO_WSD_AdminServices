@@ -18,6 +18,7 @@ import mx.com.amx.unotv.adminservice.bo.UsuarioBO;
 import mx.com.amx.unotv.adminservice.controller.exception.ControllerException;
 import mx.com.amx.unotv.adminservice.model.Categoria;
 import mx.com.amx.unotv.adminservice.model.Pcode;
+import mx.com.amx.unotv.adminservice.model.Seccion;
 import mx.com.amx.unotv.adminservice.model.response.CatalogResponse;
 import mx.com.amx.unotv.adminservice.model.response.CatalogWSResponse;
 import mx.com.amx.unotv.adminservice.model.response.CategoriaSeccionResponse;
@@ -140,6 +141,25 @@ public class CatalogsController {
 
 		return response;
 	}
+	
+	@RequestMapping(value = "/get_categorie/{idCategorie}", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
+	@ResponseBody
+	public Categoria getCategorieById(@PathVariable String idCategorie) throws ControllerException {
+		logger.info("--- ItemsController-----");
+		logger.info("--- getCategorieById -----");
+		Categoria categoria = new Categoria();
+
+		
+		try {
+			categoria = categoriaBO.getCategorieById(idCategorie);
+			
+		} catch (Exception e) {
+			logger.error(" -- Error  getCategorieById [CatalogsController]:", e);
+			throw new ControllerException(e.getMessage());
+		}
+
+		return categoria;
+	}
 
 	/**
 	 * Gets the users.
@@ -189,6 +209,26 @@ public class CatalogsController {
 		}
 
 		return response;
+	}
+	
+	@RequestMapping(value = "/get_section/{idSeccion}", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
+	@ResponseBody
+	public Seccion getSectionById(@PathVariable String idSeccion) throws ControllerException {
+		logger.info("--- ItemsController-----");
+		logger.info("--- getSectionById -----");
+
+		
+		Seccion seccion = new Seccion();
+
+		try {
+			seccion = seccionBO.getSectionById(idSeccion);
+			
+		} catch (Exception e) {
+			logger.error(" -- Error  getSectionById [CatalogsController]:", e);
+			throw new ControllerException(e.getMessage());
+		}
+
+		return seccion;
 	}
 
 	/**
