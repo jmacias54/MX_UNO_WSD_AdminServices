@@ -385,35 +385,47 @@ public class HNotaDAO {
 		int rows = 0;
 
 		try {
+			
+			
+			
 			rows = jdbcTemplate.update(" UPDATE uno_h_nota " +
 					" SET  " +
-					" FC_ID_CATEGORIA  = '"+nota.getFcIdCategoria()+"' , "+
-					" FC_FRIENDLY_URL  = '"+nota.getFcFriendlyUrl()+"' , "+
-					" FC_TITULO  = '"+nota.getFcTitulo()+"' , "+
-					" FC_DESCRIPCION  = '"+nota.getFcDescripcion()+"' , "+
-					" FC_ESCRIBIO  = '"+nota.getFcEscribio()+"' , "+
-					" FC_LUGAR  = '"+nota.getFcLugar()+"' , "+
-					" FC_FUENTE  = '"+nota.getFcFuente()+"' , "+
-					" FC_ID_TIPO_NOTA  = '"+nota.getFcIdTipoNota()+"' , "+
-					" FC_IMAGEN  = '"+nota.getFcImagen()+"' , "+
-					" FC_VIDEO_YOUTUBE  = '"+nota.getFcVideoYoutube()+"' , "+
-					" FC_CONTENT_ID_OOYALA  = '"+nota.getFcContentIdOoyala()+"' , "+
-					" FC_PLAYER_ID_OOYALA  = '"+nota.getFcPlayerIdOoyala()+"' , "+
-					" FC_ID_PCODE  = '"+nota.getFcIdPcode()+"' , "+
-					" FC_SOURCE_OOYALA  = '"+nota.getFcSourceOoyala()+"' , "+
-					" FC_ALTERNATIVE_TEXT_OOYALA  = '"+nota.getFcAlternativeTextOoyala()+"' , "+
-					" FC_DURATION_OOYALA  = '"+nota.getFcDurationOoyala()+"' , "+
-					" FC_FILE_SIZE_OOYALA  = '"+nota.getFcFileSizeOoyala()+"' , "+
-					" CL_GALERIA  = '"+nota.getClGaleria()+"' , "+
-					" CL_RTF_CONTENIDO  = '"+nota.getClRtfContenido()+"' , "+
-					// " FD_FECHA_PUBLICACION  = '"+dateFormat.format(new Date())+"' , "+
-					" FD_FECHA_MODIFICACION  = '"+dateFormat.format(new Date())+"' , "+
-					" FC_KEYWORDS  = '"+nota.getFcKeywords()+"' , "+
-					" FI_BAN_INFINITO_HOME  = '"+nota.getFiBanInfinitoHome()+"' , "+
-					" FI_BAN_MSN  = '"+nota.getFiBanMsn()+"' , "+
-					" FI_BAN_OTROS  = '"+nota.getFiBanOtros()+"' , "+
-					" FC_ID_ESTATUS  = '"+nota.getFcIdEstatus()+"' , "+
-					" WHERE FC_ID_CONTENIDO = '"+nota.getFcIdContenido()+"' ");
+					" FC_ID_CATEGORIA  = ?, "+
+					" FC_FRIENDLY_URL  = ? , "+
+					" FC_TITULO  = ?, "+
+					" FC_DESCRIPCION  = ? , "+
+					" FC_ESCRIBIO  = ?, "+
+					" FC_LUGAR  = ? , "+
+					" FC_FUENTE  = ? , "+
+					" FC_ID_TIPO_NOTA  = ? , "+
+					" FC_IMAGEN  = ?, "+
+					" FC_VIDEO_YOUTUBE  = ?, "+
+					" FC_CONTENT_ID_OOYALA  = ? , "+
+					" FC_PLAYER_ID_OOYALA  = ?, "+
+					" FC_ID_PCODE  = ?, "+
+					" FC_SOURCE_OOYALA  = ?, "+
+					" FC_ALTERNATIVE_TEXT_OOYALA  = ?, "+
+					" FC_DURATION_OOYALA  = ?, "+
+					" FC_FILE_SIZE_OOYALA  = ? , "+
+					" CL_GALERIA  = ? , "+
+					" CL_RTF_CONTENIDO  = ?, "+
+					// " FD_FECHA_PUBLICACION  = ? , "+
+					" FD_FECHA_MODIFICACION  = ? , "+
+					" FC_KEYWORDS  = ? , "+
+					" FI_BAN_INFINITO_HOME  = ? , "+
+					" FI_BAN_MSN  = ? , "+
+					" FI_BAN_OTROS  = ? , "+
+					" FC_ID_ESTATUS  = ? "+
+					" WHERE FC_ID_CONTENIDO = ? ",
+					nota.getFcIdCategoria(), nota.getFcFriendlyUrl(), nota.getFcTitulo(),
+					nota.getFcDescripcion(), nota.getFcEscribio(), nota.getFcLugar(), nota.getFcFuente(),
+					nota.getFcIdTipoNota(), nota.getFcImagen(), nota.getFcVideoYoutube(), nota.getFcContentIdOoyala(),
+					nota.getFcPlayerIdOoyala(), nota.getFcIdPcode(), nota.getFcSourceOoyala(),
+					nota.getFcAlternativeTextOoyala(), nota.getFcDurationOoyala(), nota.getFcFileSizeOoyala(),
+					nota.getClGaleria(), nota.getClRtfContenido(), dateFormat.format(new Date()),
+					nota.getFcKeywords(), nota.getFiBanInfinitoHome(),
+					nota.getFiBanMsn(), nota.getFiBanOtros(), nota.getFcIdEstatus(),nota.getFcIdContenido());
+
 
 		} catch (Exception e) {
 
