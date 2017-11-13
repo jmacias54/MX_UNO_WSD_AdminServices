@@ -97,7 +97,6 @@ public class DetailController {
 		logger.info("--- getItem -----");
 
 		HNota nota = null;
-		;
 		try {
 
 			nota = notaBO.findById(idContenido);
