@@ -216,11 +216,14 @@ public class HNotaDAO {
 		query.append("  FROM (SELECT @rownum:=@rownum+1 rank, n.*       ");
 		query.append(" 		   FROM  UNO_H_NOTA N , (SELECT @rownum:=0) r    ");
 		query.append(" 		   WHERE  1=1   ");
-		if (req.getId() != null && !req.getId().equals(""))
+		
+		if (req.getType().equals("categoria")) {
 			query.append("    AND N.FC_ID_CATEGORIA = '" + req.getId() + "' ");
-		if (req.getType() != null && !req.getType().equals(""))
-			query.append(" AND N.FC_ID_TIPO_NOTA = '" + req.getType() + "' ");
-
+		}else if (req.getType().equals("seccion")) {
+			query.append("    AND categoria.FC_ID_SECCION = '" + req.getId() + "' ");
+		}
+		
+		
 		if (req.getStatus() != null && !req.getStatus().equals(""))
 			query.append(" AND N.FC_ID_ESTATUS = '" + req.getStatus() + "' ");
 
