@@ -53,8 +53,8 @@ public class HNotaDAO {
 		int to = limit * page;
 		int from = (to - limit) + 1;
 
-		query.append("  SELECT r.rank, ");
-		query.append(" 		r.FC_ID_CONTENIDO as id ");
+		query.append("  SELECT r.rank ");
+		query.append(" 		,r.FC_ID_CONTENIDO as id ");
 		query.append(" 		,r.FC_TITULO AS title ");
 		query.append("      ,r.FC_DESCRIPCION as description ");
 		query.append("      ,r.FD_FECHA_PUBLICACION as date ");
@@ -69,10 +69,7 @@ public class HNotaDAO {
 		query.append("  FROM (SELECT @rownum:=@rownum+1 rank, n.*       ");
 		query.append(" 		   FROM  UNO_H_NOTA N , (SELECT @rownum:=0) r    ");
 		query.append(" 		   WHERE  1=1   ");
-		if (req.getId() != null && !req.getId().equals(""))
-			query.append("    AND N.FC_ID_CATEGORIA = '" + req.getId() + "' ");
-		if (req.getType() != null && !req.getType().equals(""))
-			query.append(" AND N.FC_ID_TIPO_NOTA = '" + req.getType() + "' ");
+		
 
 		if (req.getDateFrom() != null && !req.getDateFrom().equals(""))
 			query.append(" AND N.FD_FECHA_PUBLICACION >= '" + req.getDateFrom() + "' ");
@@ -83,13 +80,19 @@ public class HNotaDAO {
 		if (req.getStatus() != null && !req.getStatus().equals(""))
 			query.append(" AND N.FC_ID_ESTATUS = '" + req.getStatus() + "' ");
 
-		query.append("         ORDER BY FD_FECHA_PUBLICACION DESC ) AS r  ");
-		query.append(" INNER JOIN uno_c_categoria categoria on r.FC_ID_CATEGORIA = categoria.FC_ID_CATEGORIA ");
-		query.append(" INNER JOIN uno_c_seccion seccion ON categoria.FC_ID_SECCION = seccion.FC_ID_SECCION ");
-		query.append(
-				" INNER JOIN uno_i_h_nota_usuario nota_usuario ON r.FC_ID_CONTENIDO = nota_usuario.FC_ID_CONTENIDO ");
-		query.append(" INNER JOIN uno_c_usuarios usuario ON nota_usuario.FC_ID_USUARIO = usuario.FC_ID_USUARIO ");
+		query.append(" ORDER BY FD_FECHA_PUBLICACION DESC ) AS r  ");
+		query.append(" LEFT JOIN uno_c_categoria categoria on r.FC_ID_CATEGORIA = categoria.FC_ID_CATEGORIA ");
+		query.append(" LEFT JOIN uno_c_seccion seccion ON categoria.FC_ID_SECCION = seccion.FC_ID_SECCION ");
+		query.append(" LEFT JOIN uno_i_h_nota_usuario nota_usuario ON r.FC_ID_CONTENIDO = nota_usuario.FC_ID_CONTENIDO ");
+		query.append(" LEFT JOIN uno_c_usuarios usuario ON nota_usuario.FC_ID_USUARIO = usuario.FC_ID_USUARIO ");
 		query.append(" WHERE r.rank >= " + from + " AND r.rank <= " + to + " ");
+		
+		if (req.getType().equals("categoria")) {
+			query.append("    AND categoria.FC_ID_CATEGORIA = '" + req.getId() + "' ");
+		}else if (req.getType().equals("seccion")) {
+			query.append("    AND seccion.FC_ID_SECCION = '" + req.getId() + "' ");
+		}
+		
 
 		if (req.getAuthor() != null && !req.getAuthor().equals(""))
 			query.append(" AND usuario.FC_NOMBRE = '" + req.getAuthor() + "' ");
@@ -131,8 +134,8 @@ public class HNotaDAO {
 		int to = limit * page;
 		int from = (to - limit) + 1;
 
-		query.append("  SELECT r.rank, ");
-		query.append(" 		r.FC_ID_CONTENIDO as id ");
+		query.append("  SELECT r.rank ");
+		query.append(" 		,r.FC_ID_CONTENIDO as id ");
 		query.append(" 		,r.FC_TITULO AS title ");
 		query.append("      ,r.FC_DESCRIPCION as description ");
 		query.append("      ,r.FD_FECHA_PUBLICACION as date ");
@@ -147,21 +150,29 @@ public class HNotaDAO {
 		query.append("  FROM (SELECT @rownum:=@rownum+1 rank, n.*       ");
 		query.append(" 		   FROM  UNO_H_NOTA N , (SELECT @rownum:=0) r    ");
 		query.append(" 		   WHERE  1=1   ");
-		if (req.getId() != null && !req.getId().equals(""))
-			query.append("    AND N.FC_ID_CATEGORIA = '" + req.getId() + "' ");
-		if (req.getType() != null && !req.getType().equals(""))
-			query.append(" AND N.FC_ID_TIPO_NOTA = '" + req.getType() + "' ");
 
 		if (req.getTitle() != null && !req.getTitle().equals(""))
 			query.append(" AND N.FC_TITULO = '" + req.getTitle() + "' ");
 
 		if (req.getStatus() != null && !req.getStatus().equals(""))
-			query.append(" AND N.FC_ID_ESTATUS = '" + req.getStatus() + "' ");
+			query.append(" AND N.FC_ID_ESTATUS like '%" + req.getStatus() + "%' ");
 
-		query.append("         ORDER BY FD_FECHA_PUBLICACION DESC ) AS r  ");
-		query.append(" INNER JOIN uno_c_categoria categoria on r.FC_ID_CATEGORIA = categoria.FC_ID_CATEGORIA ");
-		query.append(" INNER JOIN uno_c_seccion seccion ON categoria.FC_ID_SECCION = seccion.FC_ID_SECCION ");
+		query.append(" ORDER BY FD_FECHA_PUBLICACION DESC ) AS r  ");
+		query.append(" LEFT JOIN uno_c_categoria categoria on r.FC_ID_CATEGORIA = categoria.FC_ID_CATEGORIA ");
+		query.append(" LEFT JOIN uno_c_seccion seccion ON categoria.FC_ID_SECCION = seccion.FC_ID_SECCION ");
+		query.append(" LEFT JOIN uno_i_h_nota_usuario ihNotaUsuario ON r.FC_ID_CONTENIDO = ihNotaUsuario.FC_ID_CONTENIDO ");
 		query.append(" WHERE r.rank >= " + from + " AND r.rank <= " + to + " ");
+		
+		if (req.getType().equals("categoria")) {
+			query.append("    AND categoria.FC_ID_CATEGORIA = '" + req.getId() + "' ");
+		}else if (req.getType().equals("seccion")) {
+			query.append("    AND seccion.FC_ID_SECCION = '" + req.getId() + "' ");
+		}
+		
+		if (req.getAuthor() != null && !req.getAuthor().equals("")) {
+			query.append("    AND ihNotaUsuario.FC_ID_CATEGORIA = '" + req.getId() + "' ");
+		}
+		
 
 		try {
 
@@ -200,8 +211,8 @@ public class HNotaDAO {
 		int to = limit * page;
 		int from = (to - limit) + 1;
 
-		query.append("  SELECT r.rank, ");
-		query.append(" 		r.FC_ID_CONTENIDO as id ");
+		query.append("  SELECT r.rank ");
+		query.append(" 		,r.FC_ID_CONTENIDO as id ");
 		query.append(" 		,r.FC_TITULO AS title ");
 		query.append("      ,r.FC_DESCRIPCION as description ");
 		query.append("      ,r.FD_FECHA_PUBLICACION as date ");
@@ -217,20 +228,21 @@ public class HNotaDAO {
 		query.append(" 		   FROM  UNO_H_NOTA N , (SELECT @rownum:=0) r    ");
 		query.append(" 		   WHERE  1=1   ");
 		
-		if (req.getType().equals("categoria")) {
-			query.append("    AND N.FC_ID_CATEGORIA = '" + req.getId() + "' ");
-		}else if (req.getType().equals("seccion")) {
-			query.append("    AND categoria.FC_ID_SECCION = '" + req.getId() + "' ");
-		}
-		
-		
 		if (req.getStatus() != null && !req.getStatus().equals(""))
 			query.append(" AND N.FC_ID_ESTATUS = '" + req.getStatus() + "' ");
 
-		query.append("         ORDER BY FD_FECHA_PUBLICACION DESC ) AS r  ");
-		query.append(" INNER JOIN uno_c_categoria categoria on r.FC_ID_CATEGORIA = categoria.FC_ID_CATEGORIA ");
-		query.append(" INNER JOIN uno_c_seccion seccion ON categoria.FC_ID_SECCION = seccion.FC_ID_SECCION ");
+		query.append(" ORDER BY FD_FECHA_PUBLICACION DESC ) AS r  ");
+		query.append(" LEFT JOIN uno_c_categoria categoria on r.FC_ID_CATEGORIA = categoria.FC_ID_CATEGORIA ");
+		query.append(" LEFT JOIN uno_c_seccion seccion ON categoria.FC_ID_SECCION = seccion.FC_ID_SECCION ");
 		query.append(" WHERE r.rank >= " + from + " AND r.rank <= " + to + " ");
+		
+		
+		if (req.getType().equals("categoria")) {
+			query.append("    AND categoria.FC_ID_CATEGORIA = '" + req.getId() + "' ");
+		}else if (req.getType().equals("seccion")) {
+			query.append("    AND seccion.FC_ID_SECCION = '" + req.getId() + "' ");
+		}
+		
 
 		try {
 
