@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
-
 // TODO: Auto-generated Javadoc
 /**
  * The persistent class for the uno_n_nota database table.
@@ -16,7 +14,7 @@ import java.util.Date;
  *
  */
 public class NNota implements Serializable {
-	
+
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
@@ -57,10 +55,29 @@ public class NNota implements Serializable {
 	private Integer fiBanMsn;
 	private Integer fiBanOtros;
 
+	private String fcCoordenadasFb;
+	private String fcCoordenadasMiniatura;
+
 	/**
 	 * Instantiates a new n nota.
 	 */
 	public NNota() {
+	}
+
+	public String getFcCoordenadasFb() {
+		return fcCoordenadasFb;
+	}
+
+	public void setFcCoordenadasFb(String fcCoordenadasFb) {
+		this.fcCoordenadasFb = fcCoordenadasFb;
+	}
+
+	public String getFcCoordenadasMiniatura() {
+		return fcCoordenadasMiniatura;
+	}
+
+	public void setFcCoordenadasMiniatura(String fcCoordenadasMiniatura) {
+		this.fcCoordenadasMiniatura = fcCoordenadasMiniatura;
 	}
 
 	public String getFdFechaModificacion() {
@@ -303,5 +320,4 @@ public class NNota implements Serializable {
 		this.fiBanOtros = fiBanOtros;
 	}
 
-	
 }
