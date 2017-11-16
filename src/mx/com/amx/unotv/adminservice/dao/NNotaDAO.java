@@ -31,6 +31,8 @@ public class NNotaDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	
 	
 	
 	/**
@@ -67,13 +69,7 @@ public class NNotaDAO {
 		query.append(" INNER JOIN uno_c_magazine magazine ON nota_magazine.FC_ID_MAGAZINE = magazine.FC_ID_MAGAZINE ");
 		query.append(" WHERE nota_magazine.FC_ID_CONTENIDO = '"+idMagazine+"' ");
 		
-		
 	
-		
-		
-		
-		
-		
 		try {
 
 			lista = jdbcTemplate.query(query.toString(), new BeanPropertyRowMapper<ItemsResponse>(ItemsResponse.class));
@@ -104,14 +100,10 @@ public class NNotaDAO {
 		
 		logger.info("--- insert  [NNotaDAO] ---- ");
 		int rows = 0;
-
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		
 		try {
-			
-			
-			
-		rows = jdbcTemplate.update( " INSERT INTO UNO_N_NOTA " +
+		
+			rows = jdbcTemplate.update( " INSERT INTO UNO_N_NOTA " +
 				 " (FC_ID_CONTENIDO, " +
 				 " FC_ID_CATEGORIA, " +
 				 " FC_FRIENDLY_URL, " +
@@ -159,13 +151,30 @@ public class NNotaDAO {
 		
 	}
 	
-	
+	public int delete(String  idContenido) throws NNotaDAOException {
+		
+		int rows = 0;
+		
+		try {
+			
+			
+			
+		rows = jdbcTemplate.update( " DELETE FROM uno_n_nota WHERE  FC_ID_CONTENIDO = ? ",idContenido);
+
+		} catch (Exception e) {
+
+			logger.error(" Error delete  N-NOTA [DAO] ", e);
+
+			throw new NNotaDAOException(e.getMessage());
+
+		}
+		
+		return rows;
+	}
 	public int update(NNota nota) throws NNotaDAOException {
 		
 		logger.info("--- update  [NNotaDAO] ---- ");
 		int rows = 0;
-
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		
 		try {
 			

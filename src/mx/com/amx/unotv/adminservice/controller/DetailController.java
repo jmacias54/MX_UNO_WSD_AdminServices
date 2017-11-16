@@ -81,6 +81,25 @@ public class DetailController {
 		return res;
 	}
 	
+	@RequestMapping(value = "/expire_item", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
+	@ResponseBody
+	public int expireItem(@RequestBody NNota nota) throws ControllerException {
+		logger.info("--- DetailController-----");
+		logger.info("--- expire_item -----");
+
+		int res = 0;
+		try {
+
+			res = notaBO.expireItem(nota);
+
+		} catch (Exception e) {
+			logger.error(" -- Error  expire_item  [DetailController]:", e);
+			throw new ControllerException(e.getMessage());
+		}
+
+		return res;
+	}
+	
 	
 
 	/**
