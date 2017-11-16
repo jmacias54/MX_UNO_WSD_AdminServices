@@ -33,7 +33,33 @@ public class NNotaDAO {
 	
 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
-	
+	public NNota findById(String id) throws NNotaDAOException {
+		logger.info("--- findById  [NNotaDAO] ---- ");
+
+		List<NNota> lista = null;
+
+		StringBuilder query = new StringBuilder();
+		query.append(" SELECT * FROM UNO_N_NOTA WHERE FC_ID_CONTENIDO ='" + id + "'");
+
+		try {
+
+			lista = jdbcTemplate.query(query.toString(), new BeanPropertyRowMapper<NNota>(NNota.class));
+
+		} catch (Exception e) {
+
+			logger.error(" Error findById NNota [DAO] ", e);
+
+			throw new NNotaDAOException(e.getMessage());
+
+		}
+
+		if (lista.isEmpty() || lista == null) {
+			return null;
+		}
+
+		return lista.get(0);
+
+	}
 	
 	/**
 	 * Gets the list items by magazine.
@@ -131,13 +157,14 @@ public class NNotaDAO {
 				 " FI_BAN_MSN, " +
 				 " FI_BAN_OTROS, " +
 				 " FC_ID_USUARIO, " +
-				 " FC_ID_ESTATUS) " +
-				 " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) " ,
+				 " FC_ID_ESTATUS , FC_COORDENADAS_FB ,FC_COORDENADAS_MINIATURA  ,FC_PIE_IMAGEN , FC_FUENTE_IMAGEN ) " +
+				 " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) " ,
 				nota.getFcIdContenido(), nota.getFcIdCategoria(), nota.getFcFriendlyUrl(), nota.getFcTitulo(), nota.getFcDescripcion(), nota.getFcEscribio(),
 				nota.getFcLugar(),nota.getFcFuente(),nota.getFcIdTipoNota(),nota.getFcImagen(),nota.getFcVideoYoutube(),nota.getFcContentIdOoyala(),
 				nota.getFcPlayerIdOoyala(),nota.getFcIdPcode(),nota.getFcSourceOoyala(),nota.getFcAlternativeTextOoyala(),nota.getFcDurationOoyala(),
 				nota.getFcFileSizeOoyala(),nota.getClGaleria(),nota.getClRtfContenido(), dateFormat.format(new Date()), dateFormat.format(new Date()),
-				nota.getFcKeywords(),nota.getFiBanInfinitoHome(),nota.getFiBanMsn(),nota.getFiBanOtros(),nota.getFcIdUsuario(),nota.getFcIdEstatus());
+				nota.getFcKeywords(),nota.getFiBanInfinitoHome(),nota.getFiBanMsn(),nota.getFiBanOtros(),nota.getFcIdUsuario(),nota.getFcIdEstatus(),
+				nota.getFcCoordenadasFb() ,nota.getFcCoordenadasMiniatura(),nota.getFcPieImagen(),nota.getFcFuenteImagen());
 
 		} catch (Exception e) {
 
@@ -206,8 +233,8 @@ public class NNotaDAO {
 					" FI_BAN_MSN  = ? , "+
 					" FI_BAN_OTROS  = ? , "+
 					" FC_ID_ESTATUS  = ?, "
-					+ "FC_ID_USUARIO = ? "+
-					" WHERE FC_ID_CONTENIDO = ? ",
+					+ "FC_ID_USUARIO = ?  , FC_COORDENADAS_FB = ?  ,FC_COORDENADAS_MINIATURA = ?  ,FC_PIE_IMAGEN = ?  , FC_FUENTE_IMAGEN = ?  "+
+					" WHERE FC_ID_CONTENIDO = ?  ",
 					nota.getFcIdCategoria(), nota.getFcFriendlyUrl(), nota.getFcTitulo(),
 					nota.getFcDescripcion(), nota.getFcEscribio(), nota.getFcLugar(), nota.getFcFuente(),
 					nota.getFcIdTipoNota(), nota.getFcImagen(), nota.getFcVideoYoutube(), nota.getFcContentIdOoyala(),
@@ -215,7 +242,8 @@ public class NNotaDAO {
 					nota.getFcAlternativeTextOoyala(), nota.getFcDurationOoyala(), nota.getFcFileSizeOoyala(),
 					nota.getClGaleria(), nota.getClRtfContenido(), dateFormat.format(new Date()),
 					nota.getFcKeywords(), nota.getFiBanInfinitoHome(),
-					nota.getFiBanMsn(), nota.getFiBanOtros(), nota.getFcIdEstatus(),nota.getFcIdUsuario(),nota.getFcIdContenido());
+					nota.getFiBanMsn(), nota.getFiBanOtros(), nota.getFcIdEstatus(),nota.getFcIdUsuario(),nota.getFcCoordenadasFb() , 
+					nota.getFcCoordenadasMiniatura(),nota.getFcPieImagen(),nota.getFcFuenteImagen(),nota.getFcIdContenido());
 
 		} catch (Exception e) {
 

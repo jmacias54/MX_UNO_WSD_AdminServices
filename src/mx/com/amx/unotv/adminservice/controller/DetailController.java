@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import mx.com.amx.unotv.adminservice.bo.HNotaBO;
+import mx.com.amx.unotv.adminservice.bo.NNotaBO;
 import mx.com.amx.unotv.adminservice.bo.NotaBO;
 import mx.com.amx.unotv.adminservice.controller.exception.ControllerException;
 import mx.com.amx.unotv.adminservice.model.HNota;
@@ -35,7 +37,10 @@ public class DetailController {
 	/** The nota BO. */
 	@Autowired
 	NotaBO notaBO;
-
+	@Autowired
+	NNotaBO nNotaBO;
+	@Autowired
+	HNotaBO hNotaBO;
 	/**
 	 * Inserta la nota en las tablas NNota y HNota
 	 *
@@ -43,38 +48,80 @@ public class DetailController {
 	 * @return int
 	 * @throws ControllerException 
 	 */
-	@RequestMapping(value = "/save_item", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
+	@RequestMapping(value = "/save_n_nota", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
-	public int saveItem(@RequestBody NNota nota) throws ControllerException {
+	public int save_n_nota(@RequestBody NNota nota) throws ControllerException {
 		logger.info("--- DetailController-----");
-		logger.info("--- save_item -----");
+		logger.info("--- save_n_nota -----");
 
 		int res = 0;
 		try {
 
-			res = notaBO.insert(nota);
+			res = nNotaBO.insert(nota);
 
 		} catch (Exception e) {
-			logger.error(" -- Error  save_item [DetailController]:", e);
+			logger.error(" -- Error  save_n_nota [DetailController]:", e);
 			throw new ControllerException(e.getMessage());
 		}
 
 		return res;
 	}
 	
-	@RequestMapping(value = "/update_item", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
+	@RequestMapping(value = "/save_h_nota", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
-	public int updateItem(@RequestBody NNota nota) throws ControllerException {
+	public int save_h_nota(@RequestBody NNota nota) throws ControllerException {
 		logger.info("--- DetailController-----");
-		logger.info("--- updateItem -----");
+		logger.info("--- save_h_nota -----");
 
 		int res = 0;
 		try {
 
-			res = notaBO.update(nota);
+			res = hNotaBO.insert(nota);
 
 		} catch (Exception e) {
-			logger.error(" -- Error  updateItem [DetailController]:", e);
+			logger.error(" -- Error  save_h_nota [DetailController]:", e);
+			throw new ControllerException(e.getMessage());
+		}
+
+		return res;
+	}
+	
+	@RequestMapping(value = "/update_n_nota", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
+	@ResponseBody
+	public int update_n_nota(@RequestBody NNota nota) throws ControllerException {
+		logger.info("--- DetailController-----");
+		logger.info("--- update_n_nota -----");
+
+		int res = 0;
+		try {
+
+			res = nNotaBO.update(nota);
+
+		} catch (Exception e) {
+			logger.error(" -- Error  update_n_nota [DetailController]:", e);
+			throw new ControllerException(e.getMessage());
+		}
+
+		return res;
+	}
+	
+	
+	
+	
+	
+	@RequestMapping(value = "/update_h_nota", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
+	@ResponseBody
+	public int update_h_nota(@RequestBody NNota nota) throws ControllerException {
+		logger.info("--- DetailController-----");
+		logger.info("--- update_h_nota -----");
+
+		int res = 0;
+		try {
+
+			res = hNotaBO.update(nota);
+
+		} catch (Exception e) {
+			logger.error(" -- Error  update_h_nota [DetailController]:", e);
 			throw new ControllerException(e.getMessage());
 		}
 
@@ -118,10 +165,37 @@ public class DetailController {
 		HNota nota = null;
 		try {
 
-			nota = notaBO.findById(idContenido);
+			nota = hNotaBO.findById(idContenido);
 
 		} catch (Exception e) {
 			logger.error(" -- Error  getItem by IdContenido [DetailController]:", e);
+			throw new ControllerException(e.getMessage());
+		}
+
+		return nota;
+	}
+	
+	
+	/**
+	 * obtiene informacion de la tabla HNota.
+	 *
+	 * @param String idContenido 
+	 * @return HNota
+	 * @throws ControllerException 
+	 */
+	@RequestMapping(value = "/get_n_nota/{idContenido}", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
+	@ResponseBody
+	public NNota get_n_nota(@PathVariable String idContenido) throws ControllerException {
+		logger.info("--- DetailController-----");
+		logger.info("--- get_n_nota -----");
+
+		NNota nota = null;
+		try {
+
+			nota = nNotaBO.findById(idContenido);
+
+		} catch (Exception e) {
+			logger.error(" -- Error  get_n_nota by IdContenido [DetailController]:", e);
 			throw new ControllerException(e.getMessage());
 		}
 
@@ -144,7 +218,7 @@ public class DetailController {
 
 		try {
 
-			lista = notaBO.findAll();
+			lista = hNotaBO.findAll();
 
 			response.setLista(lista);
 		} catch (Exception e) {

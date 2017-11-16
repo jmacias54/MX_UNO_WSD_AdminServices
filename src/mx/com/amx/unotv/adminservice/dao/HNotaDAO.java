@@ -380,7 +380,8 @@ public class HNotaDAO {
 					+ " FC_ALTERNATIVE_TEXT_OOYALA, " + " FC_DURATION_OOYALA, " + " FC_FILE_SIZE_OOYALA, "
 					+ " CL_GALERIA, " + " CL_RTF_CONTENIDO, " + " FD_FECHA_PUBLICACION, " + " FD_FECHA_MODIFICACION, "
 					+ " FC_KEYWORDS, " + " FI_BAN_INFINITO_HOME, " + " FI_BAN_MSN, " + " FI_BAN_OTROS, "
-					+ " FC_ID_ESTATUS) " + " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ",
+					+ " FC_ID_ESTATUS , FC_COORDENADAS_FB ,FC_COORDENADAS_MINIATURA  ,FC_PIE_IMAGEN , FC_FUENTE_IMAGEN ) " 
+					+ " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ",
 					nota.getFcIdContenido(), nota.getFcIdCategoria(), nota.getFcFriendlyUrl(), nota.getFcTitulo(),
 					nota.getFcDescripcion(), nota.getFcEscribio(), nota.getFcLugar(), nota.getFcFuente(),
 					nota.getFcIdTipoNota(), nota.getFcImagen(), nota.getFcVideoYoutube(), nota.getFcContentIdOoyala(),
@@ -388,7 +389,8 @@ public class HNotaDAO {
 					nota.getFcAlternativeTextOoyala(), nota.getFcDurationOoyala(), nota.getFcFileSizeOoyala(),
 					nota.getClGaleria(), nota.getClRtfContenido(), dateFormat.format(new Date()),
 					dateFormat.format(new Date()), nota.getFcKeywords(), nota.getFiBanInfinitoHome(),
-					nota.getFiBanMsn(), nota.getFiBanOtros(), nota.getFcIdEstatus());
+					nota.getFiBanMsn(), nota.getFiBanOtros(), nota.getFcIdEstatus(), nota.getFcCoordenadasFb() , 
+					nota.getFcCoordenadasMiniatura(),nota.getFcPieImagen(),nota.getFcFuenteImagen());
 
 		} catch (Exception e) {
 
@@ -439,7 +441,7 @@ public class HNotaDAO {
 					" FI_BAN_INFINITO_HOME  = ? , "+
 					" FI_BAN_MSN  = ? , "+
 					" FI_BAN_OTROS  = ? , "+
-					" FC_ID_ESTATUS  = ? "+
+					" FC_ID_ESTATUS  = ?   , FC_COORDENADAS_FB = ?  ,FC_COORDENADAS_MINIATURA = ?  ,FC_PIE_IMAGEN = ?  , FC_FUENTE_IMAGEN = ? "+
 					" WHERE FC_ID_CONTENIDO = ? ",
 					nota.getFcIdCategoria(), nota.getFcFriendlyUrl(), nota.getFcTitulo(),
 					nota.getFcDescripcion(), nota.getFcEscribio(), nota.getFcLugar(), nota.getFcFuente(),
@@ -448,7 +450,8 @@ public class HNotaDAO {
 					nota.getFcAlternativeTextOoyala(), nota.getFcDurationOoyala(), nota.getFcFileSizeOoyala(),
 					nota.getClGaleria(), nota.getClRtfContenido(), dateFormat.format(new Date()),
 					nota.getFcKeywords(), nota.getFiBanInfinitoHome(),
-					nota.getFiBanMsn(), nota.getFiBanOtros(), nota.getFcIdEstatus(),nota.getFcIdContenido());
+					nota.getFiBanMsn(), nota.getFiBanOtros(), nota.getFcIdEstatus(),nota.getFcCoordenadasFb() , 
+					nota.getFcCoordenadasMiniatura(),nota.getFcPieImagen(),nota.getFcFuenteImagen(),nota.getFcIdContenido());
 
 
 		} catch (Exception e) {

@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import mx.com.amx.unotv.adminservice.bo.HNotaBO;
+import mx.com.amx.unotv.adminservice.bo.NNotaBO;
 import mx.com.amx.unotv.adminservice.bo.NotaBO;
 import mx.com.amx.unotv.adminservice.controller.exception.ControllerException;
 import mx.com.amx.unotv.adminservice.model.request.ItemsFilterRequest;
@@ -33,6 +35,10 @@ public class ItemsController {
 	/** The nota BO. */
 	@Autowired
 	NotaBO notaBO;
+	@Autowired
+	NNotaBO nNotaBO;
+	@Autowired
+	HNotaBO hNotaBO;
 
 	/** The logger. */
 	private static Logger logger = Logger.getLogger(ItemsController.class);
@@ -57,7 +63,7 @@ public class ItemsController {
 
 
 		try {
-			lista = notaBO.getListItemsByFilter(req);
+			lista = hNotaBO.getListItemsByFilter(req);
 			response.setLista(lista);
 		} catch (Exception e) {
 			new ControllerException(e.getMessage());
@@ -82,7 +88,7 @@ public class ItemsController {
 		ItemsWSResponse response = new ItemsWSResponse();
 
 		try {
-			lista = notaBO.getListItems(req);
+			lista = hNotaBO.getListItems(req);
 			response.setLista(lista);
 		} catch (Exception e) {
 			new ControllerException(e.getMessage());
@@ -107,7 +113,7 @@ public class ItemsController {
 		List<ItemsResponse> lista = null;
 
 		try {
-			lista = notaBO.getListItemsByTitle(req);
+			lista = hNotaBO.getListItemsByTitle(req);
 			response.setLista(lista);
 		} catch (Exception e) {
 			new ControllerException(e.getMessage());
