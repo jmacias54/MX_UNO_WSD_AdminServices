@@ -262,25 +262,7 @@ public class CatalogsController {
 	}
 
 	
-	@RequestMapping(value = "/get_tags", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
-	@ResponseBody
-	public CatalogWSResponse get_tags_by_id_() throws ControllerException {
-		logger.info("--- ItemsController-----");
-		logger.info("--- get_tags -----");
 
-		CatalogWSResponse response = new CatalogWSResponse();
-		List<CatalogResponse> lista = null;
-
-		try {
-			lista = tagBO.getAll();
-			response.setLista(lista);
-		} catch (Exception e) {
-			logger.error(" -- Error  get_tags [CatalogsController]:", e);
-			throw new ControllerException(e.getMessage());
-		}
-
-		return response;
-	}
 	
 	
 
