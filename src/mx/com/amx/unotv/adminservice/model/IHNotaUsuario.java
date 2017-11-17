@@ -12,18 +12,9 @@ public class IHNotaUsuario {
 	private String fcIdUsuario;
 	private String fcIdContenido;
 	private String fdFechaModificacion;
+	private String fcIdEstatus;
 
-	/**
-	 * @param fcIdUsuario
-	 * @param fcIdContenido
-	 * @param fdFechaModificacion
-	 */
-	public IHNotaUsuario(String fcIdUsuario, String fcIdContenido, String fdFechaModificacion) {
-		super();
-		this.fcIdUsuario = fcIdUsuario;
-		this.fcIdContenido = fcIdContenido;
-		this.fdFechaModificacion = fdFechaModificacion;
-	}
+
 
 	/**
 	 * 
@@ -32,6 +23,20 @@ public class IHNotaUsuario {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+	
+	
+	public String getFcIdEstatus() {
+		return fcIdEstatus;
+	}
+
+
+
+	public void setFcIdEstatus(String fcIdEstatus) {
+		this.fcIdEstatus = fcIdEstatus;
+	}
+
+
 
 	public String getFcIdUsuario() {
 		return fcIdUsuario;

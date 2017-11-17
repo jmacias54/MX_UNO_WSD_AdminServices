@@ -19,6 +19,8 @@ public class Tag implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	
+	private String fcIdConteido;
+	
 	/** The fc id tag. */
 	private String fcIdTag;
 
@@ -36,6 +38,23 @@ public class Tag implements Serializable {
 	 */
 	public Tag() {
 	}
+
+	
+	
+	
+	public String getFcIdConteido() {
+		return fcIdConteido;
+	}
+
+
+
+
+	public void setFcIdConteido(String fcIdConteido) {
+		this.fcIdConteido = fcIdConteido;
+	}
+
+
+
 
 	/**
 	 * Gets the fc id tag.

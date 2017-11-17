@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import mx.com.amx.unotv.adminservice.bo.exception.HNotaBOException;
 import mx.com.amx.unotv.adminservice.bo.exception.NotaBOException;
 import mx.com.amx.unotv.adminservice.dao.HNotaDAO;
+import mx.com.amx.unotv.adminservice.dao.IHNotaTagDAO;
 import mx.com.amx.unotv.adminservice.dao.IHNotaUsuarioDAO;
 import mx.com.amx.unotv.adminservice.model.HNota;
 import mx.com.amx.unotv.adminservice.model.IHNotaUsuario;
@@ -25,34 +26,38 @@ import mx.com.amx.unotv.adminservice.model.response.ItemsResponse;
  *
  */
 public class HNotaBO {
-	
+
 	/** The logger. */
 	private Logger logger = Logger.getLogger(HNotaBO.class);
-
 
 	/** The h nota DAO. */
 	@Autowired
 	HNotaDAO hNotaDAO;
 	@Autowired
 	IHNotaUsuarioDAO iHNotaUsuarioDAO;
-	
+	@Autowired
+	IHNotaTagDAO iHNotaTagDAO;
+
 	public int update(NNota nota) throws HNotaBOException {
 		logger.info("--- update  [ HNotaBO ] ---- ");
 		int rows = 0;
 
 		try {
 
+			IHNotaUsuario iHNotaUsuario = new IHNotaUsuario();
+			iHNotaUsuario.setFcIdContenido(nota.getFcIdContenido());
+			iHNotaUsuario.setFcIdUsuario(nota.getFcIdUsuario());
+			iHNotaUsuario.setFcIdEstatus(nota.getFcIdEstatus());
+
+			rows = iHNotaUsuarioDAO.insert(iHNotaUsuario);
+
+			if (rows > 0) {
+				rows = 0;
 
 				rows = hNotaDAO.update(nota);
-				if (rows == 1) {
-					rows = 0;
-					IHNotaUsuario iHNotaUsuario = new IHNotaUsuario();
-					iHNotaUsuario.setFcIdContenido(nota.getFcIdContenido());
-					iHNotaUsuario.setFcIdUsuario(nota.getFcIdUsuario());
 
-					rows = iHNotaUsuarioDAO.insert(iHNotaUsuario);
-				}
-			
+			}
+
 		} catch (Exception e) {
 
 			logger.error(" Error al update H-NOTA [ HNotaBO ] ", e);
@@ -62,16 +67,14 @@ public class HNotaBO {
 
 		return rows;
 	}
-	
-	
-
 
 	/**
 	 * Inserta la nota en las tablas NNota y HNota
 	 *
 	 * @param NNota
 	 * @return int
-	 * @throws NotaBOException the nota BO exception
+	 * @throws NotaBOException
+	 *             the nota BO exception
 	 */
 	public int insert(NNota nota) throws HNotaBOException {
 		logger.info("--- insert  [ HNotaBO ] ---- ");
@@ -85,6 +88,7 @@ public class HNotaBO {
 				IHNotaUsuario iHNotaUsuario = new IHNotaUsuario();
 				iHNotaUsuario.setFcIdContenido(nota.getFcIdContenido());
 				iHNotaUsuario.setFcIdUsuario(nota.getFcIdUsuario());
+				iHNotaUsuario.setFcIdEstatus(nota.getFcIdEstatus());
 
 				rows = iHNotaUsuarioDAO.insert(iHNotaUsuario);
 			}
@@ -98,19 +102,17 @@ public class HNotaBO {
 
 		return rows;
 	}
-	
-	
-	
+
 	/**
 	 * Gets the list items by filter.
 	 *
 	 * @param ItemsFilterRequest
-	 * @return List<ItemsResponse> 
-	 * @throws NotaBOException 
+	 * @return List<ItemsResponse>
+	 * @throws NotaBOException
 	 */
-	public List<ItemsResponse> getListItemsByFilter(ItemsFilterRequest req)throws HNotaBOException{
-	List<ItemsResponse> lista = null;
-		
+	public List<ItemsResponse> getListItemsByFilter(ItemsFilterRequest req) throws HNotaBOException {
+		List<ItemsResponse> lista = null;
+
 		try {
 			lista = hNotaDAO.getListItemsByFilter(req);
 
@@ -123,18 +125,18 @@ public class HNotaBO {
 
 		return lista;
 	}
-	
+
 	/**
 	 * Gets the list items by title.
 	 *
 	 * @param ItemsRequestByTitle
 	 * @return List<ItemsResponse>
-	 * @throws NotaBOException 
+	 * @throws NotaBOException
 	 */
-	public  List<ItemsResponse> getListItemsByTitle(ItemsRequestByTitle req) throws HNotaBOException {
+	public List<ItemsResponse> getListItemsByTitle(ItemsRequestByTitle req) throws HNotaBOException {
 
 		List<ItemsResponse> lista = null;
-		
+
 		try {
 			lista = hNotaDAO.getListItemsByTitle(req);
 
@@ -148,14 +150,13 @@ public class HNotaBO {
 		return lista;
 
 	}
-	
 
 	/**
 	 * Gets the list items.
 	 *
 	 * @param ItemsRequest
 	 * @return List<ItemsResponse>
-	 * @throws NotaBOException 
+	 * @throws NotaBOException
 	 */
 	public List<ItemsResponse> getListItems(ItemsRequest req) throws HNotaBOException {
 		List<ItemsResponse> lista = null;
@@ -171,14 +172,12 @@ public class HNotaBO {
 
 		return lista;
 	}
-	
-	
 
 	/**
 	 * obtiene la lista de las nota en la tabla HNota.
 	 *
-	 * @return  List<HNota>
-	 * @throws NotaBOException 
+	 * @return List<HNota>
+	 * @throws NotaBOException
 	 */
 	public List<HNota> findAll() throws HNotaBOException {
 		List<HNota> lista = null;
@@ -196,14 +195,15 @@ public class HNotaBO {
 		return lista;
 
 	}
-	
-	
+
 	/**
 	 * obtiene informacion de la tabla HNota.
 	 *
-	 * @param String idContenido 
+	 * @param String
+	 *            idContenido
 	 * @return HNota
-	 * @throws NotaBOException the nota BO exception
+	 * @throws NotaBOException
+	 *             the nota BO exception
 	 */
 	public HNota findById(String id) throws HNotaBOException {
 		HNota nota = null;
@@ -220,6 +220,5 @@ public class HNotaBO {
 		return nota;
 
 	}
-	
 
 }

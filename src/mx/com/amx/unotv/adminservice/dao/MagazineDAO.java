@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import mx.com.amx.unotv.adminservice.dao.exception.HNotaDAOException;
 import mx.com.amx.unotv.adminservice.dao.exception.MagazineDAOException;
-import mx.com.amx.unotv.adminservice.model.HNota;
 import mx.com.amx.unotv.adminservice.model.IMagazineNota;
 import mx.com.amx.unotv.adminservice.model.Magazine;
 
@@ -21,30 +19,28 @@ import mx.com.amx.unotv.adminservice.model.Magazine;
  * @author Jesus A. Macias Benitez
  */
 public class MagazineDAO {
-	
+
 	private Logger logger = Logger.getLogger(MagazineDAO.class);
-	
+
 	/** The jdbc template. */
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	
-	
+
 	/**
 	 * Gets the list magazine.
 	 *
 	 * @return the list magazine
-	 * @throws MagazineDAOException the magazine DAO exception
+	 * @throws MagazineDAOException
+	 *             the magazine DAO exception
 	 */
-	public List<Magazine> getListMagazine() throws MagazineDAOException{
-		List<Magazine> lista = null ;
-		
+	public List<Magazine> getListMagazine() throws MagazineDAOException {
+		List<Magazine> lista = null;
+
 		StringBuilder query = new StringBuilder();
 		query.append(" SELECT  * FROM uno_c_magazine  ");
-	
 
 		try {
-			lista = jdbcTemplate.query(query.toString(),
-					new BeanPropertyRowMapper<Magazine>(Magazine.class));
+			lista = jdbcTemplate.query(query.toString(), new BeanPropertyRowMapper<Magazine>(Magazine.class));
 
 		} catch (NullPointerException npe) {
 			// TODO: handle exception
@@ -53,20 +49,17 @@ public class MagazineDAO {
 			new MagazineDAOException(e.getMessage());
 		}
 
-		return lista ;
+		return lista;
 	}
-	
-	
-	public Magazine getMagazineByIdMagazine(String idMagazine) throws MagazineDAOException{
-		List<Magazine> lista = null ;
-		
+
+	public Magazine getMagazineByIdMagazine(String idMagazine) throws MagazineDAOException {
+		List<Magazine> lista = null;
+
 		StringBuilder query = new StringBuilder();
-		query.append(" SELECT  * FROM uno_c_magazine WHERE FC_ID_MAGAZINE = '"+idMagazine+"' ");
-	
+		query.append(" SELECT  * FROM uno_c_magazine WHERE FC_ID_MAGAZINE = '" + idMagazine + "' ");
 
 		try {
-			lista = jdbcTemplate.query(query.toString(),
-					new BeanPropertyRowMapper<Magazine>(Magazine.class));
+			lista = jdbcTemplate.query(query.toString(), new BeanPropertyRowMapper<Magazine>(Magazine.class));
 
 		} catch (NullPointerException npe) {
 			// TODO: handle exception
@@ -75,15 +68,13 @@ public class MagazineDAO {
 			new MagazineDAOException(e.getMessage());
 		}
 
-		return lista.get(0) ;
+		return lista.get(0);
 	}
-	
-	
+
 	public int deleteIMagazineNota(String IdMagazine) throws MagazineDAOException {
 		int rows = 0;
 		StringBuilder query = new StringBuilder();
-		
-		
+
 		query.append(" DELETE FROM uno_i_nota_magazine WHERE  FC_ID_MAGAZINE = '" + IdMagazine + "' ");
 		try {
 
@@ -100,31 +91,26 @@ public class MagazineDAO {
 		return rows;
 
 	}
-	
-	public int  insertIMagazineNota(IMagazineNota magazineNota) throws MagazineDAOException {
+
+	public int insertIMagazineNota(IMagazineNota magazineNota) throws MagazineDAOException {
 		int rows = 0;
-		
+
 		try {
-			rows = jdbcTemplate.update( " INSERT INTO uno_i_nota_magazine "
-					                    + " (FC_ID_MAGAZINE, FC_ID_CONTENIDO, FC_URL_EXTERNA, FI_ORDEN ) "
-					                    + " VALUES (? , ?, ?, ?)" 
-					,magazineNota.getFcIdMagazine()
-					,magazineNota.getFcIdContenido()
-					,magazineNota.getFcUrlExterna()
-					,magazineNota.getFiOrden());
+			rows = jdbcTemplate.update(" INSERT INTO uno_i_nota_magazine "
+					+ " (FC_ID_MAGAZINE, FC_ID_CONTENIDO, FC_URL_EXTERNA, FI_ORDEN ) " + " VALUES (? , ?, ?, ?)",
+					magazineNota.getFcIdMagazine(), magazineNota.getFcIdContenido(), magazineNota.getFcUrlExterna(),
+					magazineNota.getFiOrden());
 
-			} catch (Exception e) {
+		} catch (Exception e) {
 
-				logger.error(" Error al insertIMagazineNota [ MagazineDAO ] ", e);
+			logger.error(" Error al insertIMagazineNota [ MagazineDAO ] ", e);
 
-				throw new MagazineDAOException(e.getMessage());
+			throw new MagazineDAOException(e.getMessage());
 
-			}
-			
-		
-		
-		return rows ;
-		
+		}
+
+		return rows;
+
 	}
 
 }

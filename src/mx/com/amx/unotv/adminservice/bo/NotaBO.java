@@ -12,7 +12,6 @@ import mx.com.amx.unotv.adminservice.bo.exception.NotaBOException;
 import mx.com.amx.unotv.adminservice.dao.HNotaDAO;
 import mx.com.amx.unotv.adminservice.dao.IHNotaUsuarioDAO;
 import mx.com.amx.unotv.adminservice.dao.NNotaDAO;
-import mx.com.amx.unotv.adminservice.model.IHNotaUsuario;
 import mx.com.amx.unotv.adminservice.model.NNota;
 
 // TODO: Auto-generated Javadoc
@@ -37,6 +36,9 @@ public class NotaBO {
 	@Autowired
 	IHNotaUsuarioDAO iHNotaUsuarioDAO;
 	
+	@Autowired
+	HNotaBO hNotaBO;
+	
 	
 	public int expireItem(NNota nota) throws NotaBOException {
 		logger.info("--- expireItem  [NotaBO] ---- ");
@@ -45,17 +47,9 @@ public class NotaBO {
 		try {
 
 			rows = nNotaDAO.delete(nota.getFcIdContenido());
-			if (rows == 1) {
+			if (rows > 0 ) {
 				rows = 0;
-				rows = hNotaDAO.expire(nota);
-				if (rows == 1) {
-					rows = 0;
-					IHNotaUsuario iHNotaUsuario = new IHNotaUsuario();
-					iHNotaUsuario.setFcIdContenido(nota.getFcIdContenido());
-					iHNotaUsuario.setFcIdUsuario(nota.getFcIdUsuario());
-
-					rows = iHNotaUsuarioDAO.insert(iHNotaUsuario);
-				}
+				rows = hNotaBO.update(nota);
 			}
 
 		} catch (Exception e) {

@@ -38,6 +38,8 @@
 	<bean id="pcodeDAO" class="mx.com.amx.unotv.adminservice.dao.PcodeDAO"></bean>
 	<bean id="magazineDAO" class="mx.com.amx.unotv.adminservice.dao.MagazineDAO"></bean>
 	<bean id="iHNotaUsuarioDAO" class="mx.com.amx.unotv.adminservice.dao.IHNotaUsuarioDAO"></bean>
+	<bean id="iNotaTagDAO" class="mx.com.amx.unotv.adminservice.dao.INotaTagDAO"></bean>
+	<bean id="iHNotaTagDAO" class="mx.com.amx.unotv.adminservice.dao.IHNotaTagDAO"></bean>
 	
 	
 	

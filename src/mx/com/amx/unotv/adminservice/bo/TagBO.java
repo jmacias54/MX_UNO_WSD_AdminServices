@@ -9,6 +9,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import mx.com.amx.unotv.adminservice.bo.exception.TagBOException;
+import mx.com.amx.unotv.adminservice.dao.IHNotaTagDAO;
+import mx.com.amx.unotv.adminservice.dao.INotaTagDAO;
 import mx.com.amx.unotv.adminservice.dao.TagDAO;
 import mx.com.amx.unotv.adminservice.model.Tag;
 import mx.com.amx.unotv.adminservice.model.response.CatalogResponse;
@@ -26,6 +28,10 @@ public class TagBO {
 	/** The tag DAO. */
 	@Autowired
 	private TagDAO tagDAO;
+	@Autowired
+	INotaTagDAO iNotaTagDAO;
+	@Autowired
+	IHNotaTagDAO iHNotaTagDAO;
 
 	/**
 	 * Gets the all Tags
@@ -55,5 +61,8 @@ public class TagBO {
 
 		return response;
 	}
+	
+	
+	
 
 }

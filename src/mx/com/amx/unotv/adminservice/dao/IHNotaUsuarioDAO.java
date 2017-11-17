@@ -36,8 +36,8 @@ public class IHNotaUsuarioDAO {
 
 		try {
 
-			rows = jdbcTemplate.update(" INSERT INTO uno_i_h_nota_usuario (FC_ID_USUARIO,FC_ID_CONTENIDO,FD_FECHA_MODIFICACION) VALUES ( ? ,? ,? ) ", 
-										iHNotaUsuario.getFcIdUsuario(),iHNotaUsuario.getFcIdContenido(),dateFormat.format(new Date()));
+			rows = jdbcTemplate.update(" INSERT INTO uno_i_h_nota_usuario (FC_ID_USUARIO,FC_ID_CONTENIDO,FD_FECHA_MODIFICACION,FC_ID_ESTATUS) VALUES ( ? ,? ,? ,?) ", 
+										iHNotaUsuario.getFcIdUsuario(),iHNotaUsuario.getFcIdContenido(),dateFormat.format(new Date()),iHNotaUsuario.getFcIdEstatus());
 
 		} catch (Exception e) {
 
