@@ -11,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import mx.com.amx.unotv.adminservice.bo.exception.HNotaBOException;
 import mx.com.amx.unotv.adminservice.bo.exception.NotaBOException;
 import mx.com.amx.unotv.adminservice.dao.HNotaDAO;
-import mx.com.amx.unotv.adminservice.dao.IHNotaTagDAO;
-import mx.com.amx.unotv.adminservice.dao.IHNotaUsuarioDAO;
 import mx.com.amx.unotv.adminservice.model.HNota;
 import mx.com.amx.unotv.adminservice.model.IHNotaUsuario;
 import mx.com.amx.unotv.adminservice.model.NNota;
@@ -34,9 +32,8 @@ public class HNotaBO {
 	@Autowired
 	HNotaDAO hNotaDAO;
 	@Autowired
-	IHNotaUsuarioDAO iHNotaUsuarioDAO;
-	@Autowired
-	IHNotaTagDAO iHNotaTagDAO;
+	IHNotaUsuarioBO iHNotaUsuarioBO;
+
 
 	public int update(NNota nota) throws HNotaBOException {
 		logger.info("--- update  [ HNotaBO ] ---- ");
@@ -49,7 +46,7 @@ public class HNotaBO {
 			iHNotaUsuario.setFcIdUsuario(nota.getFcIdUsuario());
 			iHNotaUsuario.setFcIdEstatus(nota.getFcIdEstatus());
 
-			rows = iHNotaUsuarioDAO.insert(iHNotaUsuario);
+			rows = iHNotaUsuarioBO.insert(iHNotaUsuario);
 
 			if (rows > 0) {
 				rows = 0;
@@ -90,7 +87,7 @@ public class HNotaBO {
 				iHNotaUsuario.setFcIdUsuario(nota.getFcIdUsuario());
 				iHNotaUsuario.setFcIdEstatus(nota.getFcIdEstatus());
 
-				rows = iHNotaUsuarioDAO.insert(iHNotaUsuario);
+				rows = iHNotaUsuarioBO.insert(iHNotaUsuario);
 			}
 
 		} catch (Exception e) {

@@ -30,6 +30,25 @@ public class NNotaBO {
 	
 	
 	
+	public int delete(String idContenido) throws NotaBOException {
+		logger.info("--- delete  [ NNotaBO ] ---- ");
+		int rows = 0;
+
+		try {
+
+			rows = nNotaDAO.delete(idContenido);
+
+		} catch (Exception e) {
+
+			logger.error(" Error delete N-NOTA [ NNotaBO ] ", e);
+			throw new NotaBOException(e.getMessage());
+
+		}
+
+		return rows;
+	}
+	
+	
 	public NNota findById(String id) throws HNotaBOException {
 		NNota nota = null;
 		try {

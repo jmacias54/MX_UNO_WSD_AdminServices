@@ -61,6 +61,26 @@ public class NNotaController {
 	}
 	
 	
+	@RequestMapping(value = "/delete/{idContenido}", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
+	@ResponseBody
+	public int delete(@PathVariable String idContenido) throws ControllerException {
+		logger.info("--- DetailController-----");
+		logger.info("--- delete -----");
+
+		int res = 0;
+		try {
+
+			res = nNotaBO.delete(idContenido);
+
+		} catch (Exception e) {
+			logger.error(" -- Error  delete [ NNotaController ]:", e);
+			throw new ControllerException(e.getMessage());
+		}
+
+		return res;
+	}
+	
+	
 	@RequestMapping(value = "/update", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
 	public int update(@RequestBody NNota nota) throws ControllerException {

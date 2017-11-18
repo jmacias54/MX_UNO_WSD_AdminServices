@@ -33,13 +33,7 @@ public class CategoriaDAO  {
 		List<Categoria> lista = null;
 		
 		StringBuilder query = new StringBuilder();
-		query.append(" SELECT  FC_ID_CATEGORIA , ");
-		query.append("   FC_ID_SECCION , ");
-		query.append("   FC_DESCRIPCION , ");
-		query.append("   FC_FRIENDLY_URL , ");
-		query.append("   FI_ESTATUS , ");
-		query.append("   FI_REGISTROS , ");
-		query.append("   FC_RUTA_DFP  ");
+		query.append(" SELECT * ");
 		query.append(" FROM uno_c_categoria WHERE FC_ID_CATEGORIA = '" + idCategorie + "' ");
 
 		try {
