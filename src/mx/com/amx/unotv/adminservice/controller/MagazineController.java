@@ -1,5 +1,6 @@
 package mx.com.amx.unotv.adminservice.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import mx.com.amx.unotv.adminservice.bo.MagazineBO;
 import mx.com.amx.unotv.adminservice.bo.NotaBO;
 import mx.com.amx.unotv.adminservice.controller.exception.ControllerException;
+import mx.com.amx.unotv.adminservice.model.IMagazineNota;
 import mx.com.amx.unotv.adminservice.model.Magazine;
 import mx.com.amx.unotv.adminservice.model.request.MagazineRequest;
 import mx.com.amx.unotv.adminservice.model.response.ListMagazine;
@@ -103,7 +105,23 @@ public class MagazineController {
 		
 	}
 	
-	
+	@RequestMapping(value = "/magazine", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
+	@ResponseBody
+	public MagazineRequest magazine() throws ControllerException {
+
+		MagazineRequest req = new MagazineRequest();
+		
+		List<IMagazineNota>lista = new ArrayList<IMagazineNota>();
+		lista.add(new IMagazineNota());
+		lista.add(new IMagazineNota());
+		lista.add(new IMagazineNota());
+		
+		req.setLista(lista);
+
+		return req;
+
+		
+	}
 	
 
 }

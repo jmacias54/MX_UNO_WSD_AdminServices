@@ -73,33 +73,27 @@ public class MagazineBO {
 
 	public void saveMagazine(MagazineRequest req) throws MagazineBOException {
 
-		int delete = 0;
-
 		try {
 
-			delete = magazineDAO.deleteIMagazineNota(req.getId_magazine());
+			magazineDAO.deleteIMagazineNota(req.getId_magazine());
 
 		} catch (Exception e) {
 			new MagazineBOException(e.getMessage());
 			logger.error(" Error saveMagazine - deleteIMagazineNota [ MagazineBO ] ", e);
 		}
 
-		if (delete > 0) {
+		try {
 
-			try {
+			for (IMagazineNota iMagazineNota : req.getLista()) {
 
-				for (IMagazineNota iMagazineNota : req.getLista()) {
+				magazineDAO.insertIMagazineNota(iMagazineNota);
 
-					 magazineDAO.insertIMagazineNota(iMagazineNota);
-
-				}
-
-			} catch (Exception e) {
-				
-				logger.error(" Error saveMagazine - insertIMagazineNota [ MagazineBO ] ", e);
-				new MagazineBOException(e.getMessage());
 			}
 
+		} catch (Exception e) {
+
+			logger.error(" Error saveMagazine - insertIMagazineNota [ MagazineBO ] ", e);
+			new MagazineBOException(e.getMessage());
 		}
 
 	}

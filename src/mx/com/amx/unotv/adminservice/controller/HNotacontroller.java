@@ -39,6 +39,28 @@ public class HNotacontroller {
 	
 	
 	
+	@RequestMapping(value = "/get_no_notas/{date}", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
+	@ResponseBody
+	public Integer getNoNotas(@PathVariable String date) throws ControllerException {
+		logger.info("--- HNotacontroller-----");
+		logger.info("--- getNoNotas -----");
+
+		Integer res = 0;
+		try {
+
+			res = hNotaBO.getNoNotas(date);
+
+		} catch (Exception e) {
+			logger.error(" -- Error  getNoNotas [ HNotacontroller ]:", e);
+			throw new ControllerException(e.getMessage());
+		}
+
+		return res;
+	}
+	
+	
+	
+	
 	@RequestMapping(value = "/insert", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
 	public int insert(@RequestBody NNota nota) throws ControllerException {

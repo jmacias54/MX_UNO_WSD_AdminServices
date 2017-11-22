@@ -8,8 +8,10 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.SqlRowSetResultSetExtractor;
 
 import mx.com.amx.unotv.adminservice.dao.exception.HNotaDAOException;
+import mx.com.amx.unotv.adminservice.mapper.TotalRowMapper;
 import mx.com.amx.unotv.adminservice.model.HNota;
 import mx.com.amx.unotv.adminservice.model.NNota;
 import mx.com.amx.unotv.adminservice.model.request.ItemsFilterRequest;
@@ -33,6 +35,31 @@ public class HNotaDAO {
 	private JdbcTemplate jdbcTemplate;
 	
 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	SimpleDateFormat dateFormat_2 = new SimpleDateFormat("yyyy-MM-dd");
+	
+	public Integer getNoNotas(String date) throws HNotaDAOException {
+
+		if (date == null || date.equals("")) {
+			return 0;
+		}
+
+		Integer total = 0;
+		try {
+
+			total = jdbcTemplate.queryForObject(
+					"SELECT count(*) as total FROM uno_h_nota  WHERE  date (FD_FECHA_PUBLICACION) = '" + date + "'",
+					new TotalRowMapper());
+
+		} catch (Exception e) {
+
+			logger.error(" Error getNoNotas HNota [DAO] ", e);
+
+			throw new HNotaDAOException(e.getMessage());
+
+		}
+
+		return total;
+	}
 
 	/**
 	 * Gets the list items by filter.
@@ -72,8 +99,8 @@ public class HNotaDAO {
 		query.append(" 		   FROM  UNO_H_NOTA N      ");
 		query.append(" 		   LEFT JOIN uno_c_categoria categoria on N.FC_ID_CATEGORIA = categoria.FC_ID_CATEGORIA   ");
 		query.append("		   LEFT JOIN uno_c_seccion seccion ON categoria.FC_ID_SECCION = seccion.FC_ID_SECCION ");
-		query.append("         LEFT JOIN uno_i_h_nota_usuario nota_usuario ON N.FC_ID_CONTENIDO = nota_usuario.FC_ID_CONTENIDO   ");
-		query.append("         LEFT JOIN uno_c_usuarios usuario ON nota_usuario.FC_ID_USUARIO = usuario.FC_ID_USUARIO ");
+		//query.append("         LEFT JOIN uno_i_h_nota_usuario nota_usuario ON N.FC_ID_CONTENIDO = nota_usuario.FC_ID_CONTENIDO   ");
+		//query.append("         LEFT JOIN uno_c_usuarios usuario ON nota_usuario.FC_ID_USUARIO = usuario.FC_ID_USUARIO ");
 		query.append(" 		   WHERE  1=1   ");
 		
 		if (req.getType().equals("categoria")) {
@@ -154,7 +181,7 @@ public class HNotaDAO {
 		query.append(" 		   FROM  UNO_H_NOTA N      ");
 		query.append(" 		   LEFT JOIN uno_c_categoria categoria on N.FC_ID_CATEGORIA = categoria.FC_ID_CATEGORIA   ");
 		query.append("		   LEFT JOIN uno_c_seccion seccion ON categoria.FC_ID_SECCION = seccion.FC_ID_SECCION ");
-		query.append(" 		   LEFT JOIN uno_i_h_nota_usuario ihNotaUsuario ON N.FC_ID_CONTENIDO = ihNotaUsuario.FC_ID_CONTENIDO ");
+		//query.append(" 		   LEFT JOIN uno_i_h_nota_usuario ihNotaUsuario ON N.FC_ID_CONTENIDO = ihNotaUsuario.FC_ID_CONTENIDO ");
 		query.append(" 		   WHERE  1=1   ");
 		
 		if (req.getType().equals("categoria")) {
@@ -218,7 +245,7 @@ public class HNotaDAO {
 		int from = (to - limit) + 1;
 
 		query.append("  SELECT * FROM (SELECT @rownum:=@rownum+1 rank , q.* ");
-		query.append("  FROM ( ");
+		query.append("  FROM ( SELECT ");
 		query.append("		   n.FC_ID_CONTENIDO as id  ,");
 		query.append(" 		   n.FC_TITULO AS title,");
         query.append("         n.FC_DESCRIPCION as description ,");

@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import mx.com.amx.unotv.adminservice.bo.exception.HNotaBOException;
 import mx.com.amx.unotv.adminservice.bo.exception.NotaBOException;
 import mx.com.amx.unotv.adminservice.dao.HNotaDAO;
@@ -33,6 +32,22 @@ public class HNotaBO {
 	HNotaDAO hNotaDAO;
 	@Autowired
 	IHNotaUsuarioBO iHNotaUsuarioBO;
+	
+	
+	public Integer getNoNotas(String date) throws HNotaBOException {
+		Integer res = 0;
+
+		try {
+			res =hNotaDAO.getNoNotas(date);
+		} catch (Exception e) {
+
+			logger.error(" Error getNoNotas H-NOTA [ HNotaBO ] ", e);
+			throw new HNotaBOException(e.getMessage());
+
+		}
+
+		return res;
+	}
 
 
 	public int update(NNota nota) throws HNotaBOException {
