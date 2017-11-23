@@ -4,6 +4,7 @@
 package mx.com.amx.unotv.adminservice.dao;
 
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -81,6 +82,10 @@ public class IHNotaUsuarioDAO {
 
 			throw new NNotaDAOException(e.getMessage());
 
+		}
+		
+		if(lista== null || lista.isEmpty()) {
+			return null;
 		}
 		
 		return lista.get(0) ;
