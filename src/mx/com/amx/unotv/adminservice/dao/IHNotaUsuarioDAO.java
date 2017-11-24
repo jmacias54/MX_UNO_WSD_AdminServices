@@ -4,7 +4,6 @@
 package mx.com.amx.unotv.adminservice.dao;
 
 import java.text.SimpleDateFormat;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 

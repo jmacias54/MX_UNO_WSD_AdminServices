@@ -25,6 +25,9 @@
 	<bean id="iNotaTagBO" class="mx.com.amx.unotv.adminservice.bo.INotaTagBO"></bean>
 	<bean id="iHNotaTagBO" class="mx.com.amx.unotv.adminservice.bo.IHNotaTagBO"></bean>
 	<bean id="iHNotaUsuarioBO" class="mx.com.amx.unotv.adminservice.bo.IHNotaUsuarioBO"></bean>
+	<bean id="iMagazineNotaBO" class="mx.com.amx.unotv.adminservice.bo.IMagazineNotaBO"></bean>
+	
+	
 
 
 
