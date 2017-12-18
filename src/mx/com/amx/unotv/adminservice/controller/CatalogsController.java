@@ -120,6 +120,27 @@ public class CatalogsController {
 		}
 		return response;
 	}
+	
+	
+
+	@RequestMapping(value = "/get_categoria/{idCategoria}", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
+	@ResponseBody
+	public Categoria  categoriaFindById(@PathVariable String idCategoria)
+			throws ControllerException {
+		logger.info("--- ItemsController-----");
+		logger.info("--- categoriaFindById -----");
+
+	
+		try {
+			return categoriaBO.findById(idCategoria);
+			
+		} catch (Exception e) {
+			logger.error(" -- Error  categoriaFindById [CatalogsController]:", e);
+			throw new ControllerException(e.getMessage());
+		}
+		
+	}
+
 
 	/**
 	 * Find all Categoria.

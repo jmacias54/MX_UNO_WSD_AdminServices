@@ -194,7 +194,7 @@ public class HNotaDAO {
 		}
 
 		if (req.getTitle() != null && !req.getTitle().equals(""))
-			query.append(" 		AND N.FC_TITULO = '" + req.getTitle() + "' ");
+			query.append(" 		AND N.FC_TITULO LIKE '%" + req.getTitle() + "%' ");
 
 		if (req.getStatus() != null && !req.getStatus().equals(""))
 			query.append(" 		AND N.FC_ID_ESTATUS = '" + req.getStatus() + "' ");

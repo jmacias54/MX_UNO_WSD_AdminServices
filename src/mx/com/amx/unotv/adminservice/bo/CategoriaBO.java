@@ -30,7 +30,17 @@ public class CategoriaBO {
 	private CategoriaDAO categoriaDAO;
 	
 	
-	
+	public Categoria findById(String idCategoria) throws CategoriaBOException {
+
+		try {
+			return categoriaDAO.findById(idCategoria);
+		} catch (Exception e) {
+
+			throw new CategoriaBOException(e.getMessage());
+
+		}
+
+	}
 	
 	
 	public Categoria getCategorieById(String idCategorie) throws CategoriaBOException {
