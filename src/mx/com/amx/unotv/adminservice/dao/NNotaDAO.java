@@ -60,7 +60,41 @@ public class NNotaDAO {
 		List<NNota> lista = null;
 
 		StringBuilder query = new StringBuilder();
-		query.append(" SELECT * FROM uno_mx_n_nota WHERE FC_ID_CONTENIDO ='" + id + "'");
+		query.append(" SELECT FC_ID_CONTENIDO, ");
+		query.append(" FC_ID_CATEGORIA , ");
+		query.append(" FC_NOMBRE AS fcFriendlyUrl , ");
+		query.append(" FC_TITULO , ");
+		query.append(" FC_DESCRIPCION , ");
+		query.append(" FC_ESCRIBIO , ");
+		query.append(" FC_LUGAR , ");
+		query.append(" FC_FUENTE , ");
+		query.append(" FC_ID_TIPO_NOTA , ");
+		query.append(" FC_IMAGEN_PRINCIPAL AS fcImagen , ");
+		query.append(" FC_IMAGEN_PIE AS fcPieImagen , ");
+		query.append(" FC_VIDEO_YOUTUBE , ");
+		query.append(" FC_ID_VIDEO_CONTENT AS fcContentIdOoyala , ");
+		query.append(" FC_ID_VIDEO_PLAYER AS fcPlayerIdOoyala, ");
+		query.append(" CL_GALERIA_IMAGENES AS clGaleria , ");
+		query.append(" FC_INFOGRAFIA , ");
+		query.append(" CL_RTF_CONTENIDO , ");
+		query.append(" FD_FECHA_PUBLICACION , ");
+		query.append(" FD_FECHA_MODIFICACION , ");
+		query.append(" FC_TAGS , ");
+		query.append(" FC_KEYWORDS , ");
+		query.append(" FI_BAN_INFINITO_HOME , ");
+		query.append(" FI_BAN_VIDEO_VIRAL , ");
+		query.append(" FI_BAN_NO_TE_LO_PIERDAS , ");
+		query.append(" FI_BAN_PATROCINIO , ");
+		query.append(" FC_PATROCINIO_BACKGROUND , ");
+		query.append(" FC_PATROCINIO_COLOR_TEXTO , ");
+		query.append(" FC_PAIS_REGISTRO , ");
+		query.append(" FC_PCODE  AS fcIdPcode , ");
+		query.append(" FC_PLACE_GALLERY , ");
+		query.append(" FC_SOURCE_VIDEO AS fcSourceOoyala , ");
+		query.append(" FC_ALTERNATE_TEXT AS fcAlternativeTextOoyala  , ");
+		query.append(" FC_DURATION AS fcDurationOoyala , ");
+		query.append(" FC_FILE_SIZE AS fcFileSizeOoyala  ");
+		query.append(" FROM uno_mx_n_nota WHERE FC_ID_CONTENIDO ='" + id + "'");
 
 		try {
 
@@ -179,13 +213,13 @@ public class NNotaDAO {
 		query.append(" FC_PATROCINIO_BACKGROUND, ");
 		query.append(" FC_PATROCINIO_COLOR_TEXTO, ");
 		query.append(" FC_PAIS_REGISTRO, ");
+		query.append(" FC_PLACE_GALLERY, ");
 		
 		query.append(" FC_PCODE, ");
-		query.append(" FC_PLACE_GALLERY, ");
 		query.append(" FC_SOURCE_VIDEO, ");
 		query.append(" FC_ALTERNATE_TEXT, ");
 		query.append(" FC_DURATION, ");
-		query.append(" FC_FILE_SIZE ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?); ");
+		query.append(" FC_FILE_SIZE ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?); ");
 		
 		
 		try {
@@ -213,9 +247,9 @@ public class NNotaDAO {
 					nota.getFiBanInfinitoHome(),
 					empty,
 					empty,
-					empty,
-					empty,
-					empty,
+					0,
+					0,
+					0,
 					empty,
 					empty,
 					empty,
@@ -306,9 +340,9 @@ public class NNotaDAO {
 					nota.getFiBanInfinitoHome(),
 					empty,
 					empty,
-					empty,
-					empty,
-					empty,
+					0,
+					0,
+					0,
 					empty,
 					empty,
 					empty,

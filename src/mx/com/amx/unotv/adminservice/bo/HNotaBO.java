@@ -55,6 +55,9 @@ public class HNotaBO {
 		int rows = 0;
 
 		try {
+			
+			rows = hNotaDAO.update(nota);
+			/*
 
 			IHNotaUsuario iHNotaUsuario = new IHNotaUsuario();
 			iHNotaUsuario.setFcIdContenido(nota.getFcIdContenido());
@@ -68,7 +71,7 @@ public class HNotaBO {
 
 				rows = hNotaDAO.update(nota);
 
-			}
+			}*/
 
 		} catch (Exception e) {
 
@@ -95,6 +98,7 @@ public class HNotaBO {
 		try {
 
 			rows = hNotaDAO.insert(nota);
+			/*
 			if (rows == 1) {
 				rows = 0;
 				IHNotaUsuario iHNotaUsuario = new IHNotaUsuario();
@@ -103,7 +107,7 @@ public class HNotaBO {
 				iHNotaUsuario.setFcIdEstatus(nota.getFcIdEstatus());
 
 				rows = iHNotaUsuarioBO.insert(iHNotaUsuario);
-			}
+			}*/
 
 		} catch (Exception e) {
 
