@@ -46,7 +46,7 @@ public class HNotaDAO {
 		try {
 
 			total = jdbcTemplate.queryForObject(
-					"SELECT count(*) as total FROM uno_h_nota  WHERE  date (FD_FECHA_PUBLICACION) = '" + date + "'",
+					"SELECT count(*) as total FROM uno_mx_h_nota  WHERE  date (FD_FECHA_PUBLICACION) = '" + date + "'",
 					new TotalRowMapper());
 
 		} catch (Exception e) {
@@ -88,16 +88,16 @@ public class HNotaDAO {
         query.append("         n.FC_DESCRIPCION as description ,");
         query.append("         n.FD_FECHA_PUBLICACION as date   ,");
         query.append("         n.FC_ID_TIPO_NOTA as typeItem,");
-        query.append("         n.FC_FRIENDLY_URL  AS url_item ,");
+        query.append("         n.FC_NOMBRE  AS url_item ,");
         query.append("         n.FC_ID_ESTATUS AS status  ,");
         query.append("         n.FC_IMAGEN as image   ,");
 		query.append("         categoria.FC_ID_CATEGORIA as idCategories ,");
         query.append("         seccion.FC_DESCRIPCION as descSection,");
 		query.append("         seccion.FC_ID_SECCION as idSection,");
         query.append(" 		   categoria.FC_DESCRIPCION as descCategories");
-		query.append(" 		   FROM  UNO_H_NOTA N      ");
-		query.append(" 		   LEFT JOIN uno_c_categoria categoria on N.FC_ID_CATEGORIA = categoria.FC_ID_CATEGORIA   ");
-		query.append("		   LEFT JOIN uno_c_seccion seccion ON categoria.FC_ID_SECCION = seccion.FC_ID_SECCION ");
+		query.append(" 		   FROM  uno_mx_h_nota N      ");
+		query.append(" 		   LEFT JOIN uno_mx_c_categoria categoria on N.FC_ID_CATEGORIA = categoria.FC_ID_CATEGORIA   ");
+		query.append("		   LEFT JOIN uno_mx_c_seccion seccion ON categoria.FC_ID_SECCION = seccion.FC_ID_SECCION ");
 		//query.append("         LEFT JOIN uno_i_h_nota_usuario nota_usuario ON N.FC_ID_CONTENIDO = nota_usuario.FC_ID_CONTENIDO   ");
 		//query.append("         LEFT JOIN uno_c_usuarios usuario ON nota_usuario.FC_ID_USUARIO = usuario.FC_ID_USUARIO ");
 		query.append(" 		   WHERE  1=1   ");
@@ -170,16 +170,16 @@ public class HNotaDAO {
         query.append("         n.FC_DESCRIPCION as description ,");
         query.append("         n.FD_FECHA_PUBLICACION as date   ,");
         query.append("         n.FC_ID_TIPO_NOTA as typeItem,");
-        query.append("         n.FC_FRIENDLY_URL  AS url_item ,");
+        query.append("         n.FC_NOMBRE  AS url_item ,");
         query.append("         n.FC_ID_ESTATUS AS status  ,");
         query.append("         n.FC_IMAGEN as image   ,");
 		query.append("         categoria.FC_ID_CATEGORIA as idCategories ,");
         query.append("         seccion.FC_DESCRIPCION as descSection,");
 		query.append("         seccion.FC_ID_SECCION as idSection,");
         query.append(" 		   categoria.FC_DESCRIPCION as descCategories");
-		query.append(" 		   FROM  UNO_H_NOTA N      ");
-		query.append(" 		   LEFT JOIN uno_c_categoria categoria on N.FC_ID_CATEGORIA = categoria.FC_ID_CATEGORIA   ");
-		query.append("		   LEFT JOIN uno_c_seccion seccion ON categoria.FC_ID_SECCION = seccion.FC_ID_SECCION ");
+		query.append(" 		   FROM  uno_mx_h_nota N      ");
+		query.append(" 		   LEFT JOIN uno_mx_c_categoria categoria on N.FC_ID_CATEGORIA = categoria.FC_ID_CATEGORIA   ");
+		query.append("		   LEFT JOIN uno_mx_c_seccion seccion ON categoria.FC_ID_SECCION = seccion.FC_ID_SECCION ");
 		//query.append(" 		   LEFT JOIN uno_i_h_nota_usuario ihNotaUsuario ON N.FC_ID_CONTENIDO = ihNotaUsuario.FC_ID_CONTENIDO ");
 		query.append(" 		   WHERE  1=1   ");
 		
@@ -250,16 +250,16 @@ public class HNotaDAO {
         query.append("         n.FC_DESCRIPCION as description ,");
         query.append("         n.FD_FECHA_PUBLICACION as date   ,");
         query.append("         n.FC_ID_TIPO_NOTA as typeItem,");
-        query.append("         n.FC_FRIENDLY_URL  AS url_item ,");
+        query.append("         n.FC_NOMBRE  AS url_item ,");
         query.append("         n.FC_ID_ESTATUS AS status  ,");
         query.append("         n.FC_IMAGEN as image   ,");
 		query.append("         categoria.FC_ID_CATEGORIA as idCategories ,");
         query.append("         seccion.FC_DESCRIPCION as descSection,");
 		query.append("         seccion.FC_ID_SECCION as idSection,");
         query.append(" 		   categoria.FC_DESCRIPCION as descCategories");
-		query.append(" 		   FROM  UNO_H_NOTA N      ");
-		query.append(" 		   LEFT JOIN uno_c_categoria categoria on N.FC_ID_CATEGORIA = categoria.FC_ID_CATEGORIA   ");
-		query.append("		   LEFT JOIN uno_c_seccion seccion ON categoria.FC_ID_SECCION = seccion.FC_ID_SECCION ");
+		query.append(" 		   FROM  uno_mx_h_nota N      ");
+		query.append(" 		   LEFT JOIN uno_mx_c_categoria categoria on N.FC_ID_CATEGORIA = categoria.FC_ID_CATEGORIA   ");
+		query.append("		   LEFT JOIN uno_mx_c_seccion seccion ON categoria.FC_ID_SECCION = seccion.FC_ID_SECCION ");
 
 		query.append(" 		   WHERE  1=1   ");
 		
@@ -305,7 +305,7 @@ public class HNotaDAO {
 		List<HNota> lista = null;
 
 		StringBuilder query = new StringBuilder();
-		query.append(" SELECT * FROM UNO_H_NOTA");
+		query.append(" SELECT * FROM uno_mx_h_nota");
 
 		try {
 
@@ -334,7 +334,7 @@ public class HNotaDAO {
 		logger.info("--- Delete  [HNotaDAO] ---- ");
 
 		StringBuilder query = new StringBuilder();
-		query.append(" DELETE FROM UNO_H_NOTA WHERE FC_ID_CONTENIDO ='" + id + "'");
+		query.append(" DELETE FROM uno_mx_h_nota WHERE FC_ID_CONTENIDO ='" + id + "'");
 		try {
 
 			jdbcTemplate.query(query.toString(), new BeanPropertyRowMapper<HNota>(HNota.class));
@@ -363,7 +363,7 @@ public class HNotaDAO {
 		List<HNota> lista = null;
 
 		StringBuilder query = new StringBuilder();
-		query.append(" SELECT * FROM UNO_H_NOTA WHERE FC_ID_CONTENIDO ='" + id + "'");
+		query.append(" SELECT * FROM uno_mx_h_nota WHERE FC_ID_CONTENIDO ='" + id + "'");
 
 		try {
 
@@ -397,26 +397,90 @@ public class HNotaDAO {
 		logger.info("--- insert  [HNotaDAO] ---- ");
 		
 		int rows = 0;
+		String empty = "";
+		StringBuilder query = new StringBuilder();
+		query.append(" INSERT INTO uno_mx_h_nota ");
+		query.append(" (FC_ID_CONTENIDO, ");
+		query.append(" FC_ID_CATEGORIA, ");
+		query.append(" FC_NOMBRE, ");
+		query.append(" FC_TITULO, ");
+		query.append(" FC_DESCRIPCION, ");
+		query.append(" FC_ESCRIBIO, ");
+		query.append(" FC_LUGAR, ");
+		query.append(" FC_FUENTE, ");
+		query.append(" FC_ID_TIPO_NOTA, ");
+		query.append(" FC_IMAGEN_PRINCIPAL, ");
+		query.append(" FC_IMAGEN_PIE, ");
+		query.append(" FC_VIDEO_YOUTUBE, ");
+		query.append(" FC_ID_VIDEO_CONTENT, ");
+		query.append(" FC_ID_VIDEO_PLAYER, ");
+		query.append(" CL_GALERIA_IMAGENES, ");
+		
+		query.append(" CL_RTF_CONTENIDO, ");
+		query.append(" FD_FECHA_PUBLICACION, ");
+		query.append(" FD_FECHA_MODIFICACION, ");
+		
+		query.append(" FC_KEYWORDS, ");
+		query.append(" FI_BAN_INFINITO_HOME, ");
+		
+		query.append(" FC_PLACE_GALLERY, ");
+		query.append(" FC_PCODE, ");
+		
+		query.append(" FC_INFOGRAFIA, ");
+		query.append(" FC_TAGS, ");
+		query.append(" FI_BAN_VIDEO_VIRAL, ");
+		query.append(" FI_BAN_NO_TE_LO_PIERDAS, ");
+		query.append(" FI_BAN_PATROCINIO, ");
+		query.append(" FC_PATROCINIO_BACKGROUND, ");
+		query.append(" FC_PATROCINIO_COLOR_TEXTO, ");
+		query.append(" FI_BAN_SITEMAP, ");
+		query.append(" FC_PAIS_REGISTRO, ");
+		
+		query.append(" FC_SOURCE_VIDEO, ");
+		query.append(" FC_ALTERNATE_TEXT, ");
+		query.append(" FC_DURATION, ");
+		query.append(" FC_FILE_SIZE) ");
+		query.append(" VALUES ");
+		query.append(" (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? ); ");
 
 		try {
-			rows = jdbcTemplate.update(" INSERT INTO UNO_H_NOTA " + " (FC_ID_CONTENIDO, " + " FC_ID_CATEGORIA, "
-					+ " FC_FRIENDLY_URL, " + " FC_TITULO, " + " FC_DESCRIPCION, " + " FC_ESCRIBIO, " + " FC_LUGAR, "
-					+ " FC_FUENTE, " + " FC_ID_TIPO_NOTA, " + " FC_IMAGEN, " + " FC_VIDEO_YOUTUBE, "
-					+ " FC_CONTENT_ID_OOYALA, " + " FC_PLAYER_ID_OOYALA, " + " FC_ID_PCODE, " + " FC_SOURCE_OOYALA, "
-					+ " FC_ALTERNATIVE_TEXT_OOYALA, " + " FC_DURATION_OOYALA, " + " FC_FILE_SIZE_OOYALA, "
-					+ " CL_GALERIA, " + " CL_RTF_CONTENIDO, " + " FD_FECHA_PUBLICACION, " + " FD_FECHA_MODIFICACION, "
-					+ " FC_KEYWORDS, " + " FI_BAN_INFINITO_HOME, " + " FI_BAN_MSN, " + " FI_BAN_OTROS, "
-					+ " FC_ID_ESTATUS , FC_COORDENADAS_FB ,FC_COORDENADAS_MINIATURA  ,FC_PIE_IMAGEN , FC_FUENTE_IMAGEN ) " 
-					+ " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ",
-					nota.getFcIdContenido(), nota.getFcIdCategoria(), nota.getFcFriendlyUrl(), nota.getFcTitulo(),
-					nota.getFcDescripcion(), nota.getFcEscribio(), nota.getFcLugar(), nota.getFcFuente(),
-					nota.getFcIdTipoNota(), nota.getFcImagen(), nota.getFcVideoYoutube(), nota.getFcContentIdOoyala(),
-					nota.getFcPlayerIdOoyala(), nota.getFcIdPcode(), nota.getFcSourceOoyala(),
-					nota.getFcAlternativeTextOoyala(), nota.getFcDurationOoyala(), nota.getFcFileSizeOoyala(),
-					nota.getClGaleria(), nota.getClRtfContenido(), dateFormat.format(new Date()),
-					dateFormat.format(new Date()), nota.getFcKeywords(), nota.getFiBanInfinitoHome(),
-					nota.getFiBanMsn(), nota.getFiBanOtros(), nota.getFcIdEstatus(), nota.getFcCoordenadasFb() , 
-					nota.getFcCoordenadasMiniatura(),nota.getFcPieImagen(),nota.getFcFuenteImagen());
+			rows = jdbcTemplate.update(query.toString(),
+					nota.getFcIdContenido(),
+					nota.getFcIdCategoria(),
+					nota.getFcFriendlyUrl(),
+					nota.getFcTitulo(),
+					nota.getFcDescripcion(),
+					nota.getFcEscribio(),
+					nota.getFcLugar(),
+					nota.getFcFuente(),
+					nota.getFcIdTipoNota(),
+					nota.getFcImagen(),
+					nota.getFcPieImagen(),
+					nota.getFcVideoYoutube(),
+					nota.getFcContentIdOoyala(),
+					nota.getFcPlayerIdOoyala(),
+					nota.getClGaleria(),
+					nota.getClRtfContenido(),
+					dateFormat.format(new Date()),
+					dateFormat.format(new Date()),
+					nota.getFcKeywords(),
+					nota.getFiBanInfinitoHome(),
+					nota.getFcIdPcode(),
+					
+					empty,
+					empty,
+					empty,
+					empty,
+					empty,
+					empty,
+					empty,
+					empty,
+					empty,
+					
+					nota.getFcSourceOoyala(),
+					nota.getFcAlternativeTextOoyala(),
+					nota.getFcDurationOoyala(),
+					nota.getFcFileSizeOoyala());
 
 		} catch (Exception e) {
 

@@ -37,7 +37,7 @@ public class CategoriaDAO  {
 		query.append("   FI_ESTATUS , ");
 		query.append("   FI_REGISTROS , ");
 		query.append("   FC_RUTA_DFP  ");
-		query.append(" FROM uno_c_categoria WHERE FC_ID_CATEGORIA = '" + idCategoria + "' ");
+		query.append(" FROM uno_mx_c_categoria WHERE FC_ID_CATEGORIA = '" + idCategoria + "' ");
 
 		try {
 			lista = jdbcTemplate.query(query.toString(), new BeanPropertyRowMapper<Categoria>(Categoria.class));
@@ -64,7 +64,7 @@ public class CategoriaDAO  {
 		
 		StringBuilder query = new StringBuilder();
 		query.append(" SELECT * ");
-		query.append(" FROM uno_c_categoria WHERE FC_ID_CATEGORIA = '" + idCategorie + "' ");
+		query.append(" FROM uno_mx_c_categoria WHERE FC_ID_CATEGORIA = '" + idCategorie + "' ");
 
 		try {
 			lista = jdbcTemplate.query(query.toString(), new BeanPropertyRowMapper<Categoria>(Categoria.class));
@@ -101,7 +101,7 @@ public class CategoriaDAO  {
 		query.append("   FI_ESTATUS , ");
 		query.append("   FI_REGISTROS , ");
 		query.append("   FC_RUTA_DFP  ");
-		query.append(" FROM uno_c_categoria WHERE FC_ID_SECCION = '" + idSeccion + "' ");
+		query.append(" FROM uno_mx_c_categoria WHERE FC_ID_SECCION = '" + idSeccion + "' ");
 
 		try {
 			lista = jdbcTemplate.query(query.toString(), new BeanPropertyRowMapper<Categoria>(Categoria.class));
@@ -132,7 +132,7 @@ public class CategoriaDAO  {
 		query.append("   FI_ESTATUS , ");
 		query.append("   FI_REGISTROS , ");
 		query.append("   FC_RUTA_DFP  ");
-		query.append(" FROM uno_c_categoria ");
+		query.append(" FROM uno_mx_c_categoria ");
 
 		try {
 			listaCategioria = jdbcTemplate.query(query.toString(),

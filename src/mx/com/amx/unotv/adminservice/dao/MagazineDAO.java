@@ -37,7 +37,7 @@ public class MagazineDAO {
 		List<Magazine> lista = null;
 
 		StringBuilder query = new StringBuilder();
-		query.append(" SELECT  * FROM uno_c_magazine  ");
+		query.append(" SELECT  * FROM uno_mx_c_magazine  ");
 
 		try {
 			lista = jdbcTemplate.query(query.toString(), new BeanPropertyRowMapper<Magazine>(Magazine.class));
@@ -56,7 +56,7 @@ public class MagazineDAO {
 		List<Magazine> lista = null;
 
 		StringBuilder query = new StringBuilder();
-		query.append(" SELECT  * FROM uno_c_magazine WHERE FC_ID_MAGAZINE = '" + idMagazine + "' ");
+		query.append(" SELECT  * FROM uno_mx_c_magazine WHERE FC_ID_MAGAZINE = '" + idMagazine + "' ");
 
 		try {
 			lista = jdbcTemplate.query(query.toString(), new BeanPropertyRowMapper<Magazine>(Magazine.class));

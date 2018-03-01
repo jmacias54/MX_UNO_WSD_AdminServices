@@ -32,7 +32,7 @@ public class SeccionDAO  {
 		query.append("   FC_DESCRIPCION , ");
 		query.append("   FC_FRIENDLY_URL , ");
 		query.append("   FI_ESTATUS  ");
-		query.append(" FROM uno_c_seccion WHERE FC_ID_SECCION = '"+idSeccion+"' ");
+		query.append(" FROM uno_mx_c_seccion WHERE FC_ID_SECCION = '"+idSeccion+"' ");
 		
 		
 		try {
@@ -64,7 +64,7 @@ public class SeccionDAO  {
 		query.append("   FC_DESCRIPCION , ");
 		query.append("   FC_FRIENDLY_URL , ");
 		query.append("   FI_ESTATUS  ");
-		query.append(" FROM uno_c_seccion ");
+		query.append(" FROM uno_mx_c_seccion ");
 
 		try {
 			lista = jdbcTemplate.query(query.toString(),

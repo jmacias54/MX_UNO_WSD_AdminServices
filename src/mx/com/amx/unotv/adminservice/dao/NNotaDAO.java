@@ -33,13 +33,34 @@ public class NNotaDAO {
 	
 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
+	
+	
+	public int delete(String idContenido) throws NNotaDAOException {
+
+		int rows = 0;
+
+		try {
+
+			rows = jdbcTemplate.update(" DELETE FROM uno_mx_n_nota WHERE  FC_ID_CONTENIDO = ? ", idContenido);
+
+		} catch (Exception e) {
+
+			logger.error(" Error delete  N-NOTA [DAO] ", e);
+
+			throw new NNotaDAOException(e.getMessage());
+
+		}
+
+		return rows;
+	}
+	
 	public NNota findById(String id) throws NNotaDAOException {
 		logger.info("--- findById  [NNotaDAO] ---- ");
 
 		List<NNota> lista = null;
 
 		StringBuilder query = new StringBuilder();
-		query.append(" SELECT * FROM UNO_N_NOTA WHERE FC_ID_CONTENIDO ='" + id + "'");
+		query.append(" SELECT * FROM uno_mx_n_nota WHERE FC_ID_CONTENIDO ='" + id + "'");
 
 		try {
 
@@ -83,16 +104,16 @@ public class NNotaDAO {
 		query.append("      ,seccion.FC_DESCRIPCION as descSection ");
 		query.append("      ,categoria.FC_DESCRIPCION as descCategories ");
 		query.append("     ,r.FC_IMAGEN as image  ");
-		query.append("     , r.FC_FRIENDLY_URL AS url_item ");
+		query.append("     , r.FC_NOMBRE AS url_item ");
 		query.append("     , r.FC_ID_ESTATUS AS status ");
 		query.append("  FROM (SELECT @rownum:=@rownum+1 rank, n.*       ");
-		query.append(" 		   FROM  UNO_H_NOTA N , (SELECT @rownum:=0) r    ");
+		query.append(" 		   FROM  uno_mx_n_nota N , (SELECT @rownum:=0) r    ");
 		query.append(" 		   WHERE  1=1   ");
 		query.append("         ORDER BY FD_FECHA_PUBLICACION DESC ) AS r  ");
-		query.append(" INNER JOIN uno_c_categoria categoria on r.FC_ID_CATEGORIA = categoria.FC_ID_CATEGORIA ");
-		query.append(" INNER JOIN uno_c_seccion seccion ON categoria.FC_ID_SECCION = seccion.FC_ID_SECCION ");
-		query.append(" INNER JOIN uno_i_nota_magazine nota_magazine ON r.FC_ID_CONTENIDO = nota_magazine.FC_ID_CONTENIDO ");
-		query.append(" INNER JOIN uno_c_magazine magazine ON nota_magazine.FC_ID_MAGAZINE = magazine.FC_ID_MAGAZINE ");
+		query.append(" INNER JOIN uno_mx_c_categoria categoria on r.FC_ID_CATEGORIA = categoria.FC_ID_CATEGORIA ");
+		query.append(" INNER JOIN uno_mx_c_seccion seccion ON categoria.FC_ID_SECCION = seccion.FC_ID_SECCION ");
+		query.append(" INNER JOIN uno_mx_i_nota_magazine nota_magazine ON r.FC_ID_CONTENIDO = nota_magazine.FC_ID_CONTENIDO ");
+		query.append(" INNER JOIN uno_mx_c_magazine magazine ON nota_magazine.FC_ID_MAGAZINE = magazine.FC_ID_MAGAZINE ");
 		query.append(" WHERE nota_magazine.FC_ID_CONTENIDO = '"+idMagazine+"' ");
 		
 	
@@ -123,48 +144,87 @@ public class NNotaDAO {
 	 * @throws NNotaDAOException 
 	 */
 	public int insert(NNota nota) throws NNotaDAOException {
-		
 		logger.info("--- insert  [NNotaDAO] ---- ");
+		
 		int rows = 0;
+		String empty = "";
+		StringBuilder query = new StringBuilder();
+		
+		query.append(" INSERT INTO uno_mx_n_nota (FC_ID_CONTENIDO, ");
+		query.append(" FC_ID_CATEGORIA, ");
+		query.append(" FC_NOMBRE, ");
+		query.append(" FC_TITULO, ");
+		query.append(" FC_DESCRIPCION, ");
+		query.append(" FC_ESCRIBIO, ");
+		query.append(" FC_LUGAR, ");
+		query.append(" FC_FUENTE, ");
+		query.append(" FC_ID_TIPO_NOTA, ");
+		query.append(" FC_IMAGEN_PRINCIPAL, ");
+		query.append(" FC_IMAGEN_PIE, ");
+		query.append(" FC_VIDEO_YOUTUBE, ");
+		query.append(" FC_ID_VIDEO_CONTENT, ");
+		query.append(" FC_ID_VIDEO_PLAYER, ");
+		query.append(" CL_GALERIA_IMAGENES, ");
+		query.append(" CL_RTF_CONTENIDO, ");
+		query.append(" FD_FECHA_PUBLICACION, ");
+		query.append(" FD_FECHA_MODIFICACION, ");
+		query.append(" FC_KEYWORDS, ");
+		query.append(" FI_BAN_INFINITO_HOME, ");
+		
+		query.append(" FC_INFOGRAFIA, ");
+		query.append(" FC_TAGS, ");
+		query.append(" FI_BAN_VIDEO_VIRAL, ");
+		query.append(" FI_BAN_NO_TE_LO_PIERDAS, ");
+		query.append(" FI_BAN_PATROCINIO, ");
+		query.append(" FC_PATROCINIO_BACKGROUND, ");
+		query.append(" FC_PATROCINIO_COLOR_TEXTO, ");
+		query.append(" FC_PAIS_REGISTRO, ");
+		
+		query.append(" FC_PCODE, ");
+		query.append(" FC_PLACE_GALLERY, ");
+		query.append(" FC_SOURCE_VIDEO, ");
+		query.append(" FC_ALTERNATE_TEXT, ");
+		query.append(" FC_DURATION, ");
+		query.append(" FC_FILE_SIZE ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?); ");
+		
 		
 		try {
 		
-			rows = jdbcTemplate.update( " INSERT INTO UNO_N_NOTA " +
-				 " (FC_ID_CONTENIDO, " +
-				 " FC_ID_CATEGORIA, " +
-				 " FC_FRIENDLY_URL, " +
-				 " FC_TITULO, " +
-				 " FC_DESCRIPCION, " +
-				 " FC_ESCRIBIO, " +
-				 " FC_LUGAR, " +
-				 " FC_FUENTE, " +
-				 " FC_ID_TIPO_NOTA, " +
-				 " FC_IMAGEN, " +
-				 " FC_VIDEO_YOUTUBE, " +
-				 " FC_CONTENT_ID_OOYALA, " +
-				 " FC_PLAYER_ID_OOYALA, " +
-				 " FC_ID_PCODE, " +
-				 " FC_SOURCE_OOYALA, " +
-				 " FC_ALTERNATIVE_TEXT_OOYALA, " +
-				 " FC_DURATION_OOYALA, " +
-				 " FC_FILE_SIZE_OOYALA, " +
-				 " CL_GALERIA, " +
-				 " CL_RTF_CONTENIDO, " +
-				 " FD_FECHA_PUBLICACION, " +
-				 " FD_FECHA_MODIFICACION, " +
-				 " FC_KEYWORDS, " +
-				 " FI_BAN_INFINITO_HOME, " +
-				 " FI_BAN_MSN, " +
-				 " FI_BAN_OTROS, " +
-				 " FC_ID_USUARIO, " +
-				 " FC_ID_ESTATUS , FC_COORDENADAS_FB ,FC_COORDENADAS_MINIATURA  ,FC_PIE_IMAGEN , FC_FUENTE_IMAGEN ) " +
-				 " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) " ,
-				nota.getFcIdContenido(), nota.getFcIdCategoria(), nota.getFcFriendlyUrl(), nota.getFcTitulo(), nota.getFcDescripcion(), nota.getFcEscribio(),
-				nota.getFcLugar(),nota.getFcFuente(),nota.getFcIdTipoNota(),nota.getFcImagen(),nota.getFcVideoYoutube(),nota.getFcContentIdOoyala(),
-				nota.getFcPlayerIdOoyala(),nota.getFcIdPcode(),nota.getFcSourceOoyala(),nota.getFcAlternativeTextOoyala(),nota.getFcDurationOoyala(),
-				nota.getFcFileSizeOoyala(),nota.getClGaleria(),nota.getClRtfContenido(), dateFormat.format(new Date()), dateFormat.format(new Date()),
-				nota.getFcKeywords(),nota.getFiBanInfinitoHome(),nota.getFiBanMsn(),nota.getFiBanOtros(),nota.getFcIdUsuario(),nota.getFcIdEstatus(),
-				nota.getFcCoordenadasFb() ,nota.getFcCoordenadasMiniatura(),nota.getFcPieImagen(),nota.getFcFuenteImagen());
+			rows = jdbcTemplate.update( query.toString() ,   
+					nota.getFcIdContenido(),
+					nota.getFcIdCategoria(),
+					nota.getFcFriendlyUrl(),
+					nota.getFcTitulo(),
+					nota.getFcDescripcion(),
+					nota.getFcEscribio(),
+					nota.getFcLugar(),
+					nota.getFcFuente(),
+					nota.getFcIdTipoNota(),
+					nota.getFcImagen(),
+					nota.getFcPieImagen(),
+					nota.getFcVideoYoutube(),
+					nota.getFcContentIdOoyala(),
+					nota.getFcPlayerIdOoyala(),
+					nota.getClGaleria(),
+					nota.getClRtfContenido(),
+					dateFormat.format(new Date()),
+					dateFormat.format(new Date()),
+					nota.getFcKeywords(),
+					nota.getFiBanInfinitoHome(),
+					empty,
+					empty,
+					empty,
+					empty,
+					empty,
+					empty,
+					empty,
+					empty,
+					empty,
+					nota.getFcIdPcode(),
+					nota.getFcSourceOoyala(),
+					nota.getFcAlternativeTextOoyala(),
+					nota.getFcDurationOoyala(),
+					nota.getFcFileSizeOoyala());
 
 		} catch (Exception e) {
 
@@ -178,72 +238,87 @@ public class NNotaDAO {
 		
 	}
 	
-	public int delete(String  idContenido) throws NNotaDAOException {
-		
-		int rows = 0;
-		
-		try {
-			
-			
-			
-		rows = jdbcTemplate.update( " DELETE FROM uno_n_nota WHERE  FC_ID_CONTENIDO = ? ",idContenido);
 
-		} catch (Exception e) {
-
-			logger.error(" Error delete  N-NOTA [DAO] ", e);
-
-			throw new NNotaDAOException(e.getMessage());
-
-		}
-		
-		return rows;
-	}
 	public int update(NNota nota) throws NNotaDAOException {
-		
 		logger.info("--- update  [NNotaDAO] ---- ");
+		
 		int rows = 0;
+		String empty = "";
+		StringBuilder query = new StringBuilder();
+		 query.append(" UPDATE uno_mx_n_nota SET  ");
+		 query.append(" FC_ID_CATEGORIA = ? ,  ");
+		 query.append(" FC_NOMBRE = ? ,  ");
+		 query.append(" FC_TITULO = ? ,  ");
+		 query.append(" FC_DESCRIPCION = ? ,  ");
+		 query.append(" FC_ESCRIBIO = ? ,  ");
+		 query.append(" FC_LUGAR = ? ,  ");
+		 query.append(" FC_FUENTE = ? ,  ");
+		 query.append(" FC_ID_TIPO_NOTA = ? ,  ");
+		 query.append(" FC_IMAGEN_PRINCIPAL = ? ,  ");
+		 query.append(" FC_IMAGEN_PIE = ? ,  ");
+		 query.append(" FC_VIDEO_YOUTUBE = ? ,  ");
+		 query.append(" FC_ID_VIDEO_CONTENT = ? ,  ");
+		 query.append(" FC_ID_VIDEO_PLAYER = ? ,  ");
+		 query.append(" CL_GALERIA_IMAGENES = ? ,  ");
+		 query.append(" CL_RTF_CONTENIDO = ? ,  ");
+		 //query.append(" FD_FECHA_PUBLICACION = ? ,  ");
+		 query.append(" FD_FECHA_MODIFICACION = ? ,  ");
+		 query.append(" FC_KEYWORDS = ? ,  ");
+		 query.append(" FI_BAN_INFINITO_HOME = ? ,  ");
+		
+		 query.append(" FC_INFOGRAFIA = ? ,  ");
+		 query.append(" FC_TAGS = ? ,  ");
+		 query.append(" FI_BAN_VIDEO_VIRAL = ? ,  ");
+		 query.append(" FI_BAN_NO_TE_LO_PIERDAS = ? ,  ");
+		 query.append(" FI_BAN_PATROCINIO = ? ,  ");
+		 query.append(" FC_PATROCINIO_BACKGROUND = ? ,  ");
+		 query.append(" FC_PATROCINIO_COLOR_TEXTO = ? ,  ");
+		 query.append(" FC_PAIS_REGISTRO = ? ,  ");
+		 query.append(" FC_PLACE_GALLERY = ? ,  ");
+		 
+		 query.append(" FC_PCODE = ? ,  ");
+		 query.append(" FC_SOURCE_VIDEO = ? ,  ");
+		 query.append(" FC_ALTERNATE_TEXT = ? ,  ");
+		 query.append(" FC_DURATION = ? ,  ");
+		 query.append(" FC_FILE_SIZE = ? ");
+		 query.append(" WHERE FC_ID_CONTENIDO = ? ");
 		
 		try {
 			
-			rows = jdbcTemplate.update(" UPDATE UNO_N_NOTA " +
-					" SET  " +
-					" FC_ID_CATEGORIA  = ?, "+
-					" FC_FRIENDLY_URL  = ? , "+
-					" FC_TITULO  = ?, "+
-					" FC_DESCRIPCION  = ? , "+
-					" FC_ESCRIBIO  = ?, "+
-					" FC_LUGAR  = ? , "+
-					" FC_FUENTE  = ? , "+
-					" FC_ID_TIPO_NOTA  = ? , "+
-					" FC_IMAGEN  = ?, "+
-					" FC_VIDEO_YOUTUBE  = ?, "+
-					" FC_CONTENT_ID_OOYALA  = ? , "+
-					" FC_PLAYER_ID_OOYALA  = ?, "+
-					" FC_ID_PCODE  = ?, "+
-					" FC_SOURCE_OOYALA  = ?, "+
-					" FC_ALTERNATIVE_TEXT_OOYALA  = ?, "+
-					" FC_DURATION_OOYALA  = ?, "+
-					" FC_FILE_SIZE_OOYALA  = ? , "+
-					" CL_GALERIA  = ? , "+
-					" CL_RTF_CONTENIDO  = ?, "+
-					// " FD_FECHA_PUBLICACION  = ? , "+
-					" FD_FECHA_MODIFICACION  = ? , "+
-					" FC_KEYWORDS  = ? , "+
-					" FI_BAN_INFINITO_HOME  = ? , "+
-					" FI_BAN_MSN  = ? , "+
-					" FI_BAN_OTROS  = ? , "+
-					" FC_ID_ESTATUS  = ?, "
-					+ "FC_ID_USUARIO = ?  , FC_COORDENADAS_FB = ?  ,FC_COORDENADAS_MINIATURA = ?  ,FC_PIE_IMAGEN = ?  , FC_FUENTE_IMAGEN = ?  "+
-					" WHERE FC_ID_CONTENIDO = ?  ",
-					nota.getFcIdCategoria(), nota.getFcFriendlyUrl(), nota.getFcTitulo(),
-					nota.getFcDescripcion(), nota.getFcEscribio(), nota.getFcLugar(), nota.getFcFuente(),
-					nota.getFcIdTipoNota(), nota.getFcImagen(), nota.getFcVideoYoutube(), nota.getFcContentIdOoyala(),
-					nota.getFcPlayerIdOoyala(), nota.getFcIdPcode(), nota.getFcSourceOoyala(),
-					nota.getFcAlternativeTextOoyala(), nota.getFcDurationOoyala(), nota.getFcFileSizeOoyala(),
-					nota.getClGaleria(), nota.getClRtfContenido(), dateFormat.format(new Date()),
-					nota.getFcKeywords(), nota.getFiBanInfinitoHome(),
-					nota.getFiBanMsn(), nota.getFiBanOtros(), nota.getFcIdEstatus(),nota.getFcIdUsuario(),nota.getFcCoordenadasFb() , 
-					nota.getFcCoordenadasMiniatura(),nota.getFcPieImagen(),nota.getFcFuenteImagen(),nota.getFcIdContenido());
+			rows = jdbcTemplate.update(query.toString(),
+					nota.getFcIdCategoria(), 
+					nota.getFcFriendlyUrl(), 
+					nota.getFcTitulo(),
+					nota.getFcDescripcion(), 
+					nota.getFcEscribio(), 
+					nota.getFcLugar(), 
+					nota.getFcFuente(),
+					nota.getFcIdTipoNota(), 
+					nota.getFcImagen(), 
+					nota.getFcPieImagen(), 
+					nota.getFcVideoYoutube(), 
+					nota.getFcContentIdOoyala(),
+					nota.getFcPlayerIdOoyala(),
+					nota.getClGaleria(),
+					nota.getClRtfContenido(),
+					dateFormat.format(new Date()),
+					nota.getFcKeywords(),
+					nota.getFiBanInfinitoHome(),
+					empty,
+					empty,
+					empty,
+					empty,
+					empty,
+					empty,
+					empty,
+					empty,
+					empty,
+					nota.getFcIdPcode(),
+					nota.getFcSourceOoyala(),
+					nota.getFcAlternativeTextOoyala(),
+					nota.getFcDurationOoyala(),
+					nota.getFcFileSizeOoyala(),
+					nota.getFcIdContenido());
 
 		} catch (Exception e) {
 
@@ -252,9 +327,9 @@ public class NNotaDAO {
 			throw new NNotaDAOException(e.getMessage());
 
 		}
-		
+
 		return rows;
-		
+
 	}
 
 
