@@ -36,7 +36,7 @@ public class CategoriaDAO  {
 		query.append("   FC_FRIENDLY_URL , ");
 		query.append("   FI_ESTATUS , ");
 		query.append("   FI_REGISTROS , ");
-		query.append("   FC_RUTA_DFP  ");
+		query.append("   FC_RUTA_DFP_APP  ");
 		query.append(" FROM uno_mx_c_categoria WHERE FC_ID_CATEGORIA = '" + idCategoria + "' ");
 
 		try {
@@ -100,7 +100,7 @@ public class CategoriaDAO  {
 		query.append("   FC_FRIENDLY_URL , ");
 		query.append("   FI_ESTATUS , ");
 		query.append("   FI_REGISTROS , ");
-		query.append("   FC_RUTA_DFP  ");
+		query.append("   FC_RUTA_DFP_APP  ");
 		query.append(" FROM uno_mx_c_categoria WHERE FC_ID_SECCION = '" + idSeccion + "' ");
 
 		try {
@@ -131,7 +131,7 @@ public class CategoriaDAO  {
 		query.append("   FC_FRIENDLY_URL , ");
 		query.append("   FI_ESTATUS , ");
 		query.append("   FI_REGISTROS , ");
-		query.append("   FC_RUTA_DFP  ");
+		query.append("   FC_RUTA_DFP_APP  ");
 		query.append(" FROM uno_mx_c_categoria ");
 
 		try {
